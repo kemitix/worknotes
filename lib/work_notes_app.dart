@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'workspace_add.dart';
 import 'workspace_list.dart';
 
 class WorkNotesApp extends StatelessWidget {
@@ -13,6 +14,10 @@ class WorkNotesApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
       ),
       home: const WorkspaceList(title: 'WorkNotes'),
+      routes: <String, WidgetBuilder>{
+        '/workspace/add': (BuildContext cx) => WorkspaceAdd(),
+      },
     );
   }
 }
+

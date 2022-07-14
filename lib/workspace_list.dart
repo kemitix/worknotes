@@ -15,7 +15,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
 
   void _addWorkspace() {
     setState(() {
-      //TODO add workspace
+      Navigator.pushNamed(context, '/workspace/add');
     });
   }
 
