@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'my_home_page.dart';
 
-class WorknotesApp extends StatelessWidget {
-  const WorknotesApp({Key? key}) : super(key: key);
+class WorkNotesApp extends StatelessWidget {
+  const WorkNotesApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
