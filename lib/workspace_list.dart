@@ -25,6 +25,25 @@ class _WorkspaceListState extends State<WorkspaceList> {
       appBar: AppBar(
         title: Text('Workspaces : ${widget.title}'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.lightGreen,
+              ),
+              child: Text(
+                'Settings',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: ListView(
         children: [
           // ListTile(
