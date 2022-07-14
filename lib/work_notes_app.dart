@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'work_space_list.dart';
+import 'workspace_list.dart';
 
 class WorkNotesApp extends StatelessWidget {
   const WorkNotesApp({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class WorkNotesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: const WorkSpaceList(title: 'WorkNotes'),
+      home: const WorkspaceList(title: 'WorkNotes'),
     );
   }
 }
