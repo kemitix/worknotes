@@ -6,8 +6,8 @@ import 'work_notes_settings.dart';
 import 'workspace_add.dart';
 import 'workspace_list.dart';
 
-class WorkNotesApp extends StatelessWidget {
-  const WorkNotesApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'work_notes_app.dart';
+import 'app.dart';
 
-void main() => runApp(const WorkNotesApp());
+void main() => runApp(const App());
