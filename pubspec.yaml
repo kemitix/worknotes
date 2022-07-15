@@ -12,10 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  trello_client_dart:
-    git:
-      url: git://github.com/kemitix/trello_client_dart.git
-      ref: master
+  #  trello_client_dart:
+  #    git:
+  #      url: git://github.com/kemitix/trello_client_dart.git
+  #      ref: master
 
 dev_dependencies:
   flutter_test:
