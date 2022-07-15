@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class WorkNotesSettings extends StatefulWidget {
+class AppSettings extends StatefulWidget {
   @override
-  State<WorkNotesSettings> createState() => _WorkNotesSettingsState();
+  State<AppSettings> createState() => _AppSettingsState();
 }
 
-class _WorkNotesSettingsState extends State<WorkNotesSettings> {
+class _AppSettingsState extends State<AppSettings> {
 
   void _openAccountsList(BuildContext context) {
     Navigator.pushNamed(context, '/settings/accounts');
