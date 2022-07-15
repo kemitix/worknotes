@@ -28,7 +28,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
       ),
       drawer: WorkspaceDrawer(),
       body: ListView(
-        children: [
+        children: const [
           // ListTile(
           //   title: Text('foo'),
           //   subtitle: Text('bar'),

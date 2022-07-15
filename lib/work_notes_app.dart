@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'work_notes_settings.dart';
 import 'workspace_add.dart';
 import 'workspace_list.dart';
 
@@ -15,6 +16,7 @@ class WorkNotesApp extends StatelessWidget {
       ),
       home: const WorkspaceList(title: 'WorkNotes'),
       routes: <String, WidgetBuilder>{
+        '/settings': (BuildContext cx) => WorkNotesSettings(),
         '/workspace/add': (BuildContext cx) => WorkspaceAdd(),
       },
     );

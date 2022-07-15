@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 class WorkspaceDrawer extends StatelessWidget {
-  const WorkspaceDrawer({Key? key}) : super(key: key);
+  WorkspaceDrawer({Key? key}) : super(key: key);
+
+  void _openSettings(BuildContext context) {
+    Navigator.pushNamed(context, '/settings');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: const <Widget>[
-          DrawerHeader(
+        children: <Widget>[
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.lightGreen,
             ),
@@ -22,10 +26,13 @@ class WorkspaceDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Settings'),
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () => _openSettings(context),
           ),
         ],
       ),
     );
   }
+
 }
