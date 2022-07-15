@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'account_add.dart';
-import 'accounts.dart';
-import 'app_settings.dart';
+import 'settings/account_add.dart';
+import 'settings/accounts.dart';
+import 'settings/app_settings.dart';
 import 'workspace_add.dart';
 import 'workspace_list.dart';
 
