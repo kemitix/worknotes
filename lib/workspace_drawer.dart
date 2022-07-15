@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingsDrawer extends StatelessWidget {
-  const SettingsDrawer({Key? key}) : super(key: key);
+class WorkspaceDrawer extends StatelessWidget {
+  const WorkspaceDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,15 @@ class SettingsDrawer extends StatelessWidget {
               color: Colors.lightGreen,
             ),
             child: Text(
-              'Settings',
+              'Workspaces',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
               ),
             ),
+          ),
+          ListTile(
+            title: Text('Settings'),
           ),
         ],
       ),

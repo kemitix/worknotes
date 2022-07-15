@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worknotes/settings_drawer.dart';
+import 'package:worknotes/workspace_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
   const WorkspaceList({Key? key, required this.title}) : super(key: key);
@@ -24,9 +24,9 @@ class _WorkspaceListState extends State<WorkspaceList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workspaces : ${widget.title}'),
+        title: Text('Workspaces'),
       ),
-      drawer: SettingsDrawer(),
+      drawer: WorkspaceDrawer(),
       body: ListView(
         children: [
           // ListTile(
