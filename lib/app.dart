@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'settings/account_add.dart';
 import 'settings/accounts.dart';
 import 'settings/app_settings.dart';
-import 'workspace_add.dart';
-import 'workspace_list.dart';
+import 'workspace/workspace_add.dart';
+import 'workspace/workspace_list.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
