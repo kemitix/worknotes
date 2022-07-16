@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:worknotes/models/accounts_model.dart';
 
 import 'settings/account_add.dart';
-import 'settings/accounts.dart';
+import 'settings/account_list.dart';
 import 'settings/app_settings.dart';
 import 'workspace/workspace_add.dart';
 import 'workspace/workspace_list.dart';
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
           home: const WorkspaceList(title: 'WorkNotes'),
           routes: <String, WidgetBuilder>{
             '/settings': (BuildContext context) => AppSettings(),
-            '/settings/accounts': (BuildContext context) => Accounts(),
+            '/settings/accounts': (BuildContext context) => AccountList(),
             '/settings/accounts/add': (BuildContext context) => AccountAdd(),
             '/workspace/add': (BuildContext context) => WorkspaceAdd(),
           },

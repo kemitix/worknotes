@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/accounts_model.dart';
 
-class Accounts extends StatelessWidget {
+class AccountList extends StatelessWidget {
   void _addAccount(BuildContext context) {
     Navigator.pushNamed(context, '/settings/accounts/add');
   }
