@@ -11,7 +11,6 @@ class WorkspaceList extends StatefulWidget {
 }
 
 class _WorkspaceListState extends State<WorkspaceList> {
-
   void _addWorkspace() {
     setState(() {
       Navigator.pushNamed(context, '/workspace/add');
@@ -25,16 +24,20 @@ class _WorkspaceListState extends State<WorkspaceList> {
         title: const Text('Workspaces'),
       ),
       drawer: WorkspaceDrawer(),
-      body: ListView(
-        children: const [
-          // List of Workspaces (i.e. Trello Boards) grouped by Account
-          // ListTile(
-          //   title: Text('foo'),
-          //   subtitle: Text('bar'),
-          //   onTap: _openWorkspace(),
-          // )
-        ],
-      ),
+      // body: Consumer<WorkSpaceModel>(
+      //   builder: (context, accounts, child) => ListView.separated(
+      //     itemCount: accounts.accounts.length,
+      //     itemBuilder: (BuildContext context, int index) {
+      //       print(
+      //           'Updateing list tile ${index}: ${accounts.accounts[index].name}');
+      //       return ListTile(
+      //         title: Text(accounts.accounts[index].name),
+      //         //onTap: ,
+      //       );
+      //     },
+      //     separatorBuilder: (a, b) => Divider(),
+      //   ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addWorkspace,
         tooltip: 'Add Workspace',
