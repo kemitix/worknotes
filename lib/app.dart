@@ -25,9 +25,9 @@ class App extends StatelessWidget {
             '/settings': (BuildContext context) => AppSettings(),
             '/settings/accounts': (BuildContext context) => AccountList(),
             '/settings/accounts/add': (BuildContext context) =>
-                const AccountEdit(action: 'Add'),
+                const AccountEdit(action: 'Add', buttonLabel: 'Add'),
             '/settings/accounts/edit': (BuildContext context) =>
-                const AccountEdit(action: 'Edit'),
+                const AccountEdit(action: 'Edit', buttonLabel: 'Save'),
             '/workspace/add': (BuildContext context) => WorkspaceAdd(),
           },
         ));

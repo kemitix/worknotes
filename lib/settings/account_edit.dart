@@ -8,8 +8,10 @@ import '../models/account.dart';
 
 class AccountEdit extends StatefulWidget {
   final String action;
+  final String buttonLabel;
 
-  const AccountEdit({super.key, required this.action});
+  const AccountEdit(
+      {super.key, required this.action, required this.buttonLabel});
 
   @override
   State<AccountEdit> createState() => _AccountEditState();
@@ -59,7 +61,7 @@ class _AccountEditState extends State<AccountEdit> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text(widget.action),
+                  child: Text(widget.buttonLabel),
                 ),
               ),
             ),
