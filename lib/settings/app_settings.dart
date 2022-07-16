@@ -6,7 +6,6 @@ class AppSettings extends StatefulWidget {
 }
 
 class _AppSettingsState extends State<AppSettings> {
-
   void _openAccountsList(BuildContext context) {
     Navigator.pushNamed(context, '/settings/accounts');
   }
@@ -15,10 +14,12 @@ class _AppSettingsState extends State<AppSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),),
+        title: const Text('Settings'),
+      ),
       body: ListView(
         children: [
           ListTile(
+            leading: Icon(Icons.manage_accounts),
             title: const Text('Accounts'),
             onTap: () => _openAccountsList(context),
           )
