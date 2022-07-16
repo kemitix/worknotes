@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/models/accounts_model.dart';
+import 'package:worknotes/settings/account_edit_fields.dart';
 
 import '../models/account.dart';
 
@@ -29,58 +30,10 @@ class _AccountAddState extends State<AccountAdd> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('Account Name'),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: nameController,
-                decoration:
-                    const InputDecoration(hintText: 'Enter account name'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an account name';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('API Key'),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: keyController,
-                decoration: const InputDecoration(hintText: 'Enter API Key'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an API key';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('API Secret'),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: secretController,
-                decoration: const InputDecoration(hintText: 'Enter API Secret'),
-                obscureText: true,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an API secret';
-                  }
-                  return null;
-                },
-              ),
+            AccountEditFields(
+              name: nameController,
+              apiKey: keyController,
+              apiSecret: secretController,
             ),
             Consumer<AccountsModel>(
               builder: (context, accounts, child) => Padding(
