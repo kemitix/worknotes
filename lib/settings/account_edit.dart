@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/models/accounts_model.dart';
 import 'package:worknotes/settings/account_edit_fields.dart';
+import 'package:worknotes/settings/edit_account_args.dart';
 
 import '../models/account.dart';
 
@@ -23,6 +24,14 @@ class _AccountEditState extends State<AccountEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.action == 'Edit') {
+      final args =
+          ModalRoute.of(context)!.settings.arguments as EditAccountArgs;
+      final account = args.account;
+      nameController.text = account.name;
+      keyController.text = account.key;
+      secretController.text = account.secret;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.action} Account'),
