@@ -5,14 +5,16 @@ import 'package:worknotes/settings/account_edit_fields.dart';
 
 import '../models/account.dart';
 
-class AccountAdd extends StatefulWidget {
-  const AccountAdd({Key? key}) : super(key: key);
+class AccountEdit extends StatefulWidget {
+  final String action;
+
+  const AccountEdit({super.key, required this.action});
 
   @override
-  State<AccountAdd> createState() => _AccountAddState();
+  State<AccountEdit> createState() => _AccountEditState();
 }
 
-class _AccountAddState extends State<AccountAdd> {
+class _AccountEditState extends State<AccountEdit> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
@@ -23,7 +25,7 @@ class _AccountAddState extends State<AccountAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Account'),
+        title: Text('${widget.action} Account'),
       ),
       body: Form(
         key: _formKey,
@@ -48,7 +50,7 @@ class _AccountAddState extends State<AccountAdd> {
                       Navigator.pop(context);
                     }
                   },
-                  child: const Text('Add'),
+                  child: Text(widget.action),
                 ),
               ),
             ),

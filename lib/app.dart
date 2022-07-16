@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/models/accounts_model.dart';
 
-import 'settings/account_add.dart';
+import 'settings/account_edit.dart';
 import 'settings/account_list.dart';
 import 'settings/app_settings.dart';
 import 'workspace/workspace_add.dart';
@@ -24,7 +24,8 @@ class App extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/settings': (BuildContext context) => AppSettings(),
             '/settings/accounts': (BuildContext context) => AccountList(),
-            '/settings/accounts/add': (BuildContext context) => AccountAdd(),
+            '/settings/accounts/add': (BuildContext context) =>
+                const AccountEdit(action: 'Add'),
             '/workspace/add': (BuildContext context) => WorkspaceAdd(),
           },
         ));
