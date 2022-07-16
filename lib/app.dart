@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:worknotes/models/accounts_model.dart';
 
 import 'settings/account_add.dart';
 import 'settings/accounts.dart';
@@ -11,19 +13,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'WorkNotes',
-      theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
-      ),
-      home: const WorkspaceList(title: 'WorkNotes'),
-      routes: <String, WidgetBuilder>{
-        '/settings': (BuildContext context) => AppSettings(),
-        '/settings/accounts': (BuildContext context) => Accounts(),
-        '/settings/accounts/add': (BuildContext context) => AccountAdd(),
-        '/workspace/add': (BuildContext context) => WorkspaceAdd(),
-      },
-    );
+    return ChangeNotifierProvider(
+        create: (context) => AccountsModel(),
+        child: MaterialApp(
+          title: 'WorkNotes',
+          theme: ThemeData(
+            primarySwatch: Colors.lightGreen,
+          ),
+          home: const WorkspaceList(title: 'WorkNotes'),
+          routes: <String, WidgetBuilder>{
+            '/settings': (BuildContext context) => AppSettings(),
+            '/settings/accounts': (BuildContext context) => Accounts(),
+            '/settings/accounts/add': (BuildContext context) => AccountAdd(),
+            '/workspace/add': (BuildContext context) => WorkspaceAdd(),
+          },
+        ));
   }
 }
-
