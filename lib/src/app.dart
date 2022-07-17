@@ -27,7 +27,7 @@ class _AppState extends State<App> {
     super.initState();
     getApplicationDocumentsDirectory().then((dir) {
       _store =
-          Store(getObjectBoxModel(), directory: join(dir.path, 'objectbox'));
+          Store(getObjectBoxModel(), directory: join(dir.path, 'worknotes'));
       setState(() {
         hasBeenInitialised = true;
       });
