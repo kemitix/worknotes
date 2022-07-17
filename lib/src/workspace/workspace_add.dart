@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/account.dart';
 import '../models/accounts_model.dart';
+import 'account_workspace_list.dart';
 
 class WorkspaceAdd extends StatefulWidget {
   const WorkspaceAdd({Key? key}) : super(key: key);
@@ -27,13 +28,13 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Account'),
-              Consumer<AccountsModel>(
-                builder: (context, accounts, child) {
-                  return DropdownButton(
+          child: Consumer<AccountsModel>(
+            builder: (context, accounts, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text('Account'),
+                  DropdownButton(
                     hint: const Text('Select Account'),
                     value: _accountName,
                     items: accounts.accounts.map((account) {
@@ -47,10 +48,15 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
                         _accountName = value;
                       });
                     },
-                  );
-                },
-              ),
-            ],
+                  ),
+                  (_accountName == null
+                      ? const Text('No account selected')
+                      : AccountWorkspaceList(
+                          account: accounts.accounts.firstWhere(
+                              (account) => account.name == _accountName)))
+                ],
+              );
+            },
           ),
         ),
       ),
