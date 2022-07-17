@@ -1,7 +1,9 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:worknotes/src/models/workspace.dart';
 
+import '../client/client.dart';
 import '../models/account.dart';
 
 class AccountWorkspaceList extends StatelessWidget {
@@ -11,8 +13,9 @@ class AccountWorkspaceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var client = context.read<Client>();
     return FutureBuilder(
-      future: account.openWorkspaces(),
+      future: client.openWorkspaces(account),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {

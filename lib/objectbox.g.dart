@@ -49,29 +49,29 @@ final _entities = <ModelEntity>[
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
-      id: const IdUid(3, 6101554884561981560),
+      id: const IdUid(4, 8714724073785652005),
       name: 'Account',
-      lastPropertyId: const IdUid(4, 4710061614021135145),
+      lastPropertyId: const IdUid(4, 5075288672002774897),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 4386661307741691754),
+            id: const IdUid(1, 8901381334710082500),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 841603907587338166),
+            id: const IdUid(2, 7545526974936034922),
             name: 'name',
             type: 9,
             flags: 2080,
-            indexId: const IdUid(2, 17487498502550927)),
+            indexId: const IdUid(3, 9208912968178071456)),
         ModelProperty(
-            id: const IdUid(3, 5231731328655884864),
+            id: const IdUid(3, 1092023133236892626),
             name: 'key',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 4710061614021135145),
+            id: const IdUid(4, 5075288672002774897),
             name: 'secret',
             type: 9,
             flags: 0)
@@ -100,17 +100,21 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(3, 6101554884561981560),
-      lastIndexId: const IdUid(2, 17487498502550927),
+      lastEntityId: const IdUid(4, 8714724073785652005),
+      lastIndexId: const IdUid(3, 9208912968178071456),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [1123412719115031610],
+      retiredEntityUids: const [1123412719115031610, 6101554884561981560],
       retiredIndexUids: const [],
       retiredPropertyUids: const [
         1731377683870491661,
         1521210409647283494,
         4663880727515146553,
-        771502534705805446
+        771502534705805446,
+        4386661307741691754,
+        841603907587338166,
+        5231731328655884864,
+        4710061614021135145
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
