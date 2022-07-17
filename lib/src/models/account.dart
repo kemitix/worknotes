@@ -1,17 +1,13 @@
 import 'package:objectbox/objectbox.dart';
 
-typedef AccountName = String;
-typedef AccountKey = String;
-typedef AccountSecret = String;
-
 @Entity()
 class Account {
   int id;
 
   @Unique()
-  final AccountName name;
-  final AccountKey key;
-  final AccountSecret secret;
+  final String name;
+  final String key;
+  final String secret;
 
   Account({
     this.id = 0,
