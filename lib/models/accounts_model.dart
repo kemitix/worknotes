@@ -1,24 +1,25 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:objectbox/src/native/store.dart';
 
 import 'account.dart';
 
 class AccountsModel extends ChangeNotifier {
-  final Map<AccountName, Account> _accounts = {};
+  final Store _store;
+
+  AccountsModel(this._store);
 
   UnmodifiableListView<Account> get accounts =>
-      UnmodifiableListView(_accounts.values);
+      UnmodifiableListView(_store.box<Account>().getAll());
 
   void add(Account account) {
-    // invariants:
-    // account name must be unique
-    _accounts.update(account.name, (_) => account, ifAbsent: () => account);
+    _store.box<Account>().put(account);
     notifyListeners();
   }
 
-  void remove(AccountName accountName) {
-    _accounts.remove(accountName);
+  void remove(Account account) {
+    _store.box<Account>().remove(account.id);
     notifyListeners();
   }
 }

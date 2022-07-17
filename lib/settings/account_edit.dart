@@ -104,7 +104,11 @@ class _AccountEditState extends State<AccountEdit> {
                       final name = nameController.text;
                       final key = keyController.text;
                       final secret = secretController.text;
-                      accounts.add(Account(name, key, secret));
+                      accounts.add(Account(
+                        name: name,
+                        key: key,
+                        secret: secret,
+                      ));
                       Navigator.pop(context);
                     }
                   },
