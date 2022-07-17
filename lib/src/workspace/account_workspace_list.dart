@@ -36,8 +36,6 @@ class AccountWorkspaceList extends StatelessWidget {
                 separatorBuilder: (a, b) => const Divider(),
                 itemCount: workspaces.length),
           );
-          // return Text(
-          //     'found ${boards.length} boards:\n${boards.map((e) => e.name).join('\n')}');
         }
         return const Center(child: CircularProgressIndicator());
       },

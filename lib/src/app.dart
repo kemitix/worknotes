@@ -44,30 +44,28 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     if (hasBeenInitialised) {
-      return ChangeNotifierProvider(
-          create: (context) => AccountsModel(_store),
-          child: MultiProvider(
-              providers: [
-                Provider<Client>(create: (_) => ClientTrello()),
-              ],
-              child: MaterialApp(
-                title: 'WorkNotes',
-                theme: ThemeData(
-                  primarySwatch: Colors.lightGreen,
-                ),
-                home: const WorkspaceList(title: 'WorkNotes'),
-                routes: <String, WidgetBuilder>{
-                  '/settings': (BuildContext context) => const AppSettings(),
-                  '/settings/accounts': (BuildContext context) =>
-                      const AccountList(),
-                  '/settings/accounts/add': (BuildContext context) =>
-                      const AccountEdit(action: 'Add', buttonLabel: 'Add'),
-                  '/settings/accounts/edit': (BuildContext context) =>
-                      const AccountEdit(action: 'Edit', buttonLabel: 'Save'),
-                  '/workspace/add': (BuildContext context) =>
-                      const WorkspaceAdd(),
-                },
-              )));
+      return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => AccountsModel(_store)),
+            Provider<Client>(create: (_) => ClientTrello()),
+          ],
+          child: MaterialApp(
+            title: 'WorkNotes',
+            theme: ThemeData(
+              primarySwatch: Colors.lightGreen,
+            ),
+            home: const WorkspaceList(title: 'WorkNotes'),
+            routes: <String, WidgetBuilder>{
+              '/settings': (BuildContext context) => const AppSettings(),
+              '/settings/accounts': (BuildContext context) =>
+                  const AccountList(),
+              '/settings/accounts/add': (BuildContext context) =>
+                  const AccountEdit(action: 'Add', buttonLabel: 'Add'),
+              '/settings/accounts/edit': (BuildContext context) =>
+                  const AccountEdit(action: 'Edit', buttonLabel: 'Save'),
+              '/workspace/add': (BuildContext context) => const WorkspaceAdd(),
+            },
+          ));
     }
     return const Center(child: CircularProgressIndicator());
   }
