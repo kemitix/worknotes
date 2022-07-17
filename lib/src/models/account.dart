@@ -1,5 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:worknotes/src/models/has_id.dart';
+import 'package:worknotes/src/models/workspace.dart';
 
 @Entity()
 class Account with HasId {
@@ -9,6 +10,9 @@ class Account with HasId {
   final String name;
   final String key;
   final String secret;
+
+  @Backlink('account')
+  final workspaces = ToMany<Workspace>();
 
   Account({
     this.id = 0,

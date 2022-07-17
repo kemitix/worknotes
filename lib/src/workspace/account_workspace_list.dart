@@ -27,11 +27,8 @@ class AccountWorkspaceList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var workspace = workspaces[index];
                   return ListTile(
-                    title: Text(workspace.name),
-                    onTap: () {
-                      _selectWorkspace(workspace);
-                    },
-                  );
+                      title: Text(workspace.name),
+                      onTap: () => account.workspaces.add(workspace));
                 },
                 separatorBuilder: (a, b) => const Divider(),
                 itemCount: workspaces.length),
@@ -40,9 +37,5 @@ class AccountWorkspaceList extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       },
     );
-  }
-
-  void _selectWorkspace(Workspace workspace) {
-    //TODO store board
   }
 }

@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(2, 5477021638011867449),
       name: 'Workspace',
-      lastPropertyId: const IdUid(4, 2990621413868976163),
+      lastPropertyId: const IdUid(5, 3655107911588319187),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -30,11 +30,6 @@ final _entities = <ModelEntity>[
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 4611986438835733102),
-            name: 'accountId',
-            type: 6,
-            flags: 0),
         ModelProperty(
             id: const IdUid(3, 9210377582473636777),
             name: 'boardId',
@@ -44,40 +39,50 @@ final _entities = <ModelEntity>[
             id: const IdUid(4, 2990621413868976163),
             name: 'name',
             type: 9,
-            flags: 0)
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 3655107911588319187),
+            name: 'accountId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(6, 2620157542894634856),
+            relationTarget: 'Account')
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
-      id: const IdUid(5, 5876535344751761414),
+      id: const IdUid(6, 6770593426214547282),
       name: 'Account',
-      lastPropertyId: const IdUid(4, 6449956067506904207),
+      lastPropertyId: const IdUid(4, 6563638240618016014),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 2022454386783972839),
+            id: const IdUid(1, 7949428036546894197),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 2685187056895379388),
+            id: const IdUid(2, 7803358896923581678),
             name: 'name',
             type: 9,
             flags: 2080,
-            indexId: const IdUid(4, 6590879519293639114)),
+            indexId: const IdUid(5, 5121608396293703966)),
         ModelProperty(
-            id: const IdUid(3, 2629523339932833768),
+            id: const IdUid(3, 2868815147838237778),
             name: 'key',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 6449956067506904207),
+            id: const IdUid(4, 6563638240618016014),
             name: 'secret',
             type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
-      backlinks: <ModelBacklink>[])
+      backlinks: <ModelBacklink>[
+        ModelBacklink(
+            name: 'workspaces', srcEntity: 'Workspace', srcField: 'account')
+      ])
 ];
 
 /// Open an ObjectBox store with the model declared in this file.
@@ -100,14 +105,15 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(5, 5876535344751761414),
-      lastIndexId: const IdUid(4, 6590879519293639114),
-      lastRelationId: const IdUid(0, 0),
+      lastEntityId: const IdUid(6, 6770593426214547282),
+      lastIndexId: const IdUid(6, 2620157542894634856),
+      lastRelationId: const IdUid(1, 993116277638220482),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [
         1123412719115031610,
         6101554884561981560,
-        8714724073785652005
+        8714724073785652005,
+        5876535344751761414
       ],
       retiredIndexUids: const [],
       retiredPropertyUids: const [
@@ -122,9 +128,14 @@ ModelDefinition getObjectBoxModel() {
         8901381334710082500,
         7545526974936034922,
         1092023133236892626,
-        5075288672002774897
+        5075288672002774897,
+        2022454386783972839,
+        2685187056895379388,
+        2629523339932833768,
+        6449956067506904207,
+        4611986438835733102
       ],
-      retiredRelationUids: const [],
+      retiredRelationUids: const [993116277638220482],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -132,7 +143,7 @@ ModelDefinition getObjectBoxModel() {
   final bindings = <Type, EntityDefinition>{
     Workspace: EntityDefinition<Workspace>(
         model: _entities[0],
-        toOneRelations: (Workspace object) => [],
+        toOneRelations: (Workspace object) => [object.account],
         toManyRelations: (Workspace object) => {},
         getId: (Workspace object) => object.id,
         setId: (Workspace object, int id) {
@@ -141,11 +152,11 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (Workspace object, fb.Builder fbb) {
           final boardIdOffset = fbb.writeString(object.boardId);
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(5);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
-          fbb.addInt64(1, object.accountId);
           fbb.addOffset(2, boardIdOffset);
           fbb.addOffset(3, nameOffset);
+          fbb.addInt64(4, object.account.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -155,19 +166,23 @@ ModelDefinition getObjectBoxModel() {
 
           final object = Workspace(
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
-              accountId:
-                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
               boardId: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''),
               name: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''));
-
+          object.account.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+          object.account.attach(store);
           return object;
         }),
     Account: EntityDefinition<Account>(
         model: _entities[1],
         toOneRelations: (Account object) => [],
-        toManyRelations: (Account object) => {},
+        toManyRelations: (Account object) => {
+              RelInfo<Workspace>.toOneBacklink(
+                      5, object.id, (Workspace srcObject) => srcObject.account):
+                  object.workspaces
+            },
         getId: (Account object) => object.id,
         setId: (Account object, int id) {
           object.id = id;
@@ -196,7 +211,12 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 8, ''),
               secret: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''));
-
+          InternalToManyAccess.setRelInfo(
+              object.workspaces,
+              store,
+              RelInfo<Workspace>.toOneBacklink(
+                  5, object.id, (Workspace srcObject) => srcObject.account),
+              store.box<Account>());
           return object;
         })
   };
@@ -209,17 +229,17 @@ class Workspace_ {
   /// see [Workspace.id]
   static final id = QueryIntegerProperty<Workspace>(_entities[0].properties[0]);
 
-  /// see [Workspace.accountId]
-  static final accountId =
-      QueryIntegerProperty<Workspace>(_entities[0].properties[1]);
-
   /// see [Workspace.boardId]
   static final boardId =
-      QueryStringProperty<Workspace>(_entities[0].properties[2]);
+      QueryStringProperty<Workspace>(_entities[0].properties[1]);
 
   /// see [Workspace.name]
   static final name =
-      QueryStringProperty<Workspace>(_entities[0].properties[3]);
+      QueryStringProperty<Workspace>(_entities[0].properties[2]);
+
+  /// see [Workspace.account]
+  static final account =
+      QueryRelationToOne<Workspace, Account>(_entities[0].properties[3]);
 }
 
 /// [Account] entity fields to define ObjectBox queries.
