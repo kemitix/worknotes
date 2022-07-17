@@ -224,14 +224,14 @@ packages:
       name: dcli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.32.1"
+    version: "1.33.0"
   dcli_core:
     dependency: transitive
     description:
       name: dcli_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.32.1"
+    version: "1.33.0"
   dio:
     dependency: transitive
     description:
@@ -578,13 +578,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
-  pubspec:
+  pubspec2:
     dependency: transitive
     description:
-      name: pubspec
+      name: pubspec2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.1"
   pubspec_parse:
     dependency: transitive
     description:
