@@ -14,34 +14,64 @@ import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'src/models/account.dart';
+import 'src/models/workspace.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 1123412719115031610),
-      name: 'Account',
-      lastPropertyId: const IdUid(4, 771502534705805446),
+      id: const IdUid(2, 5477021638011867449),
+      name: 'Workspace',
+      lastPropertyId: const IdUid(4, 2990621413868976163),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 1731377683870491661),
+            id: const IdUid(1, 7852148100150098382),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 1521210409647283494),
+            id: const IdUid(2, 4611986438835733102),
+            name: 'accountId',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 9210377582473636777),
+            name: 'boardId',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 2990621413868976163),
+            name: 'name',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(3, 6101554884561981560),
+      name: 'Account',
+      lastPropertyId: const IdUid(4, 4710061614021135145),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 4386661307741691754),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 841603907587338166),
             name: 'name',
             type: 9,
             flags: 2080,
-            indexId: const IdUid(1, 1837190094384136794)),
+            indexId: const IdUid(2, 17487498502550927)),
         ModelProperty(
-            id: const IdUid(3, 4663880727515146553),
+            id: const IdUid(3, 5231731328655884864),
             name: 'key',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 771502534705805446),
+            id: const IdUid(4, 4710061614021135145),
             name: 'secret',
             type: 9,
             flags: 0)
@@ -70,21 +100,60 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 1123412719115031610),
-      lastIndexId: const IdUid(1, 1837190094384136794),
+      lastEntityId: const IdUid(3, 6101554884561981560),
+      lastIndexId: const IdUid(2, 17487498502550927),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [],
+      retiredEntityUids: const [1123412719115031610],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [
+        1731377683870491661,
+        1521210409647283494,
+        4663880727515146553,
+        771502534705805446
+      ],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    Account: EntityDefinition<Account>(
+    Workspace: EntityDefinition<Workspace>(
         model: _entities[0],
+        toOneRelations: (Workspace object) => [],
+        toManyRelations: (Workspace object) => {},
+        getId: (Workspace object) => object.id,
+        setId: (Workspace object, int id) {
+          object.id = id;
+        },
+        objectToFB: (Workspace object, fb.Builder fbb) {
+          final boardIdOffset = fbb.writeString(object.boardId);
+          final nameOffset = fbb.writeString(object.name);
+          fbb.startTable(5);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.accountId);
+          fbb.addOffset(2, boardIdOffset);
+          fbb.addOffset(3, nameOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = Workspace(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              accountId:
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
+              boardId: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, ''),
+              name: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 10, ''));
+
+          return object;
+        }),
+    Account: EntityDefinition<Account>(
+        model: _entities[1],
         toOneRelations: (Account object) => [],
         toManyRelations: (Account object) => {},
         getId: (Account object) => object.id,
@@ -123,18 +192,36 @@ ModelDefinition getObjectBoxModel() {
   return ModelDefinition(model, bindings);
 }
 
+/// [Workspace] entity fields to define ObjectBox queries.
+class Workspace_ {
+  /// see [Workspace.id]
+  static final id = QueryIntegerProperty<Workspace>(_entities[0].properties[0]);
+
+  /// see [Workspace.accountId]
+  static final accountId =
+      QueryIntegerProperty<Workspace>(_entities[0].properties[1]);
+
+  /// see [Workspace.boardId]
+  static final boardId =
+      QueryStringProperty<Workspace>(_entities[0].properties[2]);
+
+  /// see [Workspace.name]
+  static final name =
+      QueryStringProperty<Workspace>(_entities[0].properties[3]);
+}
+
 /// [Account] entity fields to define ObjectBox queries.
 class Account_ {
   /// see [Account.id]
-  static final id = QueryIntegerProperty<Account>(_entities[0].properties[0]);
+  static final id = QueryIntegerProperty<Account>(_entities[1].properties[0]);
 
   /// see [Account.name]
-  static final name = QueryStringProperty<Account>(_entities[0].properties[1]);
+  static final name = QueryStringProperty<Account>(_entities[1].properties[1]);
 
   /// see [Account.key]
-  static final key = QueryStringProperty<Account>(_entities[0].properties[2]);
+  static final key = QueryStringProperty<Account>(_entities[1].properties[2]);
 
   /// see [Account.secret]
   static final secret =
-      QueryStringProperty<Account>(_entities[0].properties[3]);
+      QueryStringProperty<Account>(_entities[1].properties[3]);
 }

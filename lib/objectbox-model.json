@@ -4,30 +4,59 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:1123412719115031610",
-      "lastPropertyId": "4:771502534705805446",
-      "name": "Account",
+      "id": "2:5477021638011867449",
+      "lastPropertyId": "4:2990621413868976163",
+      "name": "Workspace",
       "properties": [
         {
-          "id": "1:1731377683870491661",
+          "id": "1:7852148100150098382",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:1521210409647283494",
+          "id": "2:4611986438835733102",
+          "name": "accountId",
+          "type": 6
+        },
+        {
+          "id": "3:9210377582473636777",
+          "name": "boardId",
+          "type": 9
+        },
+        {
+          "id": "4:2990621413868976163",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:6101554884561981560",
+      "lastPropertyId": "4:4710061614021135145",
+      "name": "Account",
+      "properties": [
+        {
+          "id": "1:4386661307741691754",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:841603907587338166",
           "name": "name",
           "type": 9,
           "flags": 2080,
-          "indexId": "1:1837190094384136794"
+          "indexId": "2:17487498502550927"
         },
         {
-          "id": "3:4663880727515146553",
+          "id": "3:5231731328655884864",
           "name": "key",
           "type": 9
         },
         {
-          "id": "4:771502534705805446",
+          "id": "4:4710061614021135145",
           "name": "secret",
           "type": 9
         }
@@ -35,15 +64,22 @@
       "relations": []
     }
   ],
-  "lastEntityId": "1:1123412719115031610",
-  "lastIndexId": "1:1837190094384136794",
+  "lastEntityId": "3:6101554884561981560",
+  "lastIndexId": "2:17487498502550927",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    1123412719115031610
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    1731377683870491661,
+    1521210409647283494,
+    4663880727515146553,
+    771502534705805446
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

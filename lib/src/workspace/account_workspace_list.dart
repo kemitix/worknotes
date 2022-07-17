@@ -1,8 +1,6 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
-import 'package:trello_client/external/dio_client_factory.dart';
-import 'package:trello_client/trello_sdk.dart'
-    show MemberId, TrelloAuthentication, TrelloBoard, TrelloClient;
+import 'package:worknotes/src/models/workspace.dart';
 
 import '../models/account.dart';
 
@@ -13,27 +11,27 @@ class AccountWorkspaceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var memberId = MemberId(account.name);
-    final authentication =
-        TrelloAuthentication.of(memberId, account.key, account.secret);
-    var client = dioClientFactory(authentication);
-    var memberClient = client.member(memberId);
     return FutureBuilder(
-      future: memberClient.getBoards(),
+      future: account.openWorkspaces(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
             return Text('error: ${snapshot.error}');
           }
-          var boards = snapshot.data! as List<TrelloBoard>;
+          var workspaces = snapshot.data! as List<Workspace>;
           return Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  var board = boards[index];
-                  return ListTile(title: Text(board.name));
+                  var workspace = workspaces[index];
+                  return ListTile(
+                    title: Text(workspace.name),
+                    onTap: () {
+                      _selectWorkspace(workspace);
+                    },
+                  );
                 },
                 separatorBuilder: (a, b) => const Divider(),
-                itemCount: boards.length),
+                itemCount: workspaces.length),
           );
           // return Text(
           //     'found ${boards.length} boards:\n${boards.map((e) => e.name).join('\n')}');
@@ -41,5 +39,9 @@ class AccountWorkspaceList extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       },
     );
+  }
+
+  void _selectWorkspace(Workspace workspace) {
+    //TODO store board
   }
 }
