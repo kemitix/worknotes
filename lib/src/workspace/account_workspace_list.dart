@@ -28,7 +28,10 @@ class AccountWorkspaceList extends StatelessWidget {
                   var workspace = workspaces[index];
                   return ListTile(
                       title: Text(workspace.name),
-                      onTap: () => account.workspaces.add(workspace));
+                      onTap: () {
+                        account.workspaces.add(workspace);
+                        Navigator.pop(context);
+                      });
                 },
                 separatorBuilder: (a, b) => const Divider(),
                 itemCount: workspaces.length),
