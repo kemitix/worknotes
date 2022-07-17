@@ -282,7 +282,7 @@ packages:
     source: hosted
     version: "1.0.1"
   flat_buffers:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: flat_buffers
       url: "https://pub.dartlang.org"
@@ -467,14 +467,14 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"

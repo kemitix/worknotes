@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WorkspaceDrawer extends StatelessWidget {
-  WorkspaceDrawer({Key? key}) : super(key: key);
+  const WorkspaceDrawer({super.key});
 
   void _openSettings(BuildContext context) {
     Navigator.pushNamed(context, '/settings');
@@ -34,5 +34,4 @@ class WorkspaceDrawer extends StatelessWidget {
       ),
     );
   }
-
 }

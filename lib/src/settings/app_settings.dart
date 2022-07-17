@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppSettings extends StatefulWidget {
+  const AppSettings({super.key});
+
   @override
   State<AppSettings> createState() => _AppSettingsState();
 }
@@ -19,7 +21,7 @@ class _AppSettingsState extends State<AppSettings> {
       body: ListView(
         children: [
           ListTile(
-            leading: Icon(Icons.manage_accounts),
+            leading: const Icon(Icons.manage_accounts),
             title: const Text('Accounts'),
             onTap: () => _openAccountsList(context),
           )

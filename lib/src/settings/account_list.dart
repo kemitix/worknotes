@@ -6,6 +6,8 @@ import '../models/accounts_model.dart';
 import 'edit_account_args.dart';
 
 class AccountList extends StatelessWidget {
+  const AccountList({super.key});
+
   void _addAccount(BuildContext context) {
     Navigator.pushNamed(context, '/settings/accounts/add');
   }
@@ -30,7 +32,7 @@ class AccountList extends StatelessWidget {
               onTap: () => _editAccount(context, accounts.accounts[index]),
             );
           },
-          separatorBuilder: (a, b) => Divider(),
+          separatorBuilder: (a, b) => const Divider(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/account.dart';
 import '../models/accounts_model.dart';
 import 'account_workspace_list.dart';
 
@@ -16,7 +15,6 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? _accountName;
-  Account? _account;
 
   @override
   Widget build(BuildContext context) {

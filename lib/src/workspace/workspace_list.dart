@@ -24,7 +24,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
       appBar: AppBar(
         title: const Text('Workspaces'),
       ),
-      drawer: WorkspaceDrawer(),
+      drawer: const WorkspaceDrawer(),
       // body: Consumer<WorkSpaceModel>(
       //   builder: (context, accounts, child) => ListView.separated(
       //     itemCount: accounts.accounts.length,

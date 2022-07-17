@@ -10,6 +10,17 @@ class AccountWorkspaceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(account.name);
+    //TODO get list of TrelloBoards
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ListView.separated(
+            itemBuilder: (context, index) {
+              return const Text('foo');
+            },
+            separatorBuilder: (a, b) => const Divider(),
+            itemCount: 2)
+      ],
+    );
   }
 }

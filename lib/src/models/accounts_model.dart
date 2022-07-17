@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:objectbox/src/native/store.dart';
 
+import '../../objectbox.g.dart';
 import 'account.dart';
 
 class AccountsModel extends ChangeNotifier {

@@ -26,6 +26,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: any
   objectbox_generator: any
+  path: ^1.8.1
+  path_provider: ^2.0.11
+  flat_buffers: ^2.0.5
 
 # The following section is specific to Flutter packages.
 flutter:
