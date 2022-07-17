@@ -1,7 +1,8 @@
 import 'package:objectbox/objectbox.dart';
+import 'package:worknotes/src/models/has_id.dart';
 
 @Entity()
-class Account {
+class Account with HasId {
   int id;
 
   @Unique()

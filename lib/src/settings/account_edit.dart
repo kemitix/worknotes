@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account.dart';
-import '../models/accounts_model.dart';
+import '../models/storage.dart';
 import 'edit_account_args.dart';
 
 class AccountEdit extends StatefulWidget {
@@ -95,7 +95,7 @@ class _AccountEditState extends State<AccountEdit> {
                 },
               ),
             ),
-            Consumer<AccountsModel>(
+            Consumer<Storage<Account>>(
               builder: (context, accounts, child) => Padding(
                 padding: const EdgeInsets.all(16),
                 child: ElevatedButton(

@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:worknotes/src/client/client.dart';
 
 import '../objectbox.g.dart';
-import 'models/accounts_model.dart';
+import 'models/account.dart';
+import 'models/storage.dart';
+import 'models/workspace.dart';
 import 'settings/account_edit.dart';
 import 'settings/account_list.dart';
 import 'settings/app_settings.dart';
@@ -46,7 +48,8 @@ class _AppState extends State<App> {
     if (hasBeenInitialised) {
       return MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (_) => AccountsModel(_store)),
+            ChangeNotifierProvider(create: (_) => Storage<Account>(_store)),
+            ChangeNotifierProvider(create: (_) => Storage<Workspace>(_store)),
             Provider<Client>(create: (_) => ClientTrello()),
           ],
           child: MaterialApp(

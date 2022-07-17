@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/models/storage.dart';
 
 import '../models/account.dart';
-import '../models/accounts_model.dart';
 import 'edit_account_args.dart';
 
 class AccountList extends StatelessWidget {
@@ -23,13 +23,13 @@ class AccountList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Accounts'),
       ),
-      body: Consumer<AccountsModel>(
+      body: Consumer<Storage<Account>>(
         builder: (context, accounts, child) => ListView.separated(
-          itemCount: accounts.accounts.length,
+          itemCount: accounts.items.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              title: Text(accounts.accounts[index].name),
-              onTap: () => _editAccount(context, accounts.accounts[index]),
+              title: Text(accounts.items[index].name),
+              onTap: () => _editAccount(context, accounts.items[index]),
             );
           },
           separatorBuilder: (a, b) => const Divider(),

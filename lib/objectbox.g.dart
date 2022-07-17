@@ -49,29 +49,29 @@ final _entities = <ModelEntity>[
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
-      id: const IdUid(4, 8714724073785652005),
+      id: const IdUid(5, 5876535344751761414),
       name: 'Account',
-      lastPropertyId: const IdUid(4, 5075288672002774897),
+      lastPropertyId: const IdUid(4, 6449956067506904207),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 8901381334710082500),
+            id: const IdUid(1, 2022454386783972839),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 7545526974936034922),
+            id: const IdUid(2, 2685187056895379388),
             name: 'name',
             type: 9,
             flags: 2080,
-            indexId: const IdUid(3, 9208912968178071456)),
+            indexId: const IdUid(4, 6590879519293639114)),
         ModelProperty(
-            id: const IdUid(3, 1092023133236892626),
+            id: const IdUid(3, 2629523339932833768),
             name: 'key',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 5075288672002774897),
+            id: const IdUid(4, 6449956067506904207),
             name: 'secret',
             type: 9,
             flags: 0)
@@ -100,11 +100,15 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(4, 8714724073785652005),
-      lastIndexId: const IdUid(3, 9208912968178071456),
+      lastEntityId: const IdUid(5, 5876535344751761414),
+      lastIndexId: const IdUid(4, 6590879519293639114),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [1123412719115031610, 6101554884561981560],
+      retiredEntityUids: const [
+        1123412719115031610,
+        6101554884561981560,
+        8714724073785652005
+      ],
       retiredIndexUids: const [],
       retiredPropertyUids: const [
         1731377683870491661,
@@ -114,7 +118,11 @@ ModelDefinition getObjectBoxModel() {
         4386661307741691754,
         841603907587338166,
         5231731328655884864,
-        4710061614021135145
+        4710061614021135145,
+        8901381334710082500,
+        7545526974936034922,
+        1092023133236892626,
+        5075288672002774897
       ],
       retiredRelationUids: const [],
       modelVersion: 5,

@@ -1,10 +1,10 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/models/workspace.dart';
 
 import '../client/client.dart';
 import '../models/account.dart';
+import '../models/workspace.dart';
 
 class AccountWorkspaceList extends StatelessWidget {
   final Account account;
