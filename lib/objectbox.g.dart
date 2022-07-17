@@ -13,35 +13,35 @@ import 'package:objectbox/internal.dart'; // generated code can access "internal
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'models/account.dart';
+import 'src/models/account.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 4639362483176976529),
+      id: const IdUid(1, 1123412719115031610),
       name: 'Account',
-      lastPropertyId: const IdUid(4, 7660352551584216295),
+      lastPropertyId: const IdUid(4, 771502534705805446),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 613952216572901183),
+            id: const IdUid(1, 1731377683870491661),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 3842459131441834230),
+            id: const IdUid(2, 1521210409647283494),
             name: 'name',
             type: 9,
             flags: 2080,
-            indexId: const IdUid(1, 5824415907611993318)),
+            indexId: const IdUid(1, 1837190094384136794)),
         ModelProperty(
-            id: const IdUid(3, 8939668756935055153),
+            id: const IdUid(3, 4663880727515146553),
             name: 'key',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 7660352551584216295),
+            id: const IdUid(4, 771502534705805446),
             name: 'secret',
             type: 9,
             flags: 0)
@@ -70,8 +70,8 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 4639362483176976529),
-      lastIndexId: const IdUid(1, 5824415907611993318),
+      lastEntityId: const IdUid(1, 1123412719115031610),
+      lastIndexId: const IdUid(1, 1837190094384136794),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],

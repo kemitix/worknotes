@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:worknotes/workspace/workspace_drawer.dart';
+
+import 'workspace_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
   const WorkspaceList({Key? key, required this.title}) : super(key: key);

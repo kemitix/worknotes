@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/models/accounts_model.dart';
 
-import 'objectbox.g.dart';
+import '../objectbox.g.dart';
+import 'models/accounts_model.dart';
 import 'settings/account_edit.dart';
 import 'settings/account_list.dart';
 import 'settings/app_settings.dart';

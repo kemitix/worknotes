@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/models/accounts_model.dart';
-import 'package:worknotes/settings/edit_account_args.dart';
 
 import '../models/account.dart';
+import '../models/accounts_model.dart';
+import 'edit_account_args.dart';
 
 class AccountEdit extends StatefulWidget {
   final String action;
