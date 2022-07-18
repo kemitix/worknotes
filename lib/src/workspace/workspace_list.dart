@@ -39,7 +39,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
                 //onTap: ,
               );
             },
-            separatorBuilder: (a, b) => Divider(),
+            separatorBuilder: (a, b) => const Divider(),
           );
         },
       ),
