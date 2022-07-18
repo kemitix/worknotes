@@ -45,7 +45,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     if (_admin != null) {
-       _admin.close();
+      _admin!.close();
     }
     _store.close();
     super.dispose();
