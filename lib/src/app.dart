@@ -25,12 +25,17 @@ class _AppState extends State<App> {
   late Store _store;
   bool hasBeenInitialised = false;
 
+  Admin? _admin;
+
   @override
   void initState() {
     super.initState();
     getApplicationDocumentsDirectory().then((dir) {
       _store =
           Store(getObjectBoxModel(), directory: join(dir.path, 'worknotes'));
+      if (Admin.isAvailable()) {
+        _admin = Admin(_store);
+      }
       setState(() {
         hasBeenInitialised = true;
       });
@@ -39,6 +44,9 @@ class _AppState extends State<App> {
 
   @override
   void dispose() {
+    if (_admin != null) {
+       _admin.close();
+    }
     _store.close();
     super.dispose();
   }
