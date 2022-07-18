@@ -25,20 +25,21 @@ class _WorkspaceListState extends State<WorkspaceList> {
         title: const Text('Workspaces'),
       ),
       drawer: const WorkspaceDrawer(),
-      // body: Consumer<WorkSpaceModel>(
-      //   builder: (context, accounts, child) => ListView.separated(
-      //     itemCount: accounts.accounts.length,
-      //     itemBuilder: (BuildContext context, int index) {
-      //       print(
-      //           'Updateing list tile ${index}: ${accounts.accounts[index].name}');
-      //       return ListTile(
-      //         title: Text(accounts.accounts[index].name),
-      //         //onTap: ,
-      //       );
-      //     },
-      //     separatorBuilder: (a, b) => Divider(),
-      //   ),
-      // ),
+      body: Consumer<Storage<Workspace>>(
+        builder: (context, workspaces, child) {
+          return ListView.separated(
+            itemCount: workspaces.items.length,
+            itemBuilder: (BuildContext context, int index) {
+              var workspaceItems = workspaces.items;
+              return ListTile(
+                title: Text(workspaceItems[index].name),
+                //onTap: ,
+              );
+            },
+            separatorBuilder: (a, b) => Divider(),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addWorkspace,
         tooltip: 'Add Workspace',
