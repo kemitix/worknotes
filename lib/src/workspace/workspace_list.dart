@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/storage.dart';
+import '../models/workspace.dart';
 import 'workspace_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
