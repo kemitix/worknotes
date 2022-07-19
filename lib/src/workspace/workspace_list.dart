@@ -19,31 +19,26 @@ class WorkspaceList extends StatefulWidget {
 }
 
 class _WorkspaceListState extends State<WorkspaceList> {
-  void _addWorkspace(BuildContext context) {
-    setState(() {
+  void _addWorkspace(BuildContext context) =>
       Navigator.pushNamed(context, WorkspaceAdd.route);
-    });
-  }
 
-  void _openWorkspace(BuildContext context, Workspace workspace) {
-    Navigator.pushNamed(context, WorkspaceView.route, arguments: workspace);
-  }
+  void _openWorkspace(BuildContext context, Workspace workspace) =>
+      Navigator.pushNamed(context, WorkspaceView.route, arguments: workspace);
 
   void _removeWorkspace(BuildContext context, Storage<Workspace> workspaces,
       Workspace workspace) {
-    workspaces.remove(workspace);
+    setState(() => workspaces.remove(workspace));
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Workspace removed: ${workspace.name}')));
   }
 
   void _showWorkspaceMenu(BuildContext context, Workspace workspace,
-      Storage<Workspace> workspaces) {
-    showMenu(context: context, position: RelativeRect.fill, items: [
-      PopupMenuItem(
-          child: const Text('Remove'),
-          onTap: () => _removeWorkspace(context, workspaces, workspace)),
-    ]);
-  }
+          Storage<Workspace> workspaces) =>
+      showMenu(context: context, position: RelativeRect.fill, items: [
+        PopupMenuItem(
+            child: const Text('Remove'),
+            onTap: () => _removeWorkspace(context, workspaces, workspace)),
+      ]);
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +61,8 @@ class _WorkspaceListState extends State<WorkspaceList> {
                   title: Text(workspace.name),
                   trailing: IconButton(
                     icon: const Icon(Icons.menu_sharp),
-                    onPressed: () {
-                      _showWorkspaceMenu(context, workspace, workspaces);
-                    },
+                    onPressed: () =>
+                        _showWorkspaceMenu(context, workspace, workspaces),
                   ),
                   onTap: () => _openWorkspace(context, workspace),
                   onLongPress: () =>
