@@ -21,6 +21,24 @@ class _WorkspaceListState extends State<WorkspaceList> {
     });
   }
 
+  void _showWorkspaceMenu(
+      int index, Workspace workspace, Storage<Workspace> workspaces) {
+    showMenu(context: context, position: RelativeRect.fill, items: [
+      PopupMenuItem(
+          child: const Text('Open'),
+          onTap: () {
+            print('Open workspace ${workspace.name}');
+          }),
+      PopupMenuItem(
+          child: const Text('Remove'),
+          onTap: () {
+            workspaces.remove(workspace);
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Workspace removed: ${workspace.name}')));
+          }),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,29 +53,17 @@ class _WorkspaceListState extends State<WorkspaceList> {
             itemCount: allWorkspaces.length,
             itemBuilder: (BuildContext context, int index) {
               final workspace = allWorkspaces[index];
-              return ListTile(
-                title: Text(workspace.name),
-                //onTap: // TODO open the workspace
-                onLongPress: () {
-                  showMenu(
-                      context: context,
-                      position: RelativeRect.fill,
-                      items: [
-                        PopupMenuItem(
-                            child: const Text('Open'),
-                            onTap: () {
-                              print('Open workspace ${workspace.name}');
-                            }),
-                        PopupMenuItem(
-                            child: const Text('Remove'),
-                            onTap: () {
-                              workspaces.remove(workspace);
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text(
-                                      'Workspace removed: ${workspace.name}')));
-                            }),
-                      ]);
+              return GestureDetector(
+                onSecondaryTap: () {
+                  _showWorkspaceMenu(index, workspace, workspaces);
                 },
+                child: ListTile(
+                  title: Text(workspace.name),
+                  //onTap: // TODO open the workspace
+                  onLongPress: () {
+                    _showWorkspaceMenu(index, workspace, workspaces);
+                  },
+                ),
               );
             },
             separatorBuilder: (a, b) => const Divider(),
