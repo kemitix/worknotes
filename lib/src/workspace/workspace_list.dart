@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/src/workspace/workspace_add.dart';
+import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../models/storage.dart';
 import '../models/workspace.dart';
@@ -24,20 +25,22 @@ class _WorkspaceListState extends State<WorkspaceList> {
     });
   }
 
-  void _showWorkspaceMenu(
-      int index, Workspace workspace, Storage<Workspace> workspaces) {
+  void _openWorkspace(Workspace workspace) {
+    setState(() {
+      Navigator.pushNamed(context, WorkspaceView.route, arguments: workspace);
+    });
+  }
+
   void _removeWorkspace(Storage<Workspace> workspaces, Workspace workspace) {
     workspaces.remove(workspace);
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Workspace removed: ${workspace.name}')));
   }
 
+  void _showWorkspaceMenu(Workspace workspace, Storage<Workspace> workspaces) {
     showMenu(context: context, position: RelativeRect.fill, items: [
       PopupMenuItem(
-          child: const Text('Open'),
-          onTap: () {
-            print('Open workspace ${workspace.name}');
-          }),
+          child: const Text('Open'), onTap: () => _openWorkspace(workspace)),
       PopupMenuItem(
           child: const Text('Remove'),
           onTap: () => _removeWorkspace(workspaces, workspace)),
@@ -59,15 +62,11 @@ class _WorkspaceListState extends State<WorkspaceList> {
             itemBuilder: (BuildContext context, int index) {
               final workspace = allWorkspaces[index];
               return GestureDetector(
-                onSecondaryTap: () {
-                  _showWorkspaceMenu(index, workspace, workspaces);
-                },
+                onSecondaryTap: () => _showWorkspaceMenu(workspace, workspaces),
                 child: ListTile(
                   title: Text(workspace.name),
-                  //onTap: // TODO open the workspace
-                  onLongPress: () {
-                    _showWorkspaceMenu(index, workspace, workspaces);
-                  },
+                  onTap: () => _openWorkspace(workspace),
+                  onLongPress: () => _showWorkspaceMenu(workspace, workspaces),
                 ),
               );
             },

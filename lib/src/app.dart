@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/src/client/client.dart';
+import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../objectbox.g.dart';
 import 'models/account.dart';
@@ -74,6 +75,7 @@ class _AppState extends State<App> {
               AccountEdit.routeEdit: (_) =>
                   const AccountEdit(mode: AccountEditMode.Edit),
               WorkspaceAdd.route: (_) => const WorkspaceAdd(),
+              WorkspaceView.route: (_) => const WorkspaceView(),
             },
           ));
     }
