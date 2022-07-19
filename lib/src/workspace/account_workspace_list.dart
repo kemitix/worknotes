@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../client/client.dart';
 import '../models/account.dart';
+import '../models/storage.dart';
 import '../models/workspace.dart';
 
 class AccountWorkspaceList extends StatelessWidget {
@@ -21,20 +22,24 @@ class AccountWorkspaceList extends StatelessWidget {
           if (snapshot.hasError) {
             return Text('error: ${snapshot.error}');
           }
-          var workspaces = snapshot.data! as List<Workspace>;
+          var availableWorkspaces = snapshot.data! as List<Workspace>;
           return Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  var workspace = workspaces[index];
-                  return ListTile(
-                      title: Text(workspace.name),
-                      onTap: () {
-                        account.workspaces.add(workspace);
-                        Navigator.pop(context);
-                      });
-                },
-                separatorBuilder: (a, b) => const Divider(),
-                itemCount: workspaces.length),
+            child: Consumer<Storage<Workspace>>(
+                builder: (context, workspaces, child) {
+              return ListView.separated(
+                  itemBuilder: (context, index) {
+                    var workspace = availableWorkspaces[index];
+                    return ListTile(
+                        title: Text(workspace.name),
+                        onTap: () {
+                          workspaces.add(workspace);
+                          account.workspaces.add(workspace);
+                          Navigator.pop(context);
+                        });
+                  },
+                  separatorBuilder: (a, b) => const Divider(),
+                  itemCount: availableWorkspaces.length);
+            }),
           );
         }
         return const Center(child: CircularProgressIndicator());
