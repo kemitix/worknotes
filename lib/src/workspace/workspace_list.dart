@@ -30,13 +30,34 @@ class _WorkspaceListState extends State<WorkspaceList> {
       drawer: const WorkspaceDrawer(),
       body: Consumer<Storage<Workspace>>(
         builder: (context, workspaces, child) {
+          final allWorkspaces = workspaces.items;
           return ListView.separated(
-            itemCount: workspaces.items.length,
+            itemCount: allWorkspaces.length,
             itemBuilder: (BuildContext context, int index) {
-              var workspaceItems = workspaces.items;
+              final workspace = allWorkspaces[index];
               return ListTile(
-                title: Text(workspaceItems[index].name),
-                //onTap: ,
+                title: Text(workspace.name),
+                //onTap: // TODO open the workspace
+                onLongPress: () {
+                  showMenu(
+                      context: context,
+                      position: RelativeRect.fill,
+                      items: [
+                        PopupMenuItem(
+                            child: const Text('Open'),
+                            onTap: () {
+                              print('Open workspace ${workspace.name}');
+                            }),
+                        PopupMenuItem(
+                            child: const Text('Remove'),
+                            onTap: () {
+                              workspaces.remove(workspace);
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'Workspace removed: ${workspace.name}')));
+                            }),
+                      ]);
+                },
               );
             },
             separatorBuilder: (a, b) => const Divider(),
