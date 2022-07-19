@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../models/account.dart';
 import '../models/storage.dart';
-import 'edit_account_args.dart';
 
 enum AccountEditMode { Add, Edit }
 
@@ -48,9 +47,7 @@ class _AccountEditState extends State<AccountEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEditMode) {
-      final args =
-          ModalRoute.of(context)!.settings.arguments as EditAccountArgs;
-      final account = args.account;
+      final account = ModalRoute.of(context)!.settings.arguments as Account;
       nameController.text = account.name;
       keyController.text = account.key;
       secretController.text = account.secret;

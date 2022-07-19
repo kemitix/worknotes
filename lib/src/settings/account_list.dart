@@ -4,7 +4,6 @@ import 'package:worknotes/src/models/storage.dart';
 import 'package:worknotes/src/settings/account_edit.dart';
 
 import '../models/account.dart';
-import 'edit_account_args.dart';
 
 class AccountList extends StatelessWidget {
   static const route = '/settings/accounts';
@@ -16,8 +15,7 @@ class AccountList extends StatelessWidget {
   }
 
   void _editAccount(BuildContext context, Account account) {
-    Navigator.pushNamed(context, AccountEdit.routeEdit,
-        arguments: EditAccountArgs(account));
+    Navigator.pushNamed(context, AccountEdit.routeEdit, arguments: account);
   }
 
   @override
