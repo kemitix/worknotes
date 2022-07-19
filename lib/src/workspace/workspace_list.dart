@@ -19,31 +19,32 @@ class WorkspaceList extends StatefulWidget {
 }
 
 class _WorkspaceListState extends State<WorkspaceList> {
-  void _addWorkspace() {
+  void _addWorkspace(BuildContext context) {
     setState(() {
       Navigator.pushNamed(context, WorkspaceAdd.route);
     });
   }
 
-  void _openWorkspace(Workspace workspace) {
-    setState(() {
-      Navigator.pushNamed(context, WorkspaceView.route, arguments: workspace);
-    });
+  void _openWorkspace(BuildContext context, Workspace workspace) {
+    Navigator.pushNamed(context, WorkspaceView.route, arguments: workspace);
   }
 
-  void _removeWorkspace(Storage<Workspace> workspaces, Workspace workspace) {
+  void _removeWorkspace(BuildContext context, Storage<Workspace> workspaces,
+      Workspace workspace) {
     workspaces.remove(workspace);
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Workspace removed: ${workspace.name}')));
   }
 
-  void _showWorkspaceMenu(Workspace workspace, Storage<Workspace> workspaces) {
+  void _showWorkspaceMenu(BuildContext context, Workspace workspace,
+      Storage<Workspace> workspaces) {
     showMenu(context: context, position: RelativeRect.fill, items: [
       PopupMenuItem(
-          child: const Text('Open'), onTap: () => _openWorkspace(workspace)),
+          child: const Text('Open'),
+          onTap: () => _openWorkspace(context, workspace)),
       PopupMenuItem(
           child: const Text('Remove'),
-          onTap: () => _removeWorkspace(workspaces, workspace)),
+          onTap: () => _removeWorkspace(context, workspaces, workspace)),
     ]);
   }
 
@@ -62,11 +63,19 @@ class _WorkspaceListState extends State<WorkspaceList> {
             itemBuilder: (BuildContext context, int index) {
               final workspace = allWorkspaces[index];
               return GestureDetector(
-                onSecondaryTap: () => _showWorkspaceMenu(workspace, workspaces),
+                onSecondaryTap: () =>
+                    _showWorkspaceMenu(context, workspace, workspaces),
                 child: ListTile(
                   title: Text(workspace.name),
-                  onTap: () => _openWorkspace(workspace),
-                  onLongPress: () => _showWorkspaceMenu(workspace, workspaces),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.menu_sharp),
+                    onPressed: () {
+                      _showWorkspaceMenu(context, workspace, workspaces);
+                    },
+                  ),
+                  onTap: () => _openWorkspace(context, workspace),
+                  onLongPress: () =>
+                      _showWorkspaceMenu(context, workspace, workspaces),
                 ),
               );
             },
@@ -75,7 +84,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addWorkspace,
+        onPressed: () => _addWorkspace(context),
         tooltip: 'Add Workspace',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
