@@ -26,6 +26,12 @@ class _WorkspaceListState extends State<WorkspaceList> {
 
   void _showWorkspaceMenu(
       int index, Workspace workspace, Storage<Workspace> workspaces) {
+  void _removeWorkspace(Storage<Workspace> workspaces, Workspace workspace) {
+    workspaces.remove(workspace);
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Workspace removed: ${workspace.name}')));
+  }
+
     showMenu(context: context, position: RelativeRect.fill, items: [
       PopupMenuItem(
           child: const Text('Open'),
@@ -34,11 +40,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
           }),
       PopupMenuItem(
           child: const Text('Remove'),
-          onTap: () {
-            workspaces.remove(workspace);
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Workspace removed: ${workspace.name}')));
-          }),
+          onTap: () => _removeWorkspace(workspaces, workspace)),
     ]);
   }
 
