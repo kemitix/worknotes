@@ -67,14 +67,13 @@ class _AppState extends State<App> {
             ),
             home: const WorkspaceList(title: 'WorkNotes'),
             routes: <String, WidgetBuilder>{
-              '/settings': (BuildContext context) => const AppSettings(),
-              '/settings/accounts': (BuildContext context) =>
-                  const AccountList(),
-              '/settings/accounts/add': (BuildContext context) =>
-                  const AccountEdit(action: 'Add', buttonLabel: 'Add'),
-              '/settings/accounts/edit': (BuildContext context) =>
-                  const AccountEdit(action: 'Edit', buttonLabel: 'Save'),
-              '/workspace/add': (BuildContext context) => const WorkspaceAdd(),
+              AppSettings.route: (_) => const AppSettings(),
+              AccountList.route: (_) => const AccountList(),
+              AccountEdit.routeAdd: (_) =>
+                  const AccountEdit(mode: AccountEditMode.Add),
+              AccountEdit.routeEdit: (_) =>
+                  const AccountEdit(mode: AccountEditMode.Edit),
+              WorkspaceAdd.route: (_) => const WorkspaceAdd(),
             },
           ));
     }

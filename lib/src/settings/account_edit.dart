@@ -5,12 +5,34 @@ import '../models/account.dart';
 import '../models/storage.dart';
 import 'edit_account_args.dart';
 
-class AccountEdit extends StatefulWidget {
-  final String action;
-  final String buttonLabel;
+enum AccountEditMode { Add, Edit }
 
-  const AccountEdit(
-      {super.key, required this.action, required this.buttonLabel});
+class AccountEdit extends StatefulWidget {
+  static const routeAdd = '/settings/accounts/add';
+  static const routeEdit = '/settings/accounts/edit';
+  final AccountEditMode mode;
+
+  const AccountEdit({super.key, required this.mode});
+
+  String get appBar {
+    switch (mode) {
+      case AccountEditMode.Add:
+        return 'Add Account';
+      case AccountEditMode.Edit:
+        return 'Edit Account';
+    }
+  }
+
+  String get saveButtonLabel {
+    switch (mode) {
+      case AccountEditMode.Add:
+        return 'Add';
+      case AccountEditMode.Edit:
+        return 'Save';
+    }
+  }
+
+  bool get isEditMode => mode == AccountEditMode.Edit;
 
   @override
   State<AccountEdit> createState() => _AccountEditState();
@@ -25,7 +47,7 @@ class _AccountEditState extends State<AccountEdit> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.action == 'Edit') {
+    if (widget.isEditMode) {
       final args =
           ModalRoute.of(context)!.settings.arguments as EditAccountArgs;
       final account = args.account;
@@ -35,7 +57,7 @@ class _AccountEditState extends State<AccountEdit> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.action} Account'),
+        title: Text(widget.appBar),
       ),
       body: Form(
         key: _formKey,
@@ -112,7 +134,7 @@ class _AccountEditState extends State<AccountEdit> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text(widget.buttonLabel),
+                  child: Text(widget.saveButtonLabel),
                 ),
               ),
             ),

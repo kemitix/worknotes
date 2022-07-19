@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/src/models/storage.dart';
+import 'package:worknotes/src/settings/account_edit.dart';
 
 import '../models/account.dart';
 import 'edit_account_args.dart';
 
 class AccountList extends StatelessWidget {
+  static const route = '/settings/accounts';
+
   const AccountList({super.key});
 
   void _addAccount(BuildContext context) {
-    Navigator.pushNamed(context, '/settings/accounts/add');
+    Navigator.pushNamed(context, AccountEdit.routeAdd);
   }
 
   void _editAccount(BuildContext context, Account account) {
-    Navigator.pushNamed(context, '/settings/accounts/edit',
+    Navigator.pushNamed(context, AccountEdit.routeEdit,
         arguments: EditAccountArgs(account));
   }
 

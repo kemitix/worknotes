@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:worknotes/src/settings/account_list.dart';
 
 class AppSettings extends StatefulWidget {
+  static const route = '/settings';
+
   const AppSettings({super.key});
 
   @override
@@ -9,7 +12,7 @@ class AppSettings extends StatefulWidget {
 
 class _AppSettingsState extends State<AppSettings> {
   void _openAccountsList(BuildContext context) {
-    Navigator.pushNamed(context, '/settings/accounts');
+    Navigator.pushNamed(context, AccountList.route);
   }
 
   @override

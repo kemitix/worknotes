@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/workspace/workspace_add.dart';
 
 import '../models/storage.dart';
 import '../models/workspace.dart';
@@ -17,7 +18,7 @@ class WorkspaceList extends StatefulWidget {
 class _WorkspaceListState extends State<WorkspaceList> {
   void _addWorkspace() {
     setState(() {
-      Navigator.pushNamed(context, '/workspace/add');
+      Navigator.pushNamed(context, WorkspaceAdd.route);
     });
   }
 

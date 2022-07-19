@@ -6,6 +6,8 @@ import '../models/storage.dart';
 import 'account_workspace_list.dart';
 
 class WorkspaceAdd extends StatefulWidget {
+  static const route = '/workspace/add';
+
   const WorkspaceAdd({Key? key}) : super(key: key);
 
   @override
