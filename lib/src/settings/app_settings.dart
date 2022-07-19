@@ -12,7 +12,9 @@ class AppSettings extends StatefulWidget {
 
 class _AppSettingsState extends State<AppSettings> {
   void _openAccountsList(BuildContext context) {
-    Navigator.pushNamed(context, AccountList.route);
+    setState(() {
+      Navigator.pushNamed(context, AccountList.route);
+    });
   }
 
   @override
