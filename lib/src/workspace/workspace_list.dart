@@ -5,7 +5,7 @@ import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../models/storage.dart';
 import '../models/workspace.dart';
-import 'workspace_drawer.dart';
+import 'workspaces_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
   static const route = '/';
@@ -46,7 +46,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
       appBar: AppBar(
         title: const Text('Workspaces'),
       ),
-      drawer: const WorkspaceDrawer(),
+      drawer: const WorkspacesDrawer(),
       body: Consumer<Storage<Workspace>>(
         builder: (context, workspaces, child) {
           final allWorkspaces = workspaces.items;

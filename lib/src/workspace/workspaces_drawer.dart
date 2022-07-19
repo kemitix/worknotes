@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:worknotes/src/settings/app_settings.dart';
 
-class WorkspaceDrawer extends StatelessWidget {
-  const WorkspaceDrawer({super.key});
+class WorkspacesDrawer extends StatelessWidget {
+  const WorkspacesDrawer({super.key});
 
   void _openSettings(BuildContext context) {
     Navigator.pushNamed(context, AppSettings.route);
