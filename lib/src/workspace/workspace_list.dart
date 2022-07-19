@@ -7,7 +7,9 @@ import '../models/workspace.dart';
 import 'workspace_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
-  const WorkspaceList({Key? key, required this.title}) : super(key: key);
+  static const route = '/';
+
+  const WorkspaceList({super.key, required this.title});
 
   final String title;
 
