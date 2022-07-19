@@ -40,9 +40,6 @@ class _WorkspaceListState extends State<WorkspaceList> {
       Storage<Workspace> workspaces) {
     showMenu(context: context, position: RelativeRect.fill, items: [
       PopupMenuItem(
-          child: const Text('Open'),
-          onTap: () => _openWorkspace(context, workspace)),
-      PopupMenuItem(
           child: const Text('Remove'),
           onTap: () => _removeWorkspace(context, workspaces, workspace)),
     ]);
