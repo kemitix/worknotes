@@ -18,7 +18,6 @@ class ClientTrello implements Client {
           .member(MemberId(account.name))
           .getBoards(filter: MemberBoardFilter.open)
           .then((boards) => boards
-              .map((TrelloBoard board) =>
-                  Workspace(boardId: board.id.value, name: board.name))
+              .map((TrelloBoard board) => Workspace(name: board.name))
               .toList(growable: false));
 }

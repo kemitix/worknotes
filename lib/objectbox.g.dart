@@ -14,6 +14,7 @@ import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'src/models/account.dart';
+import 'src/models/folio.dart';
 import 'src/models/workspace.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
@@ -30,11 +31,6 @@ final _entities = <ModelEntity>[
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(3, 9210377582473636777),
-            name: 'boardId',
-            type: 9,
-            flags: 0),
         ModelProperty(
             id: const IdUid(4, 2990621413868976163),
             name: 'name',
@@ -82,7 +78,33 @@ final _entities = <ModelEntity>[
       backlinks: <ModelBacklink>[
         ModelBacklink(
             name: 'workspaces', srcEntity: 'Workspace', srcField: 'account')
-      ])
+      ]),
+  ModelEntity(
+      id: const IdUid(7, 9039077696783827050),
+      name: 'Folio',
+      lastPropertyId: const IdUid(3, 5125415375983507720),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 5809714612083056610),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 2843443122813901510),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 5125415375983507720),
+            name: 'workspaceId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(7, 5605110732901394694),
+            relationTarget: 'Workspace')
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[])
 ];
 
 /// Open an ObjectBox store with the model declared in this file.
@@ -105,8 +127,8 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(6, 6770593426214547282),
-      lastIndexId: const IdUid(6, 2620157542894634856),
+      lastEntityId: const IdUid(7, 9039077696783827050),
+      lastIndexId: const IdUid(7, 5605110732901394694),
       lastRelationId: const IdUid(1, 993116277638220482),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [
@@ -133,7 +155,8 @@ ModelDefinition getObjectBoxModel() {
         2685187056895379388,
         2629523339932833768,
         6449956067506904207,
-        4611986438835733102
+        4611986438835733102,
+        9210377582473636777
       ],
       retiredRelationUids: const [993116277638220482],
       modelVersion: 5,
@@ -150,11 +173,9 @@ ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (Workspace object, fb.Builder fbb) {
-          final boardIdOffset = fbb.writeString(object.boardId);
           final nameOffset = fbb.writeString(object.name);
           fbb.startTable(6);
           fbb.addInt64(0, object.id);
-          fbb.addOffset(2, boardIdOffset);
           fbb.addOffset(3, nameOffset);
           fbb.addInt64(4, object.account.targetId);
           fbb.finish(fbb.endTable());
@@ -166,8 +187,6 @@ ModelDefinition getObjectBoxModel() {
 
           final object = Workspace(
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
-              boardId: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''),
               name: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''));
           object.account.targetId =
@@ -218,6 +237,36 @@ ModelDefinition getObjectBoxModel() {
                   5, object.id, (Workspace srcObject) => srcObject.account),
               store.box<Account>());
           return object;
+        }),
+    Folio: EntityDefinition<Folio>(
+        model: _entities[2],
+        toOneRelations: (Folio object) => [object.workspace],
+        toManyRelations: (Folio object) => {},
+        getId: (Folio object) => object.id,
+        setId: (Folio object, int id) {
+          object.id = id;
+        },
+        objectToFB: (Folio object, fb.Builder fbb) {
+          final nameOffset = fbb.writeString(object.name);
+          fbb.startTable(4);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, nameOffset);
+          fbb.addInt64(2, object.workspace.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = Folio(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              name: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''));
+          object.workspace.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+          object.workspace.attach(store);
+          return object;
         })
   };
 
@@ -229,17 +278,13 @@ class Workspace_ {
   /// see [Workspace.id]
   static final id = QueryIntegerProperty<Workspace>(_entities[0].properties[0]);
 
-  /// see [Workspace.boardId]
-  static final boardId =
-      QueryStringProperty<Workspace>(_entities[0].properties[1]);
-
   /// see [Workspace.name]
   static final name =
-      QueryStringProperty<Workspace>(_entities[0].properties[2]);
+      QueryStringProperty<Workspace>(_entities[0].properties[1]);
 
   /// see [Workspace.account]
   static final account =
-      QueryRelationToOne<Workspace, Account>(_entities[0].properties[3]);
+      QueryRelationToOne<Workspace, Account>(_entities[0].properties[2]);
 }
 
 /// [Account] entity fields to define ObjectBox queries.
@@ -256,4 +301,17 @@ class Account_ {
   /// see [Account.secret]
   static final secret =
       QueryStringProperty<Account>(_entities[1].properties[3]);
+}
+
+/// [Folio] entity fields to define ObjectBox queries.
+class Folio_ {
+  /// see [Folio.id]
+  static final id = QueryIntegerProperty<Folio>(_entities[2].properties[0]);
+
+  /// see [Folio.name]
+  static final name = QueryStringProperty<Folio>(_entities[2].properties[1]);
+
+  /// see [Folio.workspace]
+  static final workspace =
+      QueryRelationToOne<Folio, Workspace>(_entities[2].properties[2]);
 }

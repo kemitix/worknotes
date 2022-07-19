@@ -7,6 +7,7 @@ import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../objectbox.g.dart';
 import 'models/account.dart';
+import 'models/folio.dart';
 import 'models/storage.dart';
 import 'models/workspace.dart';
 import 'settings/account_edit.dart';
@@ -59,6 +60,7 @@ class _AppState extends State<App> {
           providers: [
             ChangeNotifierProvider(create: (_) => Storage<Account>(_store)),
             ChangeNotifierProvider(create: (_) => Storage<Workspace>(_store)),
+            ChangeNotifierProvider(create: (_) => Storage<Folio>(_store)),
             Provider<Client>(create: (_) => ClientTrello()),
           ],
           child: MaterialApp(

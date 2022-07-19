@@ -7,13 +7,11 @@ import 'account.dart';
 class Workspace with HasId {
   int id;
 
-  final String boardId;
   final String name;
   final account = ToOne<Account>();
 
   Workspace({
     this.id = 0,
-    required this.boardId,
     required this.name,
   });
 }

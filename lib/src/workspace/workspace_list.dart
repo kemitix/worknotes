@@ -52,7 +52,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
           final allWorkspaces = workspaces.items;
           return ListView.separated(
             itemCount: allWorkspaces.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (context, index) {
               final workspace = allWorkspaces[index];
               return GestureDetector(
                 onSecondaryTap: () =>
