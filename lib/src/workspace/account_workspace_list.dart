@@ -18,31 +18,35 @@ class AccountWorkspaceList extends StatelessWidget {
     return FutureBuilder(
       future: client.openWorkspaces(account),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Text('error: ${snapshot.error}');
-          }
-          var availableWorkspaces = snapshot.data! as List<Workspace>;
-          return Expanded(
-            child: Consumer<Storage<Workspace>>(
-                builder: (context, workspaces, child) {
-              return ListView.separated(
-                  itemBuilder: (context, index) {
-                    var workspace = availableWorkspaces[index];
-                    return ListTile(
-                        title: Text(workspace.name),
-                        onTap: () {
-                          workspaces.add(workspace);
-                          account.workspaces.add(workspace);
-                          Navigator.pop(context);
-                        });
-                  },
-                  separatorBuilder: (a, b) => const Divider(),
-                  itemCount: availableWorkspaces.length);
-            }),
-          );
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const LinearProgressIndicator();
+          case ConnectionState.done:
+            if (snapshot.hasError) {
+              return Text('error: ${snapshot.error}');
+            }
+            var availableWorkspaces = snapshot.data! as List<Workspace>;
+            return Expanded(
+              child: Consumer<Storage<Workspace>>(
+                  builder: (context, workspaces, child) {
+                return ListView.separated(
+                    itemBuilder: (context, index) {
+                      var workspace = availableWorkspaces[index];
+                      return ListTile(
+                          title: Text(workspace.name),
+                          onTap: () {
+                            workspaces.add(workspace);
+                            account.workspaces.add(workspace);
+                            Navigator.pop(context);
+                          });
+                    },
+                    separatorBuilder: (a, b) => const Divider(),
+                    itemCount: availableWorkspaces.length);
+              }),
+            );
+          default:
+            return const Center(child: CircularProgressIndicator());
         }
-        return const Center(child: CircularProgressIndicator());
       },
     );
   }
