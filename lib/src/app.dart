@@ -6,12 +6,12 @@ import 'package:worknotes/src/client/client.dart';
 import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../objectbox.g.dart';
-import 'models/account.dart';
+import 'feature/accounts/account.dart';
+import 'feature/accounts/account_edit.dart';
+import 'feature/accounts/account_list.dart';
 import 'models/folio.dart';
 import 'models/storage.dart';
 import 'models/workspace.dart';
-import 'settings/account_edit.dart';
-import 'settings/account_list.dart';
 import 'settings/app_settings.dart';
 import 'workspace/workspace_add.dart';
 import 'workspace/workspace_list.dart';

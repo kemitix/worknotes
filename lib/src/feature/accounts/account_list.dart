@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/src/models/storage.dart';
-import 'package:worknotes/src/settings/account_edit.dart';
+import 'package:worknotes/src/feature/accounts/account_edit.dart';
 
-import '../models/account.dart';
+import 'account.dart';
 
 class AccountList extends StatelessWidget {
   static const route = '/settings/accounts';

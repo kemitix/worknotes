@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../client/client.dart';
-import '../models/account.dart';
+import '../feature/accounts/account.dart';
 import '../models/storage.dart';
 import '../models/workspace.dart';
 

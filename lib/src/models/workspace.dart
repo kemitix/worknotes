@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:worknotes/src/models/has_id.dart';
 
-import 'account.dart';
+import '../feature/accounts/account.dart';
 
 @Entity()
 class Workspace with HasId {

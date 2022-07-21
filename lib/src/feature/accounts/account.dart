@@ -6,6 +6,7 @@ import 'package:worknotes/src/models/workspace.dart';
 class Account with HasId {
   int id;
 
+  final String type;
   @Unique()
   final String name;
   final String key;
@@ -16,6 +17,7 @@ class Account with HasId {
 
   Account({
     this.id = 0,
+    required this.type,
     required this.name,
     required this.key,
     required this.secret,

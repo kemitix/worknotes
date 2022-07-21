@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/account.dart';
-import '../models/storage.dart';
+import '../../models/storage.dart';
+import 'account.dart';
 
 enum AccountEditMode { Add, Edit }
 
@@ -46,8 +46,10 @@ class _AccountEditState extends State<AccountEdit> {
 
   @override
   Widget build(BuildContext context) {
+    var accountId = 0;
     if (widget.isEditMode) {
       final account = ModalRoute.of(context)!.settings.arguments as Account;
+      accountId = account.id;
       nameController.text = account.name;
       keyController.text = account.key;
       secretController.text = account.secret;
@@ -124,6 +126,8 @@ class _AccountEditState extends State<AccountEdit> {
                       final key = keyController.text;
                       final secret = secretController.text;
                       accounts.add(Account(
+                        id: accountId,
+                        type: 'trello',
                         name: name,
                         key: key,
                         secret: secret,
