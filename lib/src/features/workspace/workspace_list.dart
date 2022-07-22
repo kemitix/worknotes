@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/storage.dart';
+import '../folios/folio_list.dart';
 import 'workspace.dart';
 import 'workspace_add.dart';
-import 'workspace_view.dart';
 import 'workspaces_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
@@ -54,7 +54,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
                     icon: const Icon(Icons.menu_sharp),
                     onPressed: () => _showMenu(context, workspace, workspaces),
                   ),
-                  onTap: () => navigator.pushNamed(WorkspaceView.route,
+                  onTap: () => navigator.pushNamed(FolioList.route,
                       arguments: workspace),
                   onLongPress: () => _showMenu(context, workspace, workspaces),
                 ),

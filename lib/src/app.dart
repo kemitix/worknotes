@@ -8,11 +8,11 @@ import 'client/client.dart';
 import 'features/accounts/account.dart';
 import 'features/accounts/account_edit.dart';
 import 'features/accounts/account_list.dart';
+import 'features/folios/folio.dart';
+import 'features/folios/folio_list.dart';
 import 'features/workspace/workspace.dart';
 import 'features/workspace/workspace_add.dart';
 import 'features/workspace/workspace_list.dart';
-import 'features/workspace/workspace_view.dart';
-import 'models/folio.dart';
 import 'models/storage.dart';
 import 'settings/app_settings.dart';
 
@@ -73,11 +73,11 @@ class _AppState extends State<App> {
               AppSettings.route: (_) => const AppSettings(),
               AccountList.route: (_) => const AccountList(),
               AccountEdit.routeAdd: (_) =>
-                  const AccountEdit(mode: AccountEditMode.Add),
+              const AccountEdit(mode: AccountEditMode.Add),
               AccountEdit.routeEdit: (_) =>
-                  const AccountEdit(mode: AccountEditMode.Edit),
+              const AccountEdit(mode: AccountEditMode.Edit),
               WorkspaceAdd.route: (_) => const WorkspaceAdd(),
-              WorkspaceView.route: (_) => const WorkspaceView(),
+              FolioList.route: (_) => const FolioList(),
             },
           ));
     }

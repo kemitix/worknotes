@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/folio.dart';
 import '../../models/storage.dart';
-import 'workspace.dart';
+import '../workspace/workspace.dart';
+import 'folio.dart';
 
-class WorkspaceView extends StatelessWidget {
-  static const route = '/workspace/view';
+class FolioList extends StatelessWidget {
+  static const route = '/folios';
 
-  const WorkspaceView({super.key});
+  const FolioList({super.key});
 
   @override
   Widget build(BuildContext context) {
