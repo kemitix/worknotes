@@ -103,15 +103,12 @@ class _AccountEditState extends State<AccountEdit> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      final name = nameController.text;
-                      final key = keyController.text;
-                      final secret = secretController.text;
                       accounts.add(Account(
                         id: accountId,
                         type: 'trello',
-                        name: name,
-                        key: key,
-                        secret: secret,
+                        name: nameController.text,
+                        key: keyController.text,
+                        secret: secretController.text,
                       ));
                       Navigator.pop(context);
                     }
