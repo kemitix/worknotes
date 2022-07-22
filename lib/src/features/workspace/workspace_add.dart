@@ -44,11 +44,8 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
                         child: Text(account.name),
                       );
                     }).toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _accountName = value;
-                      });
-                    },
+                    onChanged: (String? value) =>
+                        setState(() => _accountName = value),
                   ),
                   (_accountName == null
                       ? const Text('No account selected')
