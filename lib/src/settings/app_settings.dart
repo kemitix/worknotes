@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../features/accounts/account_list.dart';
+import '../widgets/navigation_list_tile.dart';
 
 class AppSettings extends StatefulWidget {
   static const route = '/settings';
@@ -12,12 +13,6 @@ class AppSettings extends StatefulWidget {
 }
 
 class _AppSettingsState extends State<AppSettings> {
-  void _openAccountsList(BuildContext context) {
-    setState(() {
-      Navigator.pushNamed(context, AccountList.route);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +20,12 @@ class _AppSettingsState extends State<AppSettings> {
         title: const Text('Settings'),
       ),
       body: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.manage_accounts),
-            title: const Text('Accounts'),
-            onTap: () => _openAccountsList(context),
-          )
+        children: const [
+          NavigationListTile(
+            title: 'Accounts',
+            icon: Icons.manage_accounts,
+            route: AccountList.route,
+          ),
         ],
       ),
     );
