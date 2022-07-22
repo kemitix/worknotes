@@ -68,34 +68,19 @@ class _AccountEditState extends State<AccountEdit> {
               label: 'Account Name',
               hintText: 'Enter account name',
               controller: nameController,
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an account name';
-                }
-                return null;
-              },
+              validator: validateNotEmpty('Please enter an account name'),
             ),
             LabelledTextFormField(
               label: 'API Key',
               hintText: 'Enter API Key',
               controller: keyController,
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an API Key';
-                }
-                return null;
-              },
+              validator: validateNotEmpty('Please enter an API Key'),
             ),
             LabelledTextFormField(
               label: 'API Secret',
               hintText: 'Enter API Secret',
               controller: secretController,
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an API Secret';
-                }
-                return null;
-              },
+              validator: validateNotEmpty('Please enter an API Secret'),
             ),
             Consumer<Storage<Account>>(
               builder: (context, accounts, child) => Padding(
@@ -122,4 +107,12 @@ class _AccountEditState extends State<AccountEdit> {
       ),
     );
   }
+
+  String? Function(String?) validateNotEmpty(String message) =>
+      (String? value) {
+        if (value == null || value.isEmpty) {
+          return message;
+        }
+        return null;
+      };
 }
