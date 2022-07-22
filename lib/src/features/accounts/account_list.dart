@@ -10,16 +10,9 @@ class AccountList extends StatelessWidget {
 
   const AccountList({super.key});
 
-  void _addAccount(BuildContext context) {
-    Navigator.pushNamed(context, AccountEdit.routeAdd);
-  }
-
-  void _editAccount(BuildContext context, Account account) {
-    Navigator.pushNamed(context, AccountEdit.routeEdit, arguments: account);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Accounts'),
@@ -27,17 +20,17 @@ class AccountList extends StatelessWidget {
       body: Consumer<Storage<Account>>(
         builder: (context, accounts, child) => ListView.separated(
           itemCount: accounts.items.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (context, index) {
             return ListTile(
-              title: Text(accounts.items[index].name),
-              onTap: () => _editAccount(context, accounts.items[index]),
-            );
+                title: Text(accounts.items[index].name),
+                onTap: () => navigator.pushNamed(AccountEdit.routeEdit,
+                    arguments: accounts.items[index]));
           },
           separatorBuilder: (a, b) => const Divider(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addAccount(context),
+        onPressed: () => navigator.pushNamed(AccountEdit.routeAdd),
         tooltip: 'Add Workspace',
         child: const Icon(Icons.add),
       ),
