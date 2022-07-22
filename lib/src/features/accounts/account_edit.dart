@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/widgets/labelled_text_form_field.dart';
 
 import '../../models/storage.dart';
 import 'account.dart';
@@ -63,58 +64,38 @@ class _AccountEditState extends State<AccountEdit> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('Account Name'),
+            LabelledTextFormField(
+              label: 'Account Name',
+              hintText: 'Enter account name',
+              controller: nameController,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an account name';
+                }
+                return null;
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: nameController,
-                decoration:
-                    const InputDecoration(hintText: 'Enter account name'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an account name';
-                  }
-                  return null;
-                },
-              ),
+            LabelledTextFormField(
+              label: 'API Key',
+              hintText: 'Enter API Key',
+              controller: keyController,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an API Key';
+                }
+                return null;
+              },
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('API Key'),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: keyController,
-                decoration: const InputDecoration(hintText: 'Enter API Key'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an API key';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Text('API Secret'),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextFormField(
-                controller: secretController,
-                decoration: const InputDecoration(hintText: 'Enter API Secret'),
-                obscureText: true,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an API secret';
-                  }
-                  return null;
-                },
-              ),
+            LabelledTextFormField(
+              label: 'API Secret',
+              hintText: 'Enter API Secret',
+              controller: secretController,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an API Secret';
+                }
+                return null;
+              },
             ),
             Consumer<Storage<Account>>(
               builder: (context, accounts, child) => Padding(
