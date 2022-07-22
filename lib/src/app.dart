@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/client/client.dart';
-import 'package:worknotes/src/workspace/workspace_view.dart';
 
 import '../objectbox.g.dart';
-import 'feature/accounts/account.dart';
-import 'feature/accounts/account_edit.dart';
-import 'feature/accounts/account_list.dart';
+import 'client/client.dart';
+import 'features/accounts/account.dart';
+import 'features/accounts/account_edit.dart';
+import 'features/accounts/account_list.dart';
 import 'models/folio.dart';
 import 'models/storage.dart';
 import 'models/workspace.dart';
 import 'settings/app_settings.dart';
 import 'workspace/workspace_add.dart';
 import 'workspace/workspace_list.dart';
+import 'workspace/workspace_view.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

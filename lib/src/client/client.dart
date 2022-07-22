@@ -1,7 +1,7 @@
 import 'package:trello_client/external/dio_client_factory.dart';
 import 'package:trello_client/trello_sdk.dart';
 
-import '../feature/accounts/account.dart';
+import '../features/accounts/account.dart';
 import '../models/workspace.dart';
 
 abstract class Client {

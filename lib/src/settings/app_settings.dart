@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:worknotes/src/feature/accounts/account_list.dart';
+
+import '../features/accounts/account_list.dart';
 
 class AppSettings extends StatefulWidget {
   static const route = '/settings';

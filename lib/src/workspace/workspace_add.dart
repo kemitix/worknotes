@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../feature/accounts/account.dart';
+import '../features/accounts/account.dart';
 import '../models/storage.dart';
 import 'account_workspace_list.dart';
 
