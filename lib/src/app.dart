@@ -8,13 +8,13 @@ import 'client/client.dart';
 import 'features/accounts/account.dart';
 import 'features/accounts/account_edit.dart';
 import 'features/accounts/account_list.dart';
+import 'features/workspace/workspace.dart';
+import 'features/workspace/workspace_add.dart';
+import 'features/workspace/workspace_list.dart';
+import 'features/workspace/workspace_view.dart';
 import 'models/folio.dart';
 import 'models/storage.dart';
-import 'models/workspace.dart';
 import 'settings/app_settings.dart';
-import 'workspace/workspace_add.dart';
-import 'workspace/workspace_list.dart';
-import 'workspace/workspace_view.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

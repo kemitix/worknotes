@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:worknotes/src/models/has_id.dart';
 
-import 'workspace.dart';
+import '../features/workspace/workspace.dart';
 
 @Entity()
 class Folio with HasId {

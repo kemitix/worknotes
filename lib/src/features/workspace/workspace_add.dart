@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../features/accounts/account.dart';
-import '../models/storage.dart';
-import 'account_workspace_list.dart';
+import '../../models/storage.dart';
+import '../accounts/account.dart';
+import 'workspaces_in_account_list.dart';
 
 class WorkspaceAdd extends StatefulWidget {
   static const route = '/workspace/add';
@@ -52,7 +52,7 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
                   ),
                   (_accountName == null
                       ? const Text('No account selected')
-                      : AccountWorkspaceList(
+                      : WorkspacesInAccountList(
                           account: accounts.items.firstWhere(
                               (account) => account.name == _accountName)))
                 ],

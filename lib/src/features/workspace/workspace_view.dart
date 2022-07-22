@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/models/workspace.dart';
 
-import '../models/folio.dart';
-import '../models/storage.dart';
+import '../../models/folio.dart';
+import '../../models/storage.dart';
+import 'workspace.dart';
 
 class WorkspaceView extends StatelessWidget {
   static const route = '/workspace/view';

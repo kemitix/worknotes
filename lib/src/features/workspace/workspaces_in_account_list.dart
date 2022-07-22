@@ -2,15 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../client/client.dart';
-import '../features/accounts/account.dart';
-import '../models/storage.dart';
-import '../models/workspace.dart';
+import '../../client/client.dart';
+import '../../models/storage.dart';
+import '../accounts/account.dart';
+import 'workspace.dart';
 
-class AccountWorkspaceList extends StatelessWidget {
+class WorkspacesInAccountList extends StatelessWidget {
   final Account account;
 
-  const AccountWorkspaceList({super.key, required this.account});
+  const WorkspacesInAccountList({super.key, required this.account});
 
   @override
   Widget build(BuildContext context) {
