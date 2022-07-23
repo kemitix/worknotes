@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:objectid/objectid.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/widgets/labelled_text_form_field.dart';
 
-import '../../models/storage.dart';
-import 'account.dart';
+import '../../widgets/labelled_text_form_field.dart';
+import 'domain/entities/account.dart';
+import 'domain/repositories/account_repository.dart';
 
 enum AccountEditMode { Add, Edit }
 
@@ -47,7 +48,7 @@ class _AccountEditState extends State<AccountEdit> {
 
   @override
   Widget build(BuildContext context) {
-    var accountId = 0;
+    ObjectId accountId = ObjectId();
     if (widget.isEditMode) {
       final account = ModalRoute.of(context)!.settings.arguments as Account;
       accountId = account.id;
@@ -82,25 +83,27 @@ class _AccountEditState extends State<AccountEdit> {
               controller: secretController,
               validator: validateNotEmpty('Please enter an API Secret'),
             ),
-            Consumer<Storage<Account>>(
-              builder: (context, accounts, child) => Padding(
-                padding: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      accounts.add(Account(
-                        id: accountId,
-                        type: 'trello',
-                        name: nameController.text,
-                        key: keyController.text,
-                        secret: secretController.text,
-                      ));
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text(widget.saveButtonLabel),
-                ),
-              ),
+            Consumer<AccountRepository>(
+              builder: (context, accountRepo, child) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                    child: Text(widget.saveButtonLabel),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        accountRepo.add(Account(
+                          id: accountId,
+                          type: 'trello',
+                          name: nameController.text,
+                          key: keyController.text,
+                          secret: secretController.text,
+                        ));
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),
