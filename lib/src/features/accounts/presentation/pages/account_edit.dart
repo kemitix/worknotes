@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/labelled_text_form_field.dart';
-import 'domain/entities/account.dart';
-import 'domain/repositories/account_repository.dart';
+import '../../../../core/widgets/labelled_text_form_field.dart';
+import '../../domain/entities/account.dart';
+import '../../domain/repositories/account_repository.dart';
 
 enum AccountEditMode { Add, Edit }
 

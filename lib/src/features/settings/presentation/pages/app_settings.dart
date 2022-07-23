@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../features/accounts/account_list.dart';
-import '../widgets/navigation_list_tile.dart';
+import '../../../../core/widgets/navigation_list_tile.dart';
+import '../../../accounts/presentation/pages/account_list.dart';
 
 class AppSettings extends StatefulWidget {
   static const route = '/settings';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/accounts/domain/repositories/folio_repository.dart';
+import 'package:worknotes/src/features/folios/domain/repositories/folio_repository.dart';
 
-import '../accounts/domain/entities/folio.dart';
-import '../accounts/domain/entities/workspace.dart';
+import '../../../workspaces/domain/entities/workspace.dart';
+import '../../domain/entities/folio.dart';
 
 class FolioList extends StatelessWidget {
   static const route = '/folios';
