@@ -1,8 +1,10 @@
 import 'dart:collection';
 
+import 'package:dartz/dartz.dart';
 import 'package:objectid/objectid.dart';
 
 import 'error/duplicate_record_error.dart';
+import 'error/failure.dart';
 import 'error/not_found_error.dart';
 import 'has_id_name.dart';
 
@@ -14,13 +16,13 @@ abstract class InMemoryRepository<T extends HasIdName> {
   // modifying methods:
   // should all call notifyListeners()
 
-  Future<void> add(T item) {
+  Future<Either<Failure, T>> add(T item) {
     if (items.contains(item)) {
-      return Future.error(DuplicateError());
+      return Future.value(left(DuplicateError()));
     }
     items.add(item);
     notifyListeners();
-    return Future.value(null);
+    return Future.value(right(item));
   }
 
   Future<void> remove(T item) {
