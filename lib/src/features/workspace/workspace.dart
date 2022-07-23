@@ -9,9 +9,11 @@ class Workspace with HasId {
 
   final String name;
   final account = ToOne<Account>();
+  final String? trelloBoardId;
 
   Workspace({
     this.id = 0,
     required this.name,
+    this.trelloBoardId,
   });
 }
