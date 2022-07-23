@@ -2,6 +2,7 @@ import 'package:trello_client/external/dio_client_factory.dart';
 import 'package:trello_client/trello_sdk.dart';
 
 import '../features/accounts/account.dart';
+import '../features/folios/folio.dart';
 import '../features/workspace/workspace.dart';
 
 abstract class Client {
@@ -23,6 +24,24 @@ class ClientTrello implements Client {
                 .map((TrelloBoard board) => Workspace(
                       name: board.name,
                       trelloBoardId: board.id.value,
+                    ))
+                .toList(growable: false));
+      default:
+        throw Exception('Unknown account type: ${account.type}');
+    }
+  }
+
+  Future<List<Folio>> openFolios(Workspace workspace) async {
+    Account account = workspace.account.target!;
+    switch (account.type) {
+      case 'trello':
+        return _trelloClient(account)
+            .board(BoardId(workspace.trelloBoardId!))
+            .getLists(filter: ListFilter.open)
+            .then((lists) => lists
+                .map((TrelloList list) => Folio(
+                      name: list.name,
+                      trelloListId: list.id.value,
                     ))
                 .toList(growable: false));
       default:
