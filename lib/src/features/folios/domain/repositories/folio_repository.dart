@@ -1,4 +1,4 @@
-import 'package:worknotes/src/features/accounts/domain/entities/folio.dart';
+import 'package:worknotes/src/features/folios/domain/entities/folio.dart';
 
 import '../../../../core/repository.dart';
 

@@ -1,11 +1,11 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/accounts/domain/repositories/workspace_repository.dart';
+import 'package:worknotes/src/features/workspaces/domain/repositories/workspace_repository.dart';
 
-import '../../client/client.dart';
-import '../accounts/domain/entities/account.dart';
-import '../accounts/domain/entities/workspace.dart';
+import '../../../../client/client.dart';
+import '../../../accounts/domain/entities/account.dart';
+import '../../domain/entities/workspace.dart';
 
 class WorkspacesInAccountList extends StatefulWidget {
   final Account account;

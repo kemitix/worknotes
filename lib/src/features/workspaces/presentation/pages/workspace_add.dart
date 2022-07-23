@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../accounts/domain/entities/account.dart';
-import '../accounts/domain/repositories/account_repository.dart';
+import '../../../accounts/domain/entities/account.dart';
+import '../../../accounts/domain/repositories/account_repository.dart';
 import 'workspaces_in_account_list.dart';
 
 class WorkspaceAdd extends StatefulWidget {

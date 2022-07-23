@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../accounts/domain/entities/workspace.dart';
-import '../accounts/domain/repositories/workspace_repository.dart';
-import '../folios/folio_list.dart';
+import '../../../folios/presentation/pages/folio_list.dart';
+import '../../domain/entities/workspace.dart';
+import '../../domain/repositories/workspace_repository.dart';
+import '../widgets/workspaces_drawer.dart';
 import 'workspace_add.dart';
-import 'workspaces_drawer.dart';
 
 class WorkspaceList extends StatefulWidget {
   static const route = '/';

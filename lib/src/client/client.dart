@@ -3,8 +3,8 @@ import 'package:trello_client/external/dio_client_factory.dart';
 import 'package:trello_client/trello_sdk.dart';
 
 import '../features/accounts/domain/entities/account.dart';
-import '../features/accounts/domain/entities/folio.dart';
-import '../features/accounts/domain/entities/workspace.dart';
+import '../features/folios/domain/entities/folio.dart';
+import '../features/workspaces/domain/entities/workspace.dart';
 
 abstract class Client {
   Future<List<Workspace>> openWorkspaces(Account account);

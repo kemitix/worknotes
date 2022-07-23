@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../settings/app_settings.dart';
-import '../../widgets/navigation_list_tile.dart';
+import '../../../../core/widgets/navigation_list_tile.dart';
+import '../../../settings/presentation/pages/app_settings.dart';
 
 class WorkspacesDrawer extends StatelessWidget {
   const WorkspacesDrawer({super.key});
