@@ -9,6 +9,11 @@ class Folio with HasId {
 
   final String name;
   final workspace = ToOne<Workspace>();
+  final String? trelloListId;
 
-  Folio({this.id = 0, required this.name});
+  Folio({
+    this.id = 0,
+    required this.name,
+    this.trelloListId,
+  });
 }
