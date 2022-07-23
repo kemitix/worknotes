@@ -7,6 +7,8 @@ import '../features/workspace/workspace.dart';
 
 abstract class Client {
   Future<List<Workspace>> openWorkspaces(Account account);
+
+  Future<List<Folio>> openFolios(Workspace workspace);
 }
 
 class ClientTrello implements Client {
@@ -14,6 +16,7 @@ class ClientTrello implements Client {
       dioClientFactory(TrelloAuthentication.of(
           MemberId(account.name), account.key, account.secret));
 
+  @override
   Future<List<Workspace>> openWorkspaces(Account account) {
     switch (account.type) {
       case 'trello':
@@ -31,6 +34,7 @@ class ClientTrello implements Client {
     }
   }
 
+  @override
   Future<List<Folio>> openFolios(Workspace workspace) async {
     Account account = workspace.account.target!;
     switch (account.type) {
