@@ -17,18 +17,23 @@ dependencies:
       url: https://github.com/kemitix/trello_client.git
       ref: master
   provider: ^6.0.3
-  objectbox: ^1.6.0
-  objectbox_flutter_libs: any
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  dartz: ^0.10.1
+  connectivity: ^3.0.6
+  http: ^0.13.4
+  shared_preferences: ^2.0.15
+  get_it: ^7.2.0
+  objectid: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   build_runner: any
-  objectbox_generator: any
   path: ^1.8.1
   path_provider: ^2.0.11
-  flat_buffers: ^2.0.5
+  mockito: ^5.2.0
 
 # The following section is specific to Flutter packages.
 flutter:

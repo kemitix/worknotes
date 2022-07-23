@@ -1,22 +1,28 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/features/accounts/domain/repositories/workspace_repository.dart';
 
 import '../../client/client.dart';
-import '../../models/storage.dart';
-import '../accounts/account.dart';
-import 'workspace.dart';
+import '../accounts/domain/entities/account.dart';
+import '../accounts/domain/entities/workspace.dart';
 
-class WorkspacesInAccountList extends StatelessWidget {
+class WorkspacesInAccountList extends StatefulWidget {
   final Account account;
 
   const WorkspacesInAccountList({super.key, required this.account});
 
   @override
+  State<WorkspacesInAccountList> createState() =>
+      _WorkspacesInAccountListState();
+}
+
+class _WorkspacesInAccountListState extends State<WorkspacesInAccountList> {
+  @override
   Widget build(BuildContext context) {
     var client = context.read<Client>();
-    return FutureBuilder(
-      future: client.openWorkspaces(account),
+    return FutureBuilder<List<Workspace>>(
+      future: client.openWorkspaces(widget.account),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -25,23 +31,22 @@ class WorkspacesInAccountList extends StatelessWidget {
             if (snapshot.hasError) {
               return Text('error: ${snapshot.error}');
             }
-            var availableWorkspaces = snapshot.data! as List<Workspace>;
+            List<Workspace> workspaces = snapshot.data!;
             return Expanded(
-              child: Consumer<Storage<Workspace>>(
-                  builder: (context, workspaces, child) {
+              child: Consumer<WorkspaceRepository>(
+                  builder: (context, workspaceRepo, child) {
                 return ListView.separated(
                     itemBuilder: (context, index) {
-                      var workspace = availableWorkspaces[index];
+                      var workspace = workspaces[index];
                       return ListTile(
                           title: Text(workspace.name),
                           onTap: () {
-                            workspaces.add(workspace);
-                            account.workspaces.add(workspace);
+                            workspaceRepo.add(workspace);
                             Navigator.pop(context);
                           });
                     },
                     separatorBuilder: (a, b) => const Divider(),
-                    itemCount: availableWorkspaces.length);
+                    itemCount: workspaces.length);
               }),
             );
           default:

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/features/accounts/domain/repositories/folio_repository.dart';
 
-import '../../models/storage.dart';
-import '../workspace/workspace.dart';
-import 'folio.dart';
+import '../accounts/domain/entities/folio.dart';
+import '../accounts/domain/entities/workspace.dart';
 
 class FolioList extends StatelessWidget {
   static const route = '/folios';
@@ -17,20 +17,33 @@ class FolioList extends StatelessWidget {
       appBar: AppBar(
         title: Text(workspace.name),
       ),
-      body: Consumer<Storage<Folio>>(
-        builder: (context, folios, child) {
-          final allFolios = folios.items;
-          return ListView.separated(
-            itemBuilder: (context, index) {
-              final folio = allFolios[index];
-              return GestureDetector(
-                child: ListTile(
-                  title: Text(folio.name),
-                ),
-              );
+      body: Consumer<FolioRepository>(
+        builder: (context, folioRepo, child) {
+          return FutureBuilder<List<Folio>>(
+            future: folioRepo.getAll(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  if (snapshot.hasError) {
+                    return Center(child: Text(snapshot.error.toString()));
+                  }
+                  List<Folio> folios = snapshot.data!;
+                  return ListView.separated(
+                    itemCount: folios.length,
+                    itemBuilder: (context, index) {
+                      final folio = folios[index];
+                      return GestureDetector(
+                        child: ListTile(
+                          title: Text(folio.name),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (a, b) => const Divider(),
+                  );
+                default:
+                  return const Center(child: CircularProgressIndicator());
+              }
             },
-            separatorBuilder: (a, b) => const Divider(),
-            itemCount: allFolios.length,
           );
         },
       ),
