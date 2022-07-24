@@ -4,19 +4,19 @@ import '../../domain/entities/workspace.dart';
 
 abstract class WorkspacesEvent extends Equatable {}
 
-class AddOrUpdateWorkspaceEvent extends WorkspacesEvent {
+class WorkspaceAddedOrUpdated extends WorkspacesEvent {
   final Workspace workspace;
 
-  AddOrUpdateWorkspaceEvent(this.workspace);
+  WorkspaceAddedOrUpdated(this.workspace);
 
   @override
   List<Object?> get props => [workspace];
 }
 
-class RemoveWorkspaceEvent extends WorkspacesEvent {
+class WorkspaceRemoved extends WorkspacesEvent {
   final Workspace workspace;
 
-  RemoveWorkspaceEvent(this.workspace);
+  WorkspaceRemoved(this.workspace);
 
   @override
   List<Object?> get props => [workspace];

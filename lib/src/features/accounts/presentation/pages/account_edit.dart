@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_bloc.dart';
-import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_event.dart';
 
 import '../../../../core/widgets/labelled_text_form_field.dart';
 import '../../domain/entities/account.dart';
+import '../bloc/accounts_bloc.dart';
+import '../bloc/accounts_event.dart';
 
 enum AccountEditMode { Add, Edit }
 
@@ -92,7 +92,7 @@ class _AccountEditState extends State<AccountEdit> {
                   if (_formKey.currentState!.validate()) {
                     context
                         .read<AccountsBloc>()
-                        .add(AddOrUpdateAccountEvent(Account(
+                        .add(AccountAddedOrUpdated(Account(
                           id: accountId,
                           type: 'trello',
                           name: nameController.text,

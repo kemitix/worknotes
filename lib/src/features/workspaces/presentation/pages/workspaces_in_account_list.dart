@@ -42,7 +42,7 @@ class _WorkspacesInAccountListState extends State<WorkspacesInAccountList> {
                         onTap: () {
                           context
                               .read<WorkspacesBloc>()
-                              .add(AddOrUpdateWorkspaceEvent(workspace));
+                              .add(WorkspaceAddedOrUpdated(workspace));
                           Navigator.pop(context);
                         });
                   },

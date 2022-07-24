@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_bloc.dart';
-import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_event.dart';
 
 import '../../../folios/presentation/pages/folio_list.dart';
 import '../../domain/entities/workspace.dart';
+import '../bloc/workspaces_bloc.dart';
+import '../bloc/workspaces_event.dart';
 import '../bloc/workspaces_state.dart';
 import '../widgets/workspaces_drawer.dart';
 import 'workspace_add.dart';
@@ -27,9 +27,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
         PopupMenuItem(
             child: const Text('Remove'),
             onTap: () {
-              context
-                  .read<WorkspacesBloc>()
-                  .add(RemoveWorkspaceEvent(workspace));
+              context.read<WorkspacesBloc>().add(WorkspaceRemoved(workspace));
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text('Workspace removed: ${workspace.name}')));
             }),

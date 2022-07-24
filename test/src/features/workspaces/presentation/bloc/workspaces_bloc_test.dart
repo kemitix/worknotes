@@ -44,8 +44,8 @@ void main() {
     build: () => workspacesBloc,
     seed: () => WorkspacesState([]),
     act: (bloc) {
-      bloc.add(AddOrUpdateWorkspaceEvent(workspaceAlphaV1));
-      bloc.add(AddOrUpdateWorkspaceEvent(workspaceBetaV1));
+      bloc.add(WorkspaceAddedOrUpdated(workspaceAlphaV1));
+      bloc.add(WorkspaceAddedOrUpdated(workspaceBetaV1));
     },
     expect: () => [
       WorkspacesState([workspaceAlphaV1]),
@@ -56,7 +56,7 @@ void main() {
     'Add an workspace where id already exists is an update',
     build: () => workspacesBloc,
     seed: () => WorkspacesState([workspaceAlphaV1]),
-    act: (bloc) => bloc.add(AddOrUpdateWorkspaceEvent(workspaceAlphaV2)),
+    act: (bloc) => bloc.add(WorkspaceAddedOrUpdated(workspaceAlphaV2)),
     expect: () => [
       WorkspacesState([workspaceAlphaV2])
     ],
@@ -65,14 +65,14 @@ void main() {
     'Remove a workspace',
     build: () => workspacesBloc,
     seed: () => WorkspacesState([workspaceAlphaV1]),
-    act: (bloc) => bloc.add(RemoveWorkspaceEvent(workspaceAlphaV1)),
+    act: (bloc) => bloc.add(WorkspaceRemoved(workspaceAlphaV1)),
     expect: () => [WorkspacesState([])],
   );
   blocTest<WorkspacesBloc, WorkspacesState>(
     'Removing a workspace that doesn\'t exist is ignored',
     build: () => workspacesBloc,
     seed: () => WorkspacesState([workspaceAlphaV1]),
-    act: (bloc) => bloc.add(RemoveWorkspaceEvent(workspaceBetaV1)),
+    act: (bloc) => bloc.add(WorkspaceRemoved(workspaceBetaV1)),
     expect: () => [], // no changes
   );
 }

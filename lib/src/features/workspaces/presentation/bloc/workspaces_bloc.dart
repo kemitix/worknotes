@@ -6,7 +6,7 @@ import 'workspaces_state.dart';
 
 class WorkspacesBloc extends Bloc<WorkspacesEvent, WorkspacesState> {
   WorkspacesBloc() : super(const WorkspacesState([])) {
-    on<AddOrUpdateWorkspaceEvent>((event, emit) {
+    on<WorkspaceAddedOrUpdated>((event, emit) {
       if (state.workspaces
           .any((workspace) => workspace.id == event.workspace.id)) {
         // update
@@ -19,7 +19,7 @@ class WorkspacesBloc extends Bloc<WorkspacesEvent, WorkspacesState> {
         emit(WorkspacesState([...state.workspaces, event.workspace]));
       }
     });
-    on<RemoveWorkspaceEvent>((event, emit) {
+    on<WorkspaceRemoved>((event, emit) {
       if (state.workspaces
           .any((workspace) => workspace.id == event.workspace.id)) {
         emit(WorkspacesState([
