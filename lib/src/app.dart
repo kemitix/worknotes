@@ -13,14 +13,9 @@ import 'features/workspaces/presentation/bloc/workspaces_bloc.dart';
 import 'features/workspaces/presentation/pages/workspace_add.dart';
 import 'features/workspaces/presentation/pages/workspace_list.dart';
 
-class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({super.key});
 
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
