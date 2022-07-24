@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:objectid/objectid.dart';
-import 'package:test/test.dart';
 import 'package:worknotes/src/features/accounts/domain/entities/account.dart';
 import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_bloc.dart';
 import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_event.dart';
@@ -40,7 +40,7 @@ void main() {
   blocTest<AccountsBloc, AccountsState>(
     'Add accounts',
     build: () => accountsBloc,
-    seed: () => AccountsState([]),
+    seed: () => const AccountsState([]),
     act: (bloc) {
       bloc.add(AccountAddedOrUpdated(accountAlphaV1));
       bloc.add(AccountAddedOrUpdated(accountBetaV1));
@@ -64,7 +64,7 @@ void main() {
     build: () => accountsBloc,
     seed: () => AccountsState([accountAlphaV1]),
     act: (bloc) => bloc.add(AccountRemoved(accountAlphaV1)),
-    expect: () => [AccountsState([])],
+    expect: () => const [AccountsState([])],
   );
   blocTest<AccountsBloc, AccountsState>(
     'Removing an account that doesn\'t exist is ignored',

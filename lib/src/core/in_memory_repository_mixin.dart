@@ -51,7 +51,6 @@ abstract class InMemoryRepository<T extends HasIdName> {
     }
   }
 
-  @override
   Future<T> findByName(String name) {
     try {
       return Future.value(items.firstWhere((item) => item.name == name));

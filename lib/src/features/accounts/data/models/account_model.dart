@@ -1,5 +1,6 @@
 import '../../domain/entities/account.dart';
 
+// ignore: must_be_immutable
 class AccountModel extends Account {
   AccountModel({
     required super.id,
