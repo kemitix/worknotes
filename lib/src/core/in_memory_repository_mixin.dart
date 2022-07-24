@@ -25,10 +25,10 @@ abstract class InMemoryRepository<T extends HasIdName> {
     return Future.value(right(item));
   }
 
-  Future<void> remove(T item) {
+  Future<Either<Failure, T>> remove(T item) {
     items.remove(item);
     notifyListeners();
-    return Future.value(null);
+    return Future.value(right(item));
   }
 
   Future<void> update(int index, T item) {
@@ -39,8 +39,8 @@ abstract class InMemoryRepository<T extends HasIdName> {
 
   // read-only methods
 
-  Future<List<T>> getAll() {
-    return Future.value(UnmodifiableListView(items));
+  Future<Either<Failure, List<T>>> getAll() {
+    return Future.value(right(UnmodifiableListView(items)));
   }
 
   Future<T> findById(ObjectId objectId) {

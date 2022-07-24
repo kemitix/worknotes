@@ -1,7 +1,8 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/workspaces/domain/repositories/workspace_repository.dart';
+import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_bloc.dart';
+import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_event.dart';
 
 import '../../../../client/client.dart';
 import '../../../accounts/domain/entities/account.dart';
@@ -33,21 +34,20 @@ class _WorkspacesInAccountListState extends State<WorkspacesInAccountList> {
             }
             List<Workspace> workspaces = snapshot.data!;
             return Expanded(
-              child: Consumer<WorkspaceRepository>(
-                  builder: (context, workspaceRepo, child) {
-                return ListView.separated(
-                    itemBuilder: (context, index) {
-                      var workspace = workspaces[index];
-                      return ListTile(
-                          title: Text(workspace.name),
-                          onTap: () {
-                            workspaceRepo.add(workspace);
-                            Navigator.pop(context);
-                          });
-                    },
-                    separatorBuilder: (a, b) => const Divider(),
-                    itemCount: workspaces.length);
-              }),
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    var workspace = workspaces[index];
+                    return ListTile(
+                        title: Text(workspace.name),
+                        onTap: () {
+                          context
+                              .read<WorkspacesBloc>()
+                              .add(AddOrUpdateWorkspaceEvent(workspace));
+                          Navigator.pop(context);
+                        });
+                  },
+                  separatorBuilder: (a, b) => const Divider(),
+                  itemCount: workspaces.length),
             );
           default:
             return const Center(child: CircularProgressIndicator());

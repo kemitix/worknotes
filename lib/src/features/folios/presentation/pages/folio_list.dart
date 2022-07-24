@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/folios/domain/repositories/folio_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../workspaces/domain/entities/workspace.dart';
-import '../../domain/entities/folio.dart';
+import '../bloc/folios_bloc.dart';
+import '../bloc/folios_state.dart';
 
 class FolioList extends StatelessWidget {
   static const route = '/folios';
@@ -17,33 +17,21 @@ class FolioList extends StatelessWidget {
       appBar: AppBar(
         title: Text(workspace.name),
       ),
-      body: Consumer<FolioRepository>(
-        builder: (context, folioRepo, child) {
-          return FutureBuilder<List<Folio>>(
-            future: folioRepo.getAll(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  if (snapshot.hasError) {
-                    return Center(child: Text(snapshot.error.toString()));
-                  }
-                  List<Folio> folios = snapshot.data!;
-                  return ListView.separated(
-                    itemCount: folios.length,
-                    itemBuilder: (context, index) {
-                      final folio = folios[index];
-                      return GestureDetector(
-                        child: ListTile(
-                          title: Text(folio.name),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (a, b) => const Divider(),
-                  );
-                default:
-                  return const Center(child: CircularProgressIndicator());
-              }
+      body: BlocConsumer<FoliosBloc, FoliosState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          final folios = state.folios;
+          return ListView.separated(
+            itemCount: folios.length,
+            itemBuilder: (context, index) {
+              final folio = folios[index];
+              return GestureDetector(
+                child: ListTile(
+                  title: Text(folio.name),
+                ),
+              );
             },
+            separatorBuilder: (a, b) => const Divider(),
           );
         },
       ),

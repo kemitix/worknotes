@@ -19,5 +19,5 @@ class Account extends Equatable with HasIdName {
   });
 
   @override
-  List<Object?> get props => [type, name, key, secret];
+  List<Object?> get props => [id, type, name, key, secret];
 }

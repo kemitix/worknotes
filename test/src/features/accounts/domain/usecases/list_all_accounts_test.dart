@@ -6,16 +6,16 @@ import 'package:objectid/objectid.dart';
 import 'package:worknotes/src/core/error/failure.dart';
 import 'package:worknotes/src/features/accounts/domain/entities/account.dart';
 import 'package:worknotes/src/features/accounts/domain/repositories/account_repository.dart';
-import 'package:worknotes/src/features/accounts/domain/usecases/add_account.dart';
+import 'package:worknotes/src/features/accounts/domain/usecases/get_all_accounts.dart';
 
-import 'add_account_test.mocks.dart';
+import 'list_all_accounts_test.mocks.dart';
 
 @GenerateMocks([AccountRepository])
 void main() {
   MockAccountRepository mockAccountRepository = MockAccountRepository();
-  AddAccount usecase = AddAccount(mockAccountRepository);
+  GetAllAccounts usecase = GetAllAccounts(mockAccountRepository);
 
-  test('Should add account to repository', () async {
+  test('Should return all accounts from repository', () async {
     //given
     Account account = Account(
         id: ObjectId(),
@@ -23,14 +23,14 @@ void main() {
         name: 'name',
         key: 'key',
         secret: 'secret');
-    when(mockAccountRepository.add(account))
-        .thenAnswer((_) async => right(account));
+    when(mockAccountRepository.getAll())
+        .thenAnswer((_) async => right([account]));
     //when
-    final Either<Failure, Account> result =
-        await usecase.execute(account: account);
+    final Either<Failure, List<Account>> result = await usecase.execute();
     //then
-    expect(result, right(account));
-    verify(mockAccountRepository.add(account));
+    expect(result.isRight(), isTrue);
+    expect(result.getOrElse(() => []), [account]);
+    verify(mockAccountRepository.getAll());
     verifyNoMoreInteractions(mockAccountRepository);
   });
 }
