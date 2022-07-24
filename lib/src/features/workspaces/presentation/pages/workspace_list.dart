@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_bloc.dart';
+import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_event.dart';
 
 import '../../../folios/presentation/pages/folio_list.dart';
 import '../../domain/entities/workspace.dart';
-import '../../domain/repositories/workspace_repository.dart';
+import '../bloc/workspaces_state.dart';
 import '../widgets/workspaces_drawer.dart';
 import 'workspace_add.dart';
 
@@ -19,13 +22,14 @@ class WorkspaceList extends StatefulWidget {
 }
 
 class _WorkspaceListState extends State<WorkspaceList> {
-  void _showMenu(BuildContext context, Workspace workspace,
-          WorkspaceRepository workspaceRepo) =>
+  void _showMenu(BuildContext context, Workspace workspace) =>
       showMenu(context: context, position: RelativeRect.fill, items: [
         PopupMenuItem(
             child: const Text('Remove'),
             onTap: () {
-              workspaceRepo.remove(workspace);
+              context
+                  .read<WorkspacesBloc>()
+                  .add(RemoveWorkspaceEvent(workspace));
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text('Workspace removed: ${workspace.name}')));
             }),
@@ -39,44 +43,29 @@ class _WorkspaceListState extends State<WorkspaceList> {
         title: const Text('Workspaces'),
       ),
       drawer: const WorkspacesDrawer(),
-      body: Consumer<WorkspaceRepository>(
-        builder: (context, workspaceRepo, child) {
-          return FutureBuilder<List<Workspace>>(
-            future: workspaceRepo.getAll(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  if (snapshot.hasError) {
-                    return Center(child: Text(snapshot.error.toString()));
-                  }
-                  List<Workspace> workspaces = snapshot.data!;
-                  return ListView.separated(
-                    itemCount: workspaces.length,
-                    itemBuilder: (context, index) {
-                      final workspace = workspaces[index];
-                      return GestureDetector(
-                        onSecondaryTap: () =>
-                            _showMenu(context, workspace, workspaceRepo),
-                        child: ListTile(
-                          title: Text(workspace.name),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.menu_sharp),
-                            onPressed: () =>
-                                _showMenu(context, workspace, workspaceRepo),
-                          ),
-                          onTap: () => navigator.pushNamed(FolioList.route,
-                              arguments: workspace),
-                          onLongPress: () =>
-                              _showMenu(context, workspace, workspaceRepo),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (a, b) => const Divider(),
-                  );
-                default:
-                  return const Center(child: CircularProgressIndicator());
-              }
+      body: BlocConsumer<WorkspacesBloc, WorkspacesState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          final workspaces = state.workspaces;
+          return ListView.separated(
+            itemCount: workspaces.length,
+            itemBuilder: (context, index) {
+              final workspace = workspaces[index];
+              return GestureDetector(
+                onSecondaryTap: () => _showMenu(context, workspace),
+                child: ListTile(
+                  title: Text(workspace.name),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.menu_sharp),
+                    onPressed: () => _showMenu(context, workspace),
+                  ),
+                  onTap: () => navigator.pushNamed(FolioList.route,
+                      arguments: workspace),
+                  onLongPress: () => _showMenu(context, workspace),
+                ),
+              );
             },
+            separatorBuilder: (a, b) => const Divider(),
           );
         },
       ),

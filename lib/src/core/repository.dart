@@ -8,11 +8,11 @@ import 'has_id_name.dart';
 abstract class Repository<T extends HasIdName> extends ChangeNotifier {
   Future<Either<Failure, T>> add(T item);
 
-  Future<void> remove(T item);
+  Future<Either<Failure, T>> remove(T item);
 
   Future<void> update(int index, T item);
 
-  Future<List<T>> getAll();
+  Future<Either<Failure, List<T>>> getAll();
 
   Future<T> findById(ObjectId objectId);
 

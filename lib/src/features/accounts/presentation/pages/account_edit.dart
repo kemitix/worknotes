@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
 import 'package:provider/provider.dart';
+import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_bloc.dart';
+import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_event.dart';
 
 import '../../../../core/widgets/labelled_text_form_field.dart';
 import '../../domain/entities/account.dart';
-import '../../domain/repositories/account_repository.dart';
 
 enum AccountEditMode { Add, Edit }
 
@@ -83,27 +84,25 @@ class _AccountEditState extends State<AccountEdit> {
               controller: secretController,
               validator: validateNotEmpty('Please enter an API Secret'),
             ),
-            Consumer<AccountRepository>(
-              builder: (context, accountRepo, child) {
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: ElevatedButton(
-                    child: Text(widget.saveButtonLabel),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        accountRepo.add(Account(
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: ElevatedButton(
+                child: Text(widget.saveButtonLabel),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    context
+                        .read<AccountsBloc>()
+                        .add(AddOrUpdateAccountEvent(Account(
                           id: accountId,
                           type: 'trello',
                           name: nameController.text,
                           key: keyController.text,
                           secret: secretController.text,
-                        ));
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                );
-              },
+                        )));
+                    Navigator.pop(context);
+                  }
+                },
+              ),
             ),
           ],
         ),

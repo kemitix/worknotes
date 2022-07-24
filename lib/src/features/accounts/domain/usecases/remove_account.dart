@@ -4,12 +4,12 @@ import '../../../../core/error/failure.dart';
 import '../entities/account.dart';
 import '../repositories/account_repository.dart';
 
-class AddAccount {
+class RemoveAccount {
   final AccountRepository repository;
 
-  AddAccount(this.repository);
+  RemoveAccount(this.repository);
 
   Future<Either<Failure, Account>> execute({required Account account}) async {
-    return repository.add(account);
+    return repository.remove(account);
   }
 }
