@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../../folios/presentation/pages/folio_list.dart';
 import '../../domain/entities/workspace.dart';

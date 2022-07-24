@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:objectid/objectid.dart';
-import 'package:test/test.dart';
 import 'package:worknotes/src/features/folios/domain/entities/folio.dart';
 import 'package:worknotes/src/features/folios/presentation/bloc/folios_bloc.dart';
 import 'package:worknotes/src/features/folios/presentation/bloc/folios_event.dart';
@@ -42,7 +42,7 @@ void main() {
   blocTest<FoliosBloc, FoliosState>(
     'Add folios',
     build: () => foliosBloc,
-    seed: () => FoliosState([]),
+    seed: () => const FoliosState([]),
     act: (bloc) {
       bloc.add(FolioAddedOrUpdated(folioAlphaV1));
       bloc.add(FolioAddedOrUpdated(folioBetaV1));
@@ -66,7 +66,7 @@ void main() {
     build: () => foliosBloc,
     seed: () => FoliosState([folioAlphaV1]),
     act: (bloc) => bloc.add(FolioRemoved(folioAlphaV1)),
-    expect: () => [FoliosState([])],
+    expect: () => const [FoliosState([])],
   );
   blocTest<FoliosBloc, FoliosState>(
     'Removing a folio that doesn\'t exist is ignored',
