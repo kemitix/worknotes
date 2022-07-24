@@ -6,7 +6,7 @@ import 'folios_state.dart';
 
 class FoliosBloc extends Bloc<FoliosEvent, FoliosState> {
   FoliosBloc() : super(const FoliosState([])) {
-    on<AddOrUpdateFolioEvent>((event, emit) {
+    on<FolioAddedOrUpdated>((event, emit) {
       if (state.folios.any((folio) => folio.id == event.folio.id)) {
         // update
         emit(FoliosState([
@@ -18,7 +18,7 @@ class FoliosBloc extends Bloc<FoliosEvent, FoliosState> {
         emit(FoliosState([...state.folios, event.folio]));
       }
     });
-    on<RemoveFolioEvent>((event, emit) {
+    on<FolioRemoved>((event, emit) {
       if (state.folios.any((folio) => folio.id == event.folio.id)) {
         emit(FoliosState([
           ...state.folios.where((folio) => folio.id != event.folio.id),

@@ -42,8 +42,8 @@ void main() {
     build: () => accountsBloc,
     seed: () => AccountsState([]),
     act: (bloc) {
-      bloc.add(AddOrUpdateAccountEvent(accountAlphaV1));
-      bloc.add(AddOrUpdateAccountEvent(accountBetaV1));
+      bloc.add(AccountAddedOrUpdated(accountAlphaV1));
+      bloc.add(AccountAddedOrUpdated(accountBetaV1));
     },
     expect: () => [
       AccountsState([accountAlphaV1]),
@@ -54,7 +54,7 @@ void main() {
     'Add an account where id already exists is an update',
     build: () => accountsBloc,
     seed: () => AccountsState([accountAlphaV1]),
-    act: (bloc) => bloc.add(AddOrUpdateAccountEvent(accountAlphaV2)),
+    act: (bloc) => bloc.add(AccountAddedOrUpdated(accountAlphaV2)),
     expect: () => [
       AccountsState([accountAlphaV2])
     ],
@@ -63,14 +63,14 @@ void main() {
     'Remove an account',
     build: () => accountsBloc,
     seed: () => AccountsState([accountAlphaV1]),
-    act: (bloc) => bloc.add(RemoveAccountEvent(accountAlphaV1)),
+    act: (bloc) => bloc.add(AccountRemoved(accountAlphaV1)),
     expect: () => [AccountsState([])],
   );
   blocTest<AccountsBloc, AccountsState>(
     'Removing an account that doesn\'t exist is ignored',
     build: () => accountsBloc,
     seed: () => AccountsState([accountAlphaV1]),
-    act: (bloc) => bloc.add(RemoveAccountEvent(accountBetaV1)),
+    act: (bloc) => bloc.add(AccountRemoved(accountBetaV1)),
     expect: () => [], // no changes
   );
 }

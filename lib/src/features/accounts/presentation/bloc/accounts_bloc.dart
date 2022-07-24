@@ -6,7 +6,7 @@ import 'accounts_state.dart';
 
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   AccountsBloc() : super(const AccountsState([])) {
-    on<AddOrUpdateAccountEvent>((event, emit) {
+    on<AccountAddedOrUpdated>((event, emit) {
       if (state.accounts.any((account) => account.id == event.account.id)) {
         // update
         emit(AccountsState([
@@ -18,7 +18,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         emit(AccountsState([...state.accounts, event.account]));
       }
     });
-    on<RemoveAccountEvent>((event, emit) {
+    on<AccountRemoved>((event, emit) {
       if (state.accounts.any((account) => account.id == event.account.id)) {
         emit(AccountsState([
           ...state.accounts.where((account) => account.id != event.account.id),

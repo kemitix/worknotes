@@ -4,19 +4,19 @@ import '../../domain/entities/folio.dart';
 
 abstract class FoliosEvent extends Equatable {}
 
-class AddOrUpdateFolioEvent extends FoliosEvent {
+class FolioAddedOrUpdated extends FoliosEvent {
   final Folio folio;
 
-  AddOrUpdateFolioEvent(this.folio);
+  FolioAddedOrUpdated(this.folio);
 
   @override
   List<Object?> get props => [folio];
 }
 
-class RemoveFolioEvent extends FoliosEvent {
+class FolioRemoved extends FoliosEvent {
   final Folio folio;
 
-  RemoveFolioEvent(this.folio);
+  FolioRemoved(this.folio);
 
   @override
   List<Object?> get props => [folio];

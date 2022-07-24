@@ -44,8 +44,8 @@ void main() {
     build: () => foliosBloc,
     seed: () => FoliosState([]),
     act: (bloc) {
-      bloc.add(AddOrUpdateFolioEvent(folioAlphaV1));
-      bloc.add(AddOrUpdateFolioEvent(folioBetaV1));
+      bloc.add(FolioAddedOrUpdated(folioAlphaV1));
+      bloc.add(FolioAddedOrUpdated(folioBetaV1));
     },
     expect: () => [
       FoliosState([folioAlphaV1]),
@@ -56,7 +56,7 @@ void main() {
     'Add an folio where id already exists is an update',
     build: () => foliosBloc,
     seed: () => FoliosState([folioAlphaV1]),
-    act: (bloc) => bloc.add(AddOrUpdateFolioEvent(folioAlphaV2)),
+    act: (bloc) => bloc.add(FolioAddedOrUpdated(folioAlphaV2)),
     expect: () => [
       FoliosState([folioAlphaV2])
     ],
@@ -65,14 +65,14 @@ void main() {
     'Remove a folio',
     build: () => foliosBloc,
     seed: () => FoliosState([folioAlphaV1]),
-    act: (bloc) => bloc.add(RemoveFolioEvent(folioAlphaV1)),
+    act: (bloc) => bloc.add(FolioRemoved(folioAlphaV1)),
     expect: () => [FoliosState([])],
   );
   blocTest<FoliosBloc, FoliosState>(
     'Removing a folio that doesn\'t exist is ignored',
     build: () => foliosBloc,
     seed: () => FoliosState([folioAlphaV1]),
-    act: (bloc) => bloc.add(RemoveFolioEvent(folioBetaV1)),
+    act: (bloc) => bloc.add(FolioRemoved(folioBetaV1)),
     expect: () => [], // no changes
   );
 }

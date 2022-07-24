@@ -4,19 +4,19 @@ import '../../domain/entities/account.dart';
 
 abstract class AccountsEvent extends Equatable {}
 
-class AddOrUpdateAccountEvent extends AccountsEvent {
+class AccountAddedOrUpdated extends AccountsEvent {
   final Account account;
 
-  AddOrUpdateAccountEvent(this.account);
+  AccountAddedOrUpdated(this.account);
 
   @override
   List<Object?> get props => [account];
 }
 
-class RemoveAccountEvent extends AccountsEvent {
+class AccountRemoved extends AccountsEvent {
   final Account account;
 
-  RemoveAccountEvent(this.account);
+  AccountRemoved(this.account);
 
   @override
   List<Object?> get props => [account];
