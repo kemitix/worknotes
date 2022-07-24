@@ -7,7 +7,7 @@ import '../../domain/entities/account.dart';
 import '../bloc/accounts_bloc.dart';
 import '../bloc/accounts_event.dart';
 
-enum AccountEditMode { Add, Edit }
+enum AccountEditMode { add, edit }
 
 class AccountEdit extends StatefulWidget {
   static const routeAdd = '/settings/accounts/add';
@@ -18,23 +18,23 @@ class AccountEdit extends StatefulWidget {
 
   String get appBar {
     switch (mode) {
-      case AccountEditMode.Add:
+      case AccountEditMode.add:
         return 'Add Account';
-      case AccountEditMode.Edit:
+      case AccountEditMode.edit:
         return 'Edit Account';
     }
   }
 
   String get saveButtonLabel {
     switch (mode) {
-      case AccountEditMode.Add:
+      case AccountEditMode.add:
         return 'Add';
-      case AccountEditMode.Edit:
+      case AccountEditMode.edit:
         return 'Save';
     }
   }
 
-  bool get isEditMode => mode == AccountEditMode.Edit;
+  bool get isEditMode => mode == AccountEditMode.edit;
 
   @override
   State<AccountEdit> createState() => _AccountEditState();

@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:objectid/objectid.dart';
-import 'package:test/test.dart';
 import 'package:worknotes/src/features/workspaces/domain/entities/workspace.dart';
 import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_bloc.dart';
 import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_event.dart';
@@ -42,7 +42,7 @@ void main() {
   blocTest<WorkspacesBloc, WorkspacesState>(
     'Add workspaces',
     build: () => workspacesBloc,
-    seed: () => WorkspacesState([]),
+    seed: () => const WorkspacesState([]),
     act: (bloc) {
       bloc.add(WorkspaceAddedOrUpdated(workspaceAlphaV1));
       bloc.add(WorkspaceAddedOrUpdated(workspaceBetaV1));
@@ -66,7 +66,7 @@ void main() {
     build: () => workspacesBloc,
     seed: () => WorkspacesState([workspaceAlphaV1]),
     act: (bloc) => bloc.add(WorkspaceRemoved(workspaceAlphaV1)),
-    expect: () => [WorkspacesState([])],
+    expect: () => [const WorkspacesState([])],
   );
   blocTest<WorkspacesBloc, WorkspacesState>(
     'Removing a workspace that doesn\'t exist is ignored',
