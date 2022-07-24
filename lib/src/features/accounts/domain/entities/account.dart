@@ -3,20 +3,22 @@ import 'package:objectid/objectid.dart';
 
 import '../../../../core/has_id_name.dart';
 
+// ignore: must_be_immutable
 class Account extends Equatable with HasIdName {
-  final ObjectId id;
   final String type;
-  final String name;
   final String key;
   final String secret;
 
   Account({
-    required this.id,
+    required ObjectId id,
     required this.type,
-    required this.name,
+    required String name,
     required this.key,
     required this.secret,
-  });
+  }) {
+    this.id = id;
+    this.name = name;
+  }
 
   @override
   List<Object?> get props => [id, type, name, key, secret];

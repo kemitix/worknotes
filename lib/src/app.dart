@@ -38,9 +38,9 @@ class App extends StatelessWidget {
               AppSettings.route: (_) => const AppSettings(),
               AccountList.route: (_) => const AccountList(),
               AccountEdit.routeAdd: (_) =>
-                  const AccountEdit(mode: AccountEditMode.Add),
+                  const AccountEdit(mode: AccountEditMode.add),
               AccountEdit.routeEdit: (_) =>
-                  const AccountEdit(mode: AccountEditMode.Edit),
+                  const AccountEdit(mode: AccountEditMode.edit),
               WorkspaceAdd.route: (_) => const WorkspaceAdd(),
               FolioList.route: (_) => const FolioList(),
             },
