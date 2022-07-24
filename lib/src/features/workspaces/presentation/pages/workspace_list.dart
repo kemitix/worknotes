@@ -10,18 +10,13 @@ import '../bloc/workspaces_state.dart';
 import '../widgets/workspaces_drawer.dart';
 import 'workspace_add.dart';
 
-class WorkspaceList extends StatefulWidget {
+class WorkspaceList extends StatelessWidget {
   static const route = '/';
-
-  const WorkspaceList({super.key, required this.title});
 
   final String title;
 
-  @override
-  State<WorkspaceList> createState() => _WorkspaceListState();
-}
+  const WorkspaceList({super.key, required this.title});
 
-class _WorkspaceListState extends State<WorkspaceList> {
   void _showMenu(BuildContext context, Workspace workspace) =>
       showMenu(context: context, position: RelativeRect.fill, items: [
         PopupMenuItem(
@@ -71,7 +66,7 @@ class _WorkspaceListState extends State<WorkspaceList> {
         onPressed: () => navigator.pushNamed(WorkspaceAdd.route),
         tooltip: 'Add Workspace',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

@@ -3,16 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/navigation_list_tile.dart';
 import '../../../accounts/presentation/pages/account_list.dart';
 
-class AppSettings extends StatefulWidget {
+class AppSettings extends StatelessWidget {
   static const route = '/settings';
 
   const AppSettings({super.key});
 
-  @override
-  State<AppSettings> createState() => _AppSettingsState();
-}
-
-class _AppSettingsState extends State<AppSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

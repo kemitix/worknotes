@@ -1,29 +1,23 @@
 // lists workspace available for selection in the account
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_bloc.dart';
-import 'package:worknotes/src/features/workspaces/presentation/bloc/workspaces_event.dart';
 
 import '../../../../client/client.dart';
 import '../../../accounts/domain/entities/account.dart';
 import '../../domain/entities/workspace.dart';
+import '../bloc/workspaces_bloc.dart';
+import '../bloc/workspaces_event.dart';
 
-class WorkspacesInAccountList extends StatefulWidget {
+class WorkspacesInAccountList extends StatelessWidget {
   final Account account;
 
   const WorkspacesInAccountList({super.key, required this.account});
 
   @override
-  State<WorkspacesInAccountList> createState() =>
-      _WorkspacesInAccountListState();
-}
-
-class _WorkspacesInAccountListState extends State<WorkspacesInAccountList> {
-  @override
   Widget build(BuildContext context) {
     var client = context.read<Client>();
     return FutureBuilder<List<Workspace>>(
-      future: client.openWorkspaces(widget.account),
+      future: client.openWorkspaces(account),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
