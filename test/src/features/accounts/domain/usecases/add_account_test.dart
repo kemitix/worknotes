@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:objectid/objectid.dart';
-import 'package:worknotes/src/core/error/failure.dart';
 import 'package:worknotes/src/features/accounts/domain/entities/account.dart';
 import 'package:worknotes/src/features/accounts/domain/repositories/account_repository.dart';
 import 'package:worknotes/src/features/accounts/domain/usecases/add_account.dart';
@@ -26,8 +25,7 @@ void main() {
     when(mockAccountRepository.add(account))
         .thenAnswer((_) async => right(account));
     //when
-    final Either<Failure, Account> result =
-        await usecase.execute(account: account);
+    final result = await usecase.call(account);
     //then
     expect(result, right(account));
     verify(mockAccountRepository.add(account));
