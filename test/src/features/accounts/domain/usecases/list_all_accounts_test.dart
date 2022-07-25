@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:objectid/objectid.dart';
-import 'package:worknotes/src/core/error/failure.dart';
+import 'package:worknotes/src/core/usecases/usecase.dart';
 import 'package:worknotes/src/features/accounts/domain/entities/account.dart';
 import 'package:worknotes/src/features/accounts/domain/repositories/account_repository.dart';
 import 'package:worknotes/src/features/accounts/domain/usecases/get_all_accounts.dart';
@@ -26,7 +26,7 @@ void main() {
     when(mockAccountRepository.getAll())
         .thenAnswer((_) async => right([account]));
     //when
-    final Either<Failure, List<Account>> result = await usecase.execute();
+    final result = await usecase.call(NoParams());
     //then
     expect(result.isRight(), isTrue);
     expect(result.getOrElse(() => []), [account]);
