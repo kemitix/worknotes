@@ -18,7 +18,7 @@ Future<void> init() async {
   sl.registerFactory(() => networkInfo);
   // features
   // feature: accounts
-  sl.registerSingleton(AccountsBloc());
+  sl.registerSingleton(AccountsBloc(addAccount: sl(), removeAccount: sl()));
   sl.registerLazySingleton(() => AddAccount(sl()));
   sl.registerLazySingleton(() => RemoveAccount(sl()));
   sl.registerLazySingleton(() => GetAllAccounts(sl()));
