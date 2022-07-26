@@ -4,6 +4,11 @@ import '../../domain/entities/account.dart';
 
 abstract class AccountsEvent extends Equatable {}
 
+class LoadAccounts extends AccountsEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class AccountAddedOrUpdated extends AccountsEvent {
   final Account account;
 

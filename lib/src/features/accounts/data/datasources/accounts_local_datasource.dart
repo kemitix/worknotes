@@ -19,7 +19,8 @@ class SharedPreferencesAccountsLocalDataSource
   @override
   List<AccountModel> loadAccounts() =>
       (sharedPreferences.getStringList('accounts') ?? [])
-          .map((e) => json.decode(e) as AccountModel)
+          .map((json) => jsonDecode(json))
+          .map((map) => AccountModel.fromMap(map))
           .toList();
 
   @override
