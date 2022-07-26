@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worknotes/src/client/client.dart';
@@ -14,11 +14,11 @@ final GetIt sl = GetIt.instance();
 
 Future<void> init() async {
   // core
-  final NetworkInfo networkInfo = NetworkInfoImpl(DataConnectionChecker());
+  final NetworkInfo networkInfo = NetworkInfoImpl(Connectivity());
   sl.registerFactory(() => networkInfo);
   // features
   // feature: accounts
-  sl.registerSingleton(AccountsBloc());
+  sl.registerSingleton(AccountsBloc(addAccount: sl(), removeAccount: sl()));
   sl.registerLazySingleton(() => AddAccount(sl()));
   sl.registerLazySingleton(() => RemoveAccount(sl()));
   sl.registerLazySingleton(() => GetAllAccounts(sl()));
