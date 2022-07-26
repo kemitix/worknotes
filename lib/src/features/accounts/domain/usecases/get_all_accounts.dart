@@ -9,6 +9,7 @@ class GetAllAccounts implements UseCase<List<Account>, NoParams> {
 
   GetAllAccounts(this.repository);
 
+  @override
   Future<Either<Failure, List<Account>>> call(NoParams noParams) =>
       repository.getAll();
 }
