@@ -28,7 +28,7 @@ jobs:
         run: flutter format --output=none --set-exit-if-changed .
 
       - name: Build Run
-        run: flutter pub run build_runner build
+        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Analyze project source
         run: flutter analyze
