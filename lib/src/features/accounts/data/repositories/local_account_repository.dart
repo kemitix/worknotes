@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:dartz/dartz.dart';
 import 'package:objectid/objectid.dart';
-import 'package:worknotes/src/features/accounts/data/models/account_model.dart';
 
 import '../../../../core/error/duplicate_record_error.dart';
 import '../../../../core/error/failure.dart';
@@ -10,17 +9,22 @@ import '../../../../core/error/not_found_error.dart';
 import '../../domain/entities/account.dart';
 import '../../domain/repositories/account_repository.dart';
 import '../datasources/accounts_local_datasource.dart';
+import '../models/account_model.dart';
 
-//TODO hook this up to the AccountsBloc
 class LocalAccountRepository extends AccountRepository {
   final AccountsLocalDataSource dataSource;
 
-  LocalAccountRepository(this.dataSource);
+  LocalAccountRepository(this.dataSource) {
+    load();
+  }
 
   final List<Account> items = [];
 
-  void load() => items.addAll(dataSource.loadAccounts().map((m) => Account(
-      id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret)));
+  void load() => items.addAll(dataSource
+      .loadAccounts()
+      .map((m) => Account(
+          id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret))
+      .toList());
 
   void save() => dataSource.saveAccounts(items
       .map((e) => AccountModel(

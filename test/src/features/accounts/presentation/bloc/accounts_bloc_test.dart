@@ -6,6 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:objectid/objectid.dart';
 import 'package:worknotes/src/features/accounts/domain/entities/account.dart';
 import 'package:worknotes/src/features/accounts/domain/usecases/add_account.dart';
+import 'package:worknotes/src/features/accounts/domain/usecases/get_all_accounts.dart';
 import 'package:worknotes/src/features/accounts/domain/usecases/remove_account.dart';
 import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_bloc.dart';
 import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_event.dart';
@@ -13,20 +14,24 @@ import 'package:worknotes/src/features/accounts/presentation/bloc/accounts_state
 
 import 'accounts_bloc_test.mocks.dart';
 
-@GenerateMocks([AddAccount, RemoveAccount])
+@GenerateMocks([AddAccount, RemoveAccount, GetAllAccounts])
 void main() {
   late AccountsBloc accountsBloc;
   setUp(() {
     final mockAddAccount = MockAddAccount();
     final mockRemoveAccount = MockRemoveAccount();
-    accountsBloc = AccountsBloc(
-      addAccount: mockAddAccount,
-      removeAccount: mockRemoveAccount,
-    );
+    final mockGetAllAccounts = MockGetAllAccounts();
+    when(mockGetAllAccounts.call(any))
+        .thenAnswer((_) => Future.value(right([])));
     when(mockAddAccount.call(any)).thenAnswer((realInvocation) =>
         Future.value(right(realInvocation.positionalArguments[0])));
     when(mockRemoveAccount.call(any)).thenAnswer((realInvocation) =>
         Future.value(right(realInvocation.positionalArguments[0])));
+    accountsBloc = AccountsBloc.load(
+      addAccount: mockAddAccount,
+      removeAccount: mockRemoveAccount,
+      getAllAccounts: mockGetAllAccounts,
+    );
   });
   test('Initial state is empty', () {
     expect(accountsBloc.state.accounts.isEmpty, isTrue);
