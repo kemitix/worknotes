@@ -19,7 +19,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GetIt sl = GetIt.instance();
+    final GetIt sl = GetIt.instance;
     return MultiProvider(
         providers: [
           Provider<Client>(create: (_) => ClientTrello()),
