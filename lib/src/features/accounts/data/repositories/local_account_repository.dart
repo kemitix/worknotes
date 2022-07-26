@@ -39,6 +39,7 @@ class LocalAccountRepository extends AccountRepository {
   // modifying methods:
   // should all call notifyListeners()
 
+  @override
   Future<Either<Failure, Account>> add(Account item) async {
     if (items.contains(item)) {
       return Future.value(left(DuplicateError()));
@@ -49,6 +50,7 @@ class LocalAccountRepository extends AccountRepository {
     return Future.value(right(item));
   }
 
+  @override
   Future<Either<Failure, Account>> remove(Account item) async {
     items.remove(item);
     save();
@@ -56,6 +58,7 @@ class LocalAccountRepository extends AccountRepository {
     return Future.value(right(item));
   }
 
+  @override
   Future<void> update(int index, Account item) async {
     items.setRange(index, index + 1, [item]);
     save();
@@ -65,10 +68,12 @@ class LocalAccountRepository extends AccountRepository {
 
   // read-only methods
 
+  @override
   Future<Either<Failure, List<Account>>> getAll() {
     return Future.value(right(UnmodifiableListView(items)));
   }
 
+  @override
   Future<Account> findById(ObjectId objectId) {
     try {
       return Future.value(items.firstWhere((item) => item.id == objectId));
@@ -77,6 +82,7 @@ class LocalAccountRepository extends AccountRepository {
     }
   }
 
+  @override
   Future<Account> findByName(String name) {
     try {
       return Future.value(items.firstWhere((item) => item.name == name));
