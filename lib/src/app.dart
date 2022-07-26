@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:worknotes/src/features/folios/presentation/bloc/folios_bloc.dart';
 
@@ -18,13 +19,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GetIt sl = GetIt.instance;
     return MultiProvider(
         providers: [
           Provider<Client>(create: (_) => ClientTrello()),
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => AccountsBloc()),
+            BlocProvider(create: (context) => sl<AccountsBloc>()),
             BlocProvider(create: (context) => WorkspacesBloc()),
             BlocProvider(create: (context) => FoliosBloc())
           ],
