@@ -10,6 +10,7 @@ class RemoveAccount implements UseCase<Account, Account> {
 
   RemoveAccount(this.repository);
 
+  @override
   Future<Either<Failure, Account>> call(Account account) async =>
       repository.remove(account);
 }
