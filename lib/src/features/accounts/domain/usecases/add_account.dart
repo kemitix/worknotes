@@ -10,6 +10,7 @@ class AddAccount implements UseCase<Account, Account> {
 
   AddAccount(this.repository);
 
+  @override
   Future<Either<Failure, Account>> call(Account account) async =>
       repository.add(account);
 }
