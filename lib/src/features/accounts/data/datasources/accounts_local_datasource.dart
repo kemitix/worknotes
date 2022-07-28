@@ -26,6 +26,10 @@ class SharedPreferencesAccountsLocalDataSource
   @override
   void saveAccounts(List<AccountModel> accountModels) {
     sharedPreferences.setStringList(
-        'accounts', accountModels.map((e) => json.encode(e)).toList());
+        'accounts',
+        accountModels
+            .map((AccountModel e) => e.toMap())
+            .map((map) => json.encode(map))
+            .toList());
   }
 }
