@@ -41,7 +41,7 @@ class LocalAccountRepository extends AccountRepository {
 
   @override
   Future<Either<Failure, Account>> add(Account item) async {
-    if (_items.contains(item)) {
+    if (_items.contains(item) || _containsItemWithSameName(item)) {
       return Future.value(left(DuplicateError()));
     }
     _items.add(item);
@@ -61,12 +61,24 @@ class LocalAccountRepository extends AccountRepository {
     return Future.value(right(item));
   }
 
+  bool _containsItemWithSameName(Account account) {
+    return _items.where((e) => e.name == account.name).isNotEmpty;
+  }
+
   @override
-  Future<void> update(int index, Account item) async {
-    _items.setRange(index, index + 1, [item]);
+  Future<Either<Failure, Account>> update(int index, Account account) async {
+    if (index < 0 || index >= _items.length) {
+      return Future.value(left(NotFoundError()));
+    }
+    Account original = _items.removeAt(index);
+    if (_items.contains(account) || _containsItemWithSameName(account)) {
+      _items.insert(index, original);
+      return Future.value(left(DuplicateError()));
+    }
+    _items.insert(index, account);
     save();
     notifyListeners();
-    return Future.value(null);
+    return Future.value(right(account));
   }
 
   // read-only methods
@@ -77,20 +89,22 @@ class LocalAccountRepository extends AccountRepository {
   }
 
   @override
-  Future<Account> findById(ObjectId objectId) {
+  Future<Either<Failure, Account>> findById(ObjectId objectId) {
     try {
-      return Future.value(_items.firstWhere((item) => item.id == objectId));
+      return Future.value(
+          right(_items.firstWhere((item) => item.id == objectId)));
     } on StateError {
-      return Future.error(NotFoundError());
+      return Future.value(left(NotFoundError()));
     }
   }
 
   @override
-  Future<Account> findByName(String name) {
+  Future<Either<Failure, Account>> findByName(String name) {
     try {
-      return Future.value(_items.firstWhere((item) => item.name == name));
+      return Future.value(
+          right(_items.firstWhere((item) => item.name == name)));
     } on StateError {
-      return Future.error(NotFoundError());
+      return Future.value(left(NotFoundError()));
     }
   }
 }

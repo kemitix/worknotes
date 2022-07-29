@@ -10,11 +10,11 @@ abstract class Repository<T extends HasIdName> extends ChangeNotifier {
 
   Future<Either<Failure, T>> remove(T item);
 
-  Future<void> update(int index, T item);
+  Future<Either<Failure, T>> update(int index, T item);
 
   Future<Either<Failure, List<T>>> getAll();
 
-  Future<T> findById(ObjectId objectId);
+  Future<Either<Failure, T>> findById(ObjectId objectId);
 
-  Future<T> findByName(String name);
+  Future<Either<Failure, T>> findByName(String name);
 }
