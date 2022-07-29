@@ -31,6 +31,8 @@ void main() {
       '{"id":"$objectId2","type":"type","name":"name2","key":"key","secret":"secret"}';
   // account 3 - a distinct account with the same name as account 1
   var objectId3 = ObjectId();
+  AccountModel accountModel3 = AccountModel(
+      id: objectId3, type: 'type', name: 'name1', key: 'key', secret: 'secret');
   Account account3 = Account(
       id: objectId3, type: 'type', name: 'name1', key: 'key', secret: 'secret');
   var account3Json =
@@ -74,15 +76,33 @@ void main() {
   void verifyNeverSaves() =>
       verifyNever(sharedPreferences.setStringList('accounts', any));
 
-  test('constructor', () async {
-    //given
-    givenStartingAccounts([accountModel1, accountModel2]);
-    //when
-    var repository = createRepository();
-    //then
-    await verifyContents(repository, [account1, account2]);
-    verifyConstructorLoads();
-    verifyNoMoreInteractions(sharedPreferences);
+  group('constructor', () {
+    test('load two accounts', () async {
+      //given
+      givenStartingAccounts([accountModel1, accountModel2]);
+      //when
+      var repository = createRepository();
+      //then
+      await verifyContents(repository, [account1, account2]);
+      verifyConstructorLoads();
+      verifyNoMoreInteractions(sharedPreferences);
+    });
+    test('load duplicate accounts - only one survives', () async {
+      //given
+      givenStartingAccounts([accountModel1, accountModel2, accountModel1]);
+      //when
+      var repository = createRepository();
+      //then
+      await verifyContents(repository, [account1, account2]);
+    });
+    test('load duplicate account names - only one survives', () async {
+      //given
+      givenStartingAccounts([accountModel1, accountModel2, accountModel3]);
+      //when
+      var repository = createRepository();
+      //then
+      await verifyContents(repository, [account3, account2]);
+    });
   });
   group('methods triggering a save', () {
     setUp(() => givenSaveIsSuccessful());
