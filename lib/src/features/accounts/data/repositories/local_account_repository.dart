@@ -20,29 +20,21 @@ class LocalAccountRepository extends AccountRepository {
 
   final List<Account> _items = [];
 
-  void load() =>
-      _items.addAll(dataSource
-          .loadAccounts()
-          .map((m) =>
-          Account(
-              id: m.id,
-              type: m.type,
-              name: m.name,
-              key: m.key,
-              secret: m.secret))
-          .toList());
+  void load() => _items.addAll(dataSource
+      .loadAccounts()
+      .map((m) => Account(
+          id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret))
+      .toList());
 
-  void save() =>
-      dataSource.saveAccounts(_items
-          .map((e) =>
-          AccountModel(
+  void save() => dataSource.saveAccounts(_items
+      .map((e) => AccountModel(
             id: e.id,
             type: e.type,
             name: e.name,
             key: e.key,
             secret: e.secret,
           ))
-          .toList(growable: false));
+      .toList(growable: false));
 
   // modifying methods:
   // should all call notifyListeners()
@@ -70,9 +62,7 @@ class LocalAccountRepository extends AccountRepository {
   }
 
   bool _containsItemWithSameName(Account account) {
-    return _items
-        .where((e) => e.name == account.name)
-        .isNotEmpty;
+    return _items.where((e) => e.name == account.name).isNotEmpty;
   }
 
   @override
