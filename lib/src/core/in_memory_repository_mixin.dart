@@ -31,10 +31,10 @@ abstract class InMemoryRepository<T extends HasIdName> {
     return Future.value(right(item));
   }
 
-  Future<void> update(int index, T item) {
+  Future<Either<Failure, T>> update(int index, T item) {
     items.setRange(index, index + 1, [item]);
     notifyListeners();
-    return Future.value(null);
+    return Future.value(right(item));
   }
 
   // read-only methods
@@ -43,19 +43,20 @@ abstract class InMemoryRepository<T extends HasIdName> {
     return Future.value(right(UnmodifiableListView(items)));
   }
 
-  Future<T> findById(ObjectId objectId) {
+  Future<Either<Failure, T>> findById(ObjectId objectId) {
     try {
-      return Future.value(items.firstWhere((item) => item.id == objectId));
+      return Future.value(
+          right(items.firstWhere((item) => item.id == objectId)));
     } on StateError {
-      return Future.error(NotFoundError());
+      return Future.value(left(NotFoundError()));
     }
   }
 
-  Future<T> findByName(String name) {
+  Future<Either<Failure, T>> findByName(String name) {
     try {
-      return Future.value(items.firstWhere((item) => item.name == name));
+      return Future.value(right(items.firstWhere((item) => item.name == name)));
     } on StateError {
-      return Future.error(NotFoundError());
+      return Future.value(left(NotFoundError()));
     }
   }
 }
