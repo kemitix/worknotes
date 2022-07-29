@@ -17,8 +17,7 @@ class AccountList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Accounts'),
       ),
-      body: BlocConsumer<AccountsBloc, AccountsState>(
-        listener: (context, state) {},
+      body: BlocBuilder<AccountsBloc, AccountsState>(
         builder: (context, state) {
           final accounts = state.accounts;
           return ListView.separated(

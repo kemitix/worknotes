@@ -17,8 +17,7 @@ class FolioList extends StatelessWidget {
       appBar: AppBar(
         title: Text(workspace.name),
       ),
-      body: BlocConsumer<FoliosBloc, FoliosState>(
-        listener: (context, state) {},
+      body: BlocBuilder<FoliosBloc, FoliosState>(
         builder: (context, state) {
           final folios = state.folios;
           return ListView.separated(

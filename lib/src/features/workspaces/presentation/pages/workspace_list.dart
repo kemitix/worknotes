@@ -35,8 +35,7 @@ class WorkspaceList extends StatelessWidget {
         title: const Text('Workspaces'),
       ),
       drawer: const WorkspacesDrawer(),
-      body: BlocConsumer<WorkspacesBloc, WorkspacesState>(
-        listener: (context, state) {},
+      body: BlocBuilder<WorkspacesBloc, WorkspacesState>(
         builder: (context, state) {
           final workspaces = state.workspaces;
           return ListView.separated(

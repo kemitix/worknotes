@@ -29,8 +29,7 @@ class _WorkspaceAddState extends State<WorkspaceAdd> {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: BlocConsumer<AccountsBloc, AccountsState>(
-            listener: (context, state) {},
+          child: BlocBuilder<AccountsBloc, AccountsState>(
             builder: (context, state) {
               final accounts = state.accounts;
               return Column(
