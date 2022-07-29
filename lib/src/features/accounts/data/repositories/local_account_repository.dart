@@ -20,11 +20,14 @@ class LocalAccountRepository extends AccountRepository {
 
   final List<Account> _items = [];
 
-  void load() => _items.addAll(dataSource
-      .loadAccounts()
-      .map((m) => Account(
-          id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret))
-      .toList());
+  void load() {
+    var accountModels = dataSource.loadAccounts();
+    var accounts = accountModels.map((m) => Account(
+        id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret));
+    var dedupedAccounts =
+        {for (var e in accounts) e.name: e}.entries.map((e) => e.value);
+    return _items.addAll(dedupedAccounts);
+  }
 
   void save() => dataSource.saveAccounts(_items
       .map((e) => AccountModel(
