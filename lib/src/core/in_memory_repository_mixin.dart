@@ -34,7 +34,7 @@ abstract class InMemoryRepository<T extends HasIdName> {
   Future<Either<Failure, T>> update(int index, T item) {
     items.setRange(index, index + 1, [item]);
     notifyListeners();
-    return Future.value(null);
+    return Future.value(right(item));
   }
 
   // read-only methods

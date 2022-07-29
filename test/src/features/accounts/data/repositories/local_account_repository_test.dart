@@ -31,8 +31,6 @@ void main() {
       '{"id":"$objectId2","type":"type","name":"name2","key":"key","secret":"secret"}';
   // account 3 - a distinct account with the same name as account 1
   var objectId3 = ObjectId();
-  AccountModel accountModel3 = AccountModel(
-      id: objectId3, type: 'type', name: 'name1', key: 'key', secret: 'secret');
   Account account3 = Account(
       id: objectId3, type: 'type', name: 'name1', key: 'key', secret: 'secret');
   var account3Json =
