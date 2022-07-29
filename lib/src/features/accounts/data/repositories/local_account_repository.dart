@@ -18,15 +18,15 @@ class LocalAccountRepository extends AccountRepository {
     load();
   }
 
-  final List<Account> items = [];
+  final List<Account> _items = [];
 
-  void load() => items.addAll(dataSource
+  void load() => _items.addAll(dataSource
       .loadAccounts()
       .map((m) => Account(
           id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret))
       .toList());
 
-  void save() => dataSource.saveAccounts(items
+  void save() => dataSource.saveAccounts(_items
       .map((e) => AccountModel(
             id: e.id,
             type: e.type,
@@ -41,10 +41,10 @@ class LocalAccountRepository extends AccountRepository {
 
   @override
   Future<Either<Failure, Account>> add(Account item) async {
-    if (items.contains(item)) {
+    if (_items.contains(item)) {
       return Future.value(left(DuplicateError()));
     }
-    items.add(item);
+    _items.add(item);
     save();
     notifyListeners();
     return Future.value(right(item));
@@ -52,7 +52,10 @@ class LocalAccountRepository extends AccountRepository {
 
   @override
   Future<Either<Failure, Account>> remove(Account item) async {
-    items.remove(item);
+    if (!_items.contains(item)) {
+      return Future.value(left(NotFoundError()));
+    }
+    _items.remove(item);
     save();
     notifyListeners();
     return Future.value(right(item));
@@ -60,7 +63,7 @@ class LocalAccountRepository extends AccountRepository {
 
   @override
   Future<void> update(int index, Account item) async {
-    items.setRange(index, index + 1, [item]);
+    _items.setRange(index, index + 1, [item]);
     save();
     notifyListeners();
     return Future.value(null);
@@ -70,13 +73,13 @@ class LocalAccountRepository extends AccountRepository {
 
   @override
   Future<Either<Failure, List<Account>>> getAll() {
-    return Future.value(right(UnmodifiableListView(items)));
+    return Future.value(right(UnmodifiableListView(_items)));
   }
 
   @override
   Future<Account> findById(ObjectId objectId) {
     try {
-      return Future.value(items.firstWhere((item) => item.id == objectId));
+      return Future.value(_items.firstWhere((item) => item.id == objectId));
     } on StateError {
       return Future.error(NotFoundError());
     }
@@ -85,7 +88,7 @@ class LocalAccountRepository extends AccountRepository {
   @override
   Future<Account> findByName(String name) {
     try {
-      return Future.value(items.firstWhere((item) => item.name == name));
+      return Future.value(_items.firstWhere((item) => item.name == name));
     } on StateError {
       return Future.error(NotFoundError());
     }
