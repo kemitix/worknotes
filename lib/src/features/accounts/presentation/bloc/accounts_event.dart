@@ -9,10 +9,10 @@ class LoadAccounts extends AccountsEvent {
   List<Object?> get props => [];
 }
 
-class AccountAddedOrUpdated extends AccountsEvent {
+class AccountAdded extends AccountsEvent {
   final Account account;
 
-  AccountAddedOrUpdated(this.account);
+  AccountAdded(this.account);
 
   @override
   List<Object?> get props => [account];

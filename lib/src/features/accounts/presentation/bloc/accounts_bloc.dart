@@ -1,61 +1,60 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/error/not_found_error.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../../domain/usecases/add_account.dart';
-import '../../domain/usecases/get_all_accounts.dart';
-import '../../domain/usecases/remove_account.dart';
-import 'accounts_event.dart';
-import 'accounts_state.dart';
+import '../../accounts.dart';
 
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final AddAccount addAccount;
   final RemoveAccount removeAccount;
   final GetAllAccounts getAllAccounts;
+  final AccountRepository accountRepository;
 
   AccountsBloc._({
     required this.addAccount,
     required this.removeAccount,
     required this.getAllAccounts,
+    required this.accountRepository,
   }) : super(const AccountsState([])) {
-    on<LoadAccounts>((event, emit) async {
-      (await getAllAccounts.call(NoParams()))
-          .map((accounts) => emit(AccountsState(accounts)));
-    });
-    on<AccountAddedOrUpdated>((event, emit) async {
-      if (state.accounts.any((account) => account.id == event.account.id)) {
-        // update
-        (await addAccount.call(event.account)).map((account) => emit(
-                AccountsState([
-              ...state.accounts.map((a) => a.id == account.id ? account : a)
-            ])));
-      } else {
-        // insert
-        (await addAccount.call(event.account)).map(
-            (account) => emit(AccountsState([...state.accounts, account])));
-      }
-    });
-    on<AccountRemoved>((event, emit) async {
-      if (state.accounts.any((account) => account.id == event.account.id)) {
-        (await removeAccount.call(event.account))
-            .map((account) => emit(AccountsState([
-                  ...state.accounts.where((a) => a.id != account.id),
-                ])));
-      } else {
-        addError(NotFoundError(), StackTrace.current);
-      }
-    });
+    on<LoadAccounts>(_onLoadAccounts);
+    on<AccountAdded>(_onAddAccount);
+    on<AccountRemoved>(_onRemoveAccount);
+  }
+
+  FutureOr<void> _onLoadAccounts(event, emit) async {
+    (await getAllAccounts.call(NoParams())).fold(
+      (failure) => addError(failure),
+      (accounts) => emit(AccountsState(accounts)),
+    );
+  }
+
+  FutureOr<void> _onAddAccount(event, emit) async {
+    (await addAccount.call(event.account)).fold(
+      (failure) => addError(failure),
+      (account) => add(LoadAccounts()),
+    );
+  }
+
+  FutureOr<void> _onRemoveAccount(event, emit) async {
+    (await removeAccount.call(event.account)).fold(
+      (failure) => addError(failure),
+      (account) => add(LoadAccounts()),
+    );
   }
 
   static AccountsBloc load({
     required AddAccount addAccount,
     required RemoveAccount removeAccount,
     required GetAllAccounts getAllAccounts,
+    required AccountRepository accountRepository,
   }) {
     final bloc = AccountsBloc._(
-        addAccount: addAccount,
-        removeAccount: removeAccount,
-        getAllAccounts: getAllAccounts);
+      addAccount: addAccount,
+      removeAccount: removeAccount,
+      getAllAccounts: getAllAccounts,
+      accountRepository: accountRepository,
+    );
     bloc.add(LoadAccounts());
     return bloc;
   }
