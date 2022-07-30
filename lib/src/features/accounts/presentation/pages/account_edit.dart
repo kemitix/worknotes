@@ -67,6 +67,7 @@ class _AccountEditState extends State<AccountEdit> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LabelledTextFormField(
+              key: const Key('name'),
               label: 'Account Name',
               hintText: 'Enter account name',
               controller: nameController,
@@ -87,6 +88,7 @@ class _AccountEditState extends State<AccountEdit> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
+                key: const Key('button:submit'),
                 child: Text(widget.saveButtonLabel),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

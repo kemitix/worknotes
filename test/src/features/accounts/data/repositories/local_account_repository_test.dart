@@ -46,7 +46,7 @@ void main() {
   late AccountsLocalDataSource dataSource;
 
   LocalAccountRepository createRepository() =>
-      LocalAccountRepository(dataSource);
+      LocalAccountRepository(dataSource)..load();
   setUp(() {
     sharedPreferences = MockSharedPreferences();
     dataSource = SharedPreferencesAccountsLocalDataSource(sharedPreferences);

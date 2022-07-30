@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:objectid/objectid.dart';
 
 import '../../domain/entities/account.dart';
@@ -27,4 +29,19 @@ class AccountModel extends Account {
         'key': key,
         'secret': secret,
       };
+
+  factory AccountModel.fromAccount(Account account) => AccountModel(
+      id: account.id,
+      type: account.type,
+      name: account.name,
+      key: account.key,
+      secret: account.secret);
+
+  Account toAccount() =>
+      Account(id: id, type: type, name: name, key: key, secret: secret);
+
+  factory AccountModel.fromJson(String json) =>
+      AccountModel.fromMap(jsonDecode(json));
+
+  String toJson() => jsonEncode(toMap());
 }
