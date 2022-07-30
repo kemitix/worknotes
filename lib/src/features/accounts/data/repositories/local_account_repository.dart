@@ -69,10 +69,6 @@ class LocalAccountRepository extends AccountRepository {
     return _items.where((e) => e.name == account.name).isNotEmpty;
   }
 
-  bool _containsItemWithSameId(Account account) {
-    return _items.where((e) => e.id == account.id).isNotEmpty;
-  }
-
   @override
   Future<Either<Failure, Account>> update(int index, Account item) async {
     if (index < 0 || index >= _items.length) {
