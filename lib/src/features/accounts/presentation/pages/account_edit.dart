@@ -90,9 +90,7 @@ class _AccountEditState extends State<AccountEdit> {
                 child: Text(widget.saveButtonLabel),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    context
-                        .read<AccountsBloc>()
-                        .add(AccountAddedOrUpdated(Account(
+                    context.read<AccountsBloc>().add(AccountAdded(Account(
                           id: accountId,
                           type: 'trello',
                           name: nameController.text,

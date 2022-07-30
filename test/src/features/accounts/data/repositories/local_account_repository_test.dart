@@ -37,6 +37,11 @@ void main() {
       id: objectId3, type: 'type', name: 'name1', key: 'key', secret: 'secret');
   var account3Json =
       '{"id":"$objectId3","type":"type","name":"name1","key":"key","secret":"secret"}';
+  // account 4 - a distinct account with the same id as account 1
+  Account account4 = Account(
+      id: objectId1, type: 'type', name: 'name4', key: 'key', secret: 'secret');
+  var account4Json =
+      '{"id":"$objectId1","type":"type","name":"name4","key":"key","secret":"secret"}';
   late MockSharedPreferences sharedPreferences;
   late AccountsLocalDataSource dataSource;
 
@@ -208,6 +213,36 @@ void main() {
           //then
           verifyConstructorLoads();
           verifyNeverSaves();
+          verifyNoMoreInteractions(sharedPreferences);
+        });
+      });
+      group('when account with same id is already present', () {
+        setUp(() => givenStartingAccounts([accountModel1, accountModel2]));
+        test('replaces the account', () async {
+          //given
+          var repository = createRepository();
+          //when
+          await repository.add(account4);
+          //then
+          await verifyContents(repository, [account2, account4]);
+        });
+        test('returns added account', () async {
+          //given
+          var repository = createRepository();
+          //when
+          var result = await repository.add(account4);
+          //then
+          expect(result.isRight(), isTrue);
+          result.map((account) => expect(account, account4));
+        });
+        test('save accounts', () async {
+          //given
+          var repository = createRepository();
+          //when
+          await repository.add(account4);
+          //then
+          verifyConstructorLoads();
+          verifySaves([account2Json, account4Json]);
           verifyNoMoreInteractions(sharedPreferences);
         });
       });

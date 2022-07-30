@@ -17,6 +17,7 @@ Future<void> init() async {
         addAccount: sl(),
         removeAccount: sl(),
         getAllAccounts: sl(),
+        accountRepository: sl(),
       ));
   sl.registerLazySingleton(() => AddAccount(sl()));
   sl.registerLazySingleton(() => RemoveAccount(sl()));

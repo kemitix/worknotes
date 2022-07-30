@@ -47,6 +47,7 @@ class LocalAccountRepository extends AccountRepository {
     if (_items.contains(item) || _containsItemWithSameName(item)) {
       return Future.value(left(DuplicateError()));
     }
+    _items.removeWhere((element) => element.id == item.id);
     _items.add(item);
     save();
     notifyListeners();
@@ -66,6 +67,10 @@ class LocalAccountRepository extends AccountRepository {
 
   bool _containsItemWithSameName(Account account) {
     return _items.where((e) => e.name == account.name).isNotEmpty;
+  }
+
+  bool _containsItemWithSameId(Account account) {
+    return _items.where((e) => e.id == account.id).isNotEmpty;
   }
 
   @override
