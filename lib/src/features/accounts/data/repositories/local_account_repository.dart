@@ -14,30 +14,20 @@ import '../models/account_model.dart';
 class LocalAccountRepository extends AccountRepository {
   final AccountsLocalDataSource dataSource;
 
-  LocalAccountRepository(this.dataSource) {
-    load();
-  }
+  LocalAccountRepository(this.dataSource);
 
   final List<Account> _items = [];
 
   void load() {
     var accountModels = dataSource.loadAccounts();
-    var accounts = accountModels.map((m) => Account(
-        id: m.id, type: m.type, name: m.name, key: m.key, secret: m.secret));
+    var accounts = accountModels.map((m) => m.toAccount());
     var dedupedAccounts =
         {for (var e in accounts) e.name: e}.entries.map((e) => e.value);
     return _items.addAll(dedupedAccounts);
   }
 
-  void save() => dataSource.saveAccounts(_items
-      .map((e) => AccountModel(
-            id: e.id,
-            type: e.type,
-            name: e.name,
-            key: e.key,
-            secret: e.secret,
-          ))
-      .toList(growable: false));
+  void save() => dataSource.saveAccounts(
+      _items.map((e) => AccountModel.fromAccount(e)).toList(growable: false));
 
   // modifying methods:
   // should all call notifyListeners()

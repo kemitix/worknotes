@@ -11,7 +11,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAllAccounts getAllAccounts;
   final AccountRepository accountRepository;
 
-  AccountsBloc._({
+  AccountsBloc({
     required this.addAccount,
     required this.removeAccount,
     required this.getAllAccounts,
@@ -23,39 +23,28 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   }
 
   FutureOr<void> _onLoadAccounts(event, emit) async {
-    (await getAllAccounts.call(NoParams())).fold(
+    var either = await getAllAccounts.call(NoParams());
+    either.fold(
       (failure) => addError(failure),
       (accounts) => emit(AccountsState(accounts)),
     );
   }
 
   FutureOr<void> _onAddAccount(event, emit) async {
-    (await addAccount.call(event.account)).fold(
-      (failure) => addError(failure),
-      (account) => add(LoadAccounts()),
-    );
+    var either = await addAccount.call(event.account);
+    if (either.isRight()) {
+      await _onLoadAccounts(event, emit);
+    } else {
+      either.swap().map((failure) => addError(failure));
+    }
   }
 
   FutureOr<void> _onRemoveAccount(event, emit) async {
-    (await removeAccount.call(event.account)).fold(
-      (failure) => addError(failure),
-      (account) => add(LoadAccounts()),
-    );
-  }
-
-  static AccountsBloc load({
-    required AddAccount addAccount,
-    required RemoveAccount removeAccount,
-    required GetAllAccounts getAllAccounts,
-    required AccountRepository accountRepository,
-  }) {
-    final bloc = AccountsBloc._(
-      addAccount: addAccount,
-      removeAccount: removeAccount,
-      getAllAccounts: getAllAccounts,
-      accountRepository: accountRepository,
-    );
-    bloc.add(LoadAccounts());
-    return bloc;
+    var either = await removeAccount.call(event.account);
+    if (either.isRight()) {
+      await _onLoadAccounts(event, emit);
+    } else {
+      either.swap().map((failure) => addError(failure));
+    }
   }
 }

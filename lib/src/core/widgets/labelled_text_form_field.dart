@@ -24,12 +24,15 @@ class LabelledTextFormField extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(horzPad, vertPad, horzPad, 0),
-          child:
-              Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+          child: Text(
+              key: Key('label:$label'),
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(horzPad, 0, horzPad, vertPad),
           child: TextFormField(
+            key: Key('textInput:$label'),
             controller: controller,
             decoration: InputDecoration(hintText: hintText),
             validator: validator,

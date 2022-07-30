@@ -7,18 +7,28 @@ import 'package:worknotes/src/features/accounts/accounts.dart';
 void main() async {
   final sharedPreferences = await SharedPreferences.getInstance();
 
+  void givenSavedAccounts(List<Account> accounts) {
+    SharedPreferences.setMockInitialValues({
+      'accounts': accounts
+          .map((account) => AccountModel.fromAccount(account).toJson())
+          .toList()
+    });
+    sharedPreferences.reload();
+  }
+
   AccountsBloc accountsBloc() {
     final ds = SharedPreferencesAccountsLocalDataSource(sharedPreferences);
     final repository = LocalAccountRepository(ds);
-    return AccountsBloc.load(
+    repository.load();
+    var bloc = AccountsBloc(
       accountRepository: repository,
       addAccount: AddAccount(repository),
       removeAccount: RemoveAccount(repository),
       getAllAccounts: GetAllAccounts(repository),
     );
+    bloc.add(LoadAccounts());
+    return bloc;
   }
-
-  setUp(() => SharedPreferences.setMockInitialValues({}));
 
   test('Initial state is empty', () {
     expect(accountsBloc().state.accounts.isEmpty, isTrue);
@@ -29,59 +39,55 @@ void main() async {
   Account accountAlphaV1 = Account(
       id: objectIdAlpha,
       type: 'alpha',
-      name: 'v1',
+      name: 'alpha-v1',
       key: 'key',
       secret: 'secret');
   Account accountAlphaV2 = Account(
       id: objectIdAlpha,
-      type: 'alpha',
+      type: 'alpha-alpha',
       name: 'v2',
       key: 'key',
       secret: 'secret');
   Account accountBetaV1 = Account(
-      id: objectIdBeta, type: 'beta', name: 'v1', key: 'key', secret: 'secret');
+      id: objectIdBeta,
+      type: 'beta',
+      name: 'beta-v1',
+      key: 'key',
+      secret: 'secret');
 
   blocTest<AccountsBloc, AccountsState>(
     'Add accounts',
     build: accountsBloc,
-    seed: () => const AccountsState([]),
-    act: (bloc) {
-      bloc.add(AccountAdded(accountAlphaV1));
-    },
+    setUp: () => givenSavedAccounts([accountBetaV1]),
+    seed: () => AccountsState([accountBetaV1]),
+    act: (bloc) => bloc.add(AccountAdded(accountAlphaV1)),
     expect: () => [
-      AccountsState([accountAlphaV1]),
+      AccountsState([accountBetaV1, accountAlphaV1]),
     ],
   );
   blocTest<AccountsBloc, AccountsState>(
     'Add an account where id already exists is an update',
     build: accountsBloc,
-    seed: () => const AccountsState([]),
-    act: (bloc) {
-      bloc.add(AccountAdded(accountAlphaV1));
-      bloc.add(AccountAdded(accountAlphaV2));
-    },
+    setUp: () => givenSavedAccounts([accountAlphaV1]),
+    act: (bloc) => bloc.add(AccountAdded(accountAlphaV2)),
     expect: () => [
-      AccountsState([accountAlphaV2]) // replaces v1
+      AccountsState([accountAlphaV2])
     ],
   );
   blocTest<AccountsBloc, AccountsState>(
     'Remove an account',
     build: accountsBloc,
-    seed: () => const AccountsState([]),
-    act: (bloc) {
-      bloc.add(AccountAdded(accountAlphaV1));
-      bloc.add(AccountRemoved(accountAlphaV1));
-    },
-    expect: () => [const AccountsState([])],
+    setUp: () => givenSavedAccounts([accountAlphaV1, accountBetaV1]),
+    act: (bloc) => bloc.add(AccountRemoved(accountAlphaV1)),
+    expect: () => [
+      AccountsState([accountBetaV1])
+    ],
   );
   blocTest<AccountsBloc, AccountsState>(
     'Removing an account that doesn\'t exist is ignored',
     build: accountsBloc,
-    seed: () => AccountsState([accountAlphaV1]),
-    act: (bloc) {
-      bloc.add(AccountAdded(accountAlphaV1));
-      bloc.add(AccountRemoved(accountBetaV1));
-    },
+    setUp: () => givenSavedAccounts([accountAlphaV1]),
+    act: (bloc) => bloc.add(AccountRemoved(accountBetaV1)),
     expect: () => [
       AccountsState([accountAlphaV1])
     ],
