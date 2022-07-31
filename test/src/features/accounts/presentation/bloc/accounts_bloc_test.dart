@@ -5,15 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worknotes/src/features/accounts/accounts.dart';
 
 void main() async {
-  final sharedPreferences = await SharedPreferences.getInstance();
+  TestWidgetsFlutterBinding.ensureInitialized();
+  late SharedPreferences sharedPreferences;
 
-  void givenSavedAccounts(List<Account> accounts) {
+  Future<void> givenSavedAccounts(List<Account> accounts) async {
     SharedPreferences.setMockInitialValues({
       'accounts': accounts
           .map((account) => AccountModel.fromAccount(account).toJson())
           .toList()
     });
-    sharedPreferences.reload();
+    sharedPreferences = await SharedPreferences.getInstance();
   }
 
   AccountsBloc accountsBloc() {
@@ -30,7 +31,8 @@ void main() async {
     return bloc;
   }
 
-  test('Initial state is empty', () {
+  test('Initial state is empty', () async {
+    await givenSavedAccounts([]);
     expect(accountsBloc().state.accounts.isEmpty, isTrue);
   });
 

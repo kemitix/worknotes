@@ -5,7 +5,10 @@ import 'package:objectid/objectid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worknotes/src/features/accounts/accounts.dart';
 
+import '../../../../widget_utils.dart';
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final accountNameLabelFinder = find.byKey(const Key('label:Account Name'));
   final accountNameTextInputFinder =
       find.byKey(const Key('textInput:Account Name'));
@@ -20,8 +23,8 @@ void main() {
   late AccountsBloc accountsBloc;
 
   setUp(() async {
-    preferences = await SharedPreferences.getInstance();
     SharedPreferences.setMockInitialValues({});
+    preferences = await SharedPreferences.getInstance();
     final dataSource = SharedPreferencesAccountsLocalDataSource(preferences);
     final repository = LocalAccountRepository(dataSource);
     final addAccount = AddAccount(repository);
@@ -181,11 +184,4 @@ void main() {
           ));
     });
   });
-}
-
-String textFromTextFormField(
-    WidgetTester widgetTester, Finder apiKeyTextInputFinder) {
-  return (widgetTester.firstWidget(apiKeyTextInputFinder) as TextFormField)
-      .controller!
-      .text;
 }
