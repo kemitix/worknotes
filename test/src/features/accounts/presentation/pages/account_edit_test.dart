@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,6 +8,7 @@ import 'package:worknotes/src/features/accounts/accounts.dart';
 import '../../../../widget_utils.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final accountNameLabelFinder = find.byKey(const Key('label:Account Name'));
   final accountNameTextInputFinder =
       find.byKey(const Key('textInput:Account Name'));
@@ -24,7 +23,6 @@ void main() {
   late AccountsBloc accountsBloc;
 
   setUp(() async {
-    DartPluginRegistrant.ensureInitialized();
     preferences = await SharedPreferences.getInstance();
     SharedPreferences.setMockInitialValues({});
     final dataSource = SharedPreferencesAccountsLocalDataSource(preferences);
