@@ -14,11 +14,11 @@ class AccountEdit extends StatefulWidget {
   static const routeEdit = '/settings/accounts/edit';
 
   static const accountNameLabelKey = Key('label:accountName');
-  static const accountNameInputKey = Key('input:accountName');
-  static const apiKeyLabelKey = Key('label:apiKey');
-  static const apiKeyInputKey = Key('input:apiKey');
-  static const apiSecretLabelKey = Key('label:apiSecret');
-  static const apiSecretInputKey = Key('input:apiSecret');
+  static const accountNameInputKey = Key('label:accountName');
+  static const apiKeyLabelKey = Key('label:accountName');
+  static const apiKeyInputKey = Key('label:accountName');
+  static const apiSecretLabelKey = Key('label:accountName');
+  static const apiSecretInputKey = Key('label:accountName');
   static const submitButtonKey = Key('button:submit');
 
   final AccountEditMode mode;
