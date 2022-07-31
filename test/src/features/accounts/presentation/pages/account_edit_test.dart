@@ -9,11 +9,9 @@ import '../../../../widget_utils.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final accountNameLabelFinder = find.byKey(AccountEdit.accountNameLabelKey);
+
   final accountNameInputFinder = find.byKey(AccountEdit.accountNameInputKey);
-  final apiKeyLabelFinder = find.byKey(AccountEdit.apiKeyLabelKey);
   final apiKeyInputFinder = find.byKey(AccountEdit.apiKeyInputKey);
-  final apiSecretLabelFinder = find.byKey(AccountEdit.apiSecretLabelKey);
   final apiSecretInputFinder = find.byKey(AccountEdit.apiSecretInputKey);
   final submitButtonFinder = find.byKey(AccountEdit.submitButtonKey);
 
@@ -37,21 +35,27 @@ void main() {
     repository.load();
   });
 
-  Future<void> testWidget(WidgetTester widgetTester, AccountEditMode mode,
-      {Account? account}) async {
-    return widgetTester.pumpWidget(MaterialApp(
+  Future<void> testWidget(
+    WidgetTester widgetTester,
+    AccountEditMode mode, {
+    Account? account,
+  }) async {
+    return widgetTester.pumpWidget(
+      MaterialApp(
         home: Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute<Widget>(
-          settings: RouteSettings(arguments: account),
-          builder: (_) => MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => accountsBloc,
-                  ),
-                ],
-                child: AccountEdit(mode: mode),
-              )),
-    )));
+          onGenerateRoute: (_) => MaterialPageRoute<Widget>(
+              settings: RouteSettings(arguments: account),
+              builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => accountsBloc,
+                      ),
+                    ],
+                    child: AccountEdit(mode: mode),
+                  )),
+        ),
+      ),
+    );
   }
 
   group('has expected elements', () {
@@ -59,7 +63,7 @@ void main() {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(accountNameLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.accountNameLabelKey), findsOneWidget);
     });
     testWidgets('has one account name text field element',
         (widgetTester) async {
@@ -72,7 +76,7 @@ void main() {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiKeyLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.apiKeyLabelKey), findsOneWidget);
     });
     testWidgets('has one API Key text field element', (widgetTester) async {
       //when
@@ -84,7 +88,7 @@ void main() {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiSecretLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.apiSecretLabelKey), findsOneWidget);
     });
     testWidgets('has one API Secret text field element', (widgetTester) async {
       //when
