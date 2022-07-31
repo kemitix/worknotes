@@ -9,15 +9,11 @@ import '../../../../widget_utils.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final accountNameLabelFinder = find.byKey(const Key('label:Account Name'));
-  final accountNameTextInputFinder =
-      find.byKey(const Key('textInput:Account Name'));
-  final apiKeyLabelFinder = find.byKey(const Key('label:API Key'));
-  final apiKeyTextInputFinder = find.byKey(const Key('textInput:API Key'));
-  final apiSecretLabelFinder = find.byKey(const Key('label:API Secret'));
-  final apiSecretTextInputFinder =
-      find.byKey(const Key('textInput:API Secret'));
-  final submitButtonFinder = find.byKey(const Key('button:submit'));
+
+  final accountNameInputFinder = find.byKey(AccountEdit.accountNameInputKey);
+  final apiKeyInputFinder = find.byKey(AccountEdit.apiKeyInputKey);
+  final apiSecretInputFinder = find.byKey(AccountEdit.apiSecretInputKey);
+  final submitButtonFinder = find.byKey(AccountEdit.submitButtonKey);
 
   late SharedPreferences preferences;
   late AccountsBloc accountsBloc;
@@ -39,21 +35,27 @@ void main() {
     repository.load();
   });
 
-  Future<void> testWidget(WidgetTester widgetTester, AccountEditMode mode,
-      {Account? account}) async {
-    return widgetTester.pumpWidget(MaterialApp(
+  Future<void> testWidget(
+    WidgetTester widgetTester,
+    AccountEditMode mode, {
+    Account? account,
+  }) async {
+    return widgetTester.pumpWidget(
+      MaterialApp(
         home: Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute<Widget>(
-          settings: RouteSettings(arguments: account),
-          builder: (_) => MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => accountsBloc,
-                  ),
-                ],
-                child: AccountEdit(mode: mode),
-              )),
-    )));
+          onGenerateRoute: (_) => MaterialPageRoute<Widget>(
+              settings: RouteSettings(arguments: account),
+              builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => accountsBloc,
+                      ),
+                    ],
+                    child: AccountEdit(mode: mode),
+                  )),
+        ),
+      ),
+    );
   }
 
   group('has expected elements', () {
@@ -61,38 +63,38 @@ void main() {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(accountNameLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.accountNameLabelKey), findsOneWidget);
     });
     testWidgets('has one account name text field element',
         (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(accountNameTextInputFinder, findsOneWidget);
+      expect(accountNameInputFinder, findsOneWidget);
     });
     testWidgets('has one API Key label element', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiKeyLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.apiKeyLabelKey), findsOneWidget);
     });
     testWidgets('has one API Key text field element', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiKeyTextInputFinder, findsOneWidget);
+      expect(apiKeyInputFinder, findsOneWidget);
     });
     testWidgets('has one API Secret label element', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiSecretLabelFinder, findsOneWidget);
+      expect(find.byKey(AccountEdit.apiSecretLabelKey), findsOneWidget);
     });
     testWidgets('has one API Secret text field element', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(apiSecretTextInputFinder, findsOneWidget);
+      expect(apiSecretInputFinder, findsOneWidget);
     });
     testWidgets('has one save button element', (widgetTester) async {
       //when
@@ -114,10 +116,9 @@ void main() {
     testWidgets('saves new account', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
-      await widgetTester.enterText(
-          accountNameTextInputFinder, 'my-account-name');
-      await widgetTester.enterText(apiKeyTextInputFinder, 'my-key');
-      await widgetTester.enterText(apiSecretTextInputFinder, 'my-secret');
+      await widgetTester.enterText(accountNameInputFinder, 'my-account-name');
+      await widgetTester.enterText(apiKeyInputFinder, 'my-key');
+      await widgetTester.enterText(apiSecretInputFinder, 'my-secret');
       await widgetTester.tap(submitButtonFinder);
       await widgetTester.pump();
 
@@ -154,20 +155,19 @@ void main() {
       await testWidget(widgetTester, AccountEditMode.edit, account: account);
 
       //then
-      expect(textFromTextFormField(widgetTester, accountNameTextInputFinder),
+      expect(textFromTextFormField(widgetTester, accountNameInputFinder),
           account.name);
-      expect(textFromTextFormField(widgetTester, apiKeyTextInputFinder),
-          account.key);
-      expect(textFromTextFormField(widgetTester, apiSecretTextInputFinder),
+      expect(
+          textFromTextFormField(widgetTester, apiKeyInputFinder), account.key);
+      expect(textFromTextFormField(widgetTester, apiSecretInputFinder),
           account.secret);
     });
     testWidgets('saves updated Account', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.edit, account: account);
-      await widgetTester.enterText(
-          accountNameTextInputFinder, 'my-account-name');
-      await widgetTester.enterText(apiKeyTextInputFinder, 'my-key');
-      await widgetTester.enterText(apiSecretTextInputFinder, 'my-secret');
+      await widgetTester.enterText(accountNameInputFinder, 'my-account-name');
+      await widgetTester.enterText(apiKeyInputFinder, 'my-key');
+      await widgetTester.enterText(apiSecretInputFinder, 'my-secret');
       await widgetTester.tap(submitButtonFinder);
       await widgetTester.pump();
 
