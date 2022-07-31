@@ -6,9 +6,8 @@ import 'client/client.dart';
 import 'core/platform/network_info.dart';
 import 'features/accounts/accounts.dart';
 
-final GetIt sl = GetIt.instance;
-
-Future<void> init() async {
+Future<GetIt> init({required SharedPreferences sharedPreferences}) async {
+  final GetIt sl = GetIt.instance;
   // core
   sl.registerFactory<NetworkInfo>(() => NetworkInfoImpl(Connectivity()));
   // features
@@ -27,8 +26,8 @@ Future<void> init() async {
   sl.registerLazySingleton<AccountsLocalDataSource>(
       () => SharedPreferencesAccountsLocalDataSource(sl()));
   // externals
-  final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerFactory(() => sharedPreferences);
   final Client client = ClientTrello();
   sl.registerFactory(() => client);
+  return sl;
 }
