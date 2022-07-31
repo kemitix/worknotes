@@ -39,9 +39,9 @@ void main() {
     repository.load();
   });
 
-  Future<void> testWidget(WidgetTester widgetTester, AccountEditMode mode, {Account? account}) async {
-    return widgetTester
-          .pumpWidget( MaterialApp(
+  Future<void> testWidget(WidgetTester widgetTester, AccountEditMode mode,
+      {Account? account}) async {
+    return widgetTester.pumpWidget(MaterialApp(
         home: Navigator(
       onGenerateRoute: (_) => MaterialPageRoute<Widget>(
           settings: RouteSettings(arguments: account),
