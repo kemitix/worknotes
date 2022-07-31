@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worknotes/src/features/accounts/accounts.dart';
 
 void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final sharedPreferences = await SharedPreferences.getInstance();
 
   void givenSavedAccounts(List<Account> accounts) {
