@@ -22,6 +22,7 @@ void main() {
   late AccountsBloc accountsBloc;
 
   setUp(() async {
+    WidgetsFlutterBinding.ensureInitialized();
     preferences = await SharedPreferences.getInstance();
     SharedPreferences.setMockInitialValues({});
     final dataSource = SharedPreferencesAccountsLocalDataSource(preferences);
