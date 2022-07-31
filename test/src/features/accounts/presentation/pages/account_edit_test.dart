@@ -39,8 +39,9 @@ void main() {
     repository.load();
   });
 
-  MaterialApp testWidget(AccountEditMode mode, {Account? account}) {
-    return MaterialApp(
+  Future<void> testWidget(WidgetTester widgetTester, AccountEditMode mode, {Account? account}) async {
+    return widgetTester
+          .pumpWidget( MaterialApp(
         home: Navigator(
       onGenerateRoute: (_) => MaterialPageRoute<Widget>(
           settings: RouteSettings(arguments: account),
@@ -52,50 +53,50 @@ void main() {
                 ],
                 child: AccountEdit(mode: mode),
               )),
-    ));
+    )));
   }
 
   group('has expected elements', () {
     testWidgets('has one account name label element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(accountNameLabelFinder, findsOneWidget);
     });
     testWidgets('has one account name text field element',
         (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(accountNameTextInputFinder, findsOneWidget);
     });
     testWidgets('has one API Key label element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(apiKeyLabelFinder, findsOneWidget);
     });
     testWidgets('has one API Key text field element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(apiKeyTextInputFinder, findsOneWidget);
     });
     testWidgets('has one API Secret label element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(apiSecretLabelFinder, findsOneWidget);
     });
     testWidgets('has one API Secret text field element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(apiSecretTextInputFinder, findsOneWidget);
     });
     testWidgets('has one save button element', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       //then
       expect(submitButtonFinder, findsOneWidget);
     });
@@ -104,15 +105,15 @@ void main() {
   group('add mode', () {
     testWidgets('has expected labels', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
 
       //then
       expect(find.text('Add Account'), findsOneWidget);
       expect(find.text('Add'), findsOneWidget);
     });
-    testWidgets('Add Account', (widgetTester) async {
+    testWidgets('saves new account', (widgetTester) async {
       //when
-      await widgetTester.pumpWidget(testWidget(AccountEditMode.add));
+      await testWidget(widgetTester, AccountEditMode.add);
       await widgetTester.enterText(
           accountNameTextInputFinder, 'my-account-name');
       await widgetTester.enterText(apiKeyTextInputFinder, 'my-key');
@@ -141,18 +142,16 @@ void main() {
         secret: 'secret');
     testWidgets('has expected labels', (widgetTester) async {
       //when
-      await widgetTester
-          .pumpWidget(testWidget(AccountEditMode.edit, account: account));
+      await testWidget(widgetTester, AccountEditMode.edit, account: account);
 
       //then
       expect(find.text('Edit Account'), findsOneWidget);
       expect(find.text('Save'), findsOneWidget);
     });
-    testWidgets('has values from account argument in fields',
+    testWidgets('fields have values from supplied account',
         (widgetTester) async {
       //when
-      await widgetTester
-          .pumpWidget(testWidget(AccountEditMode.edit, account: account));
+      await testWidget(widgetTester, AccountEditMode.edit, account: account);
 
       //then
       expect(textFromTextFormField(widgetTester, accountNameTextInputFinder),
@@ -164,8 +163,7 @@ void main() {
     });
     testWidgets('saves updated Account', (widgetTester) async {
       //when
-      await widgetTester
-          .pumpWidget(testWidget(AccountEditMode.edit, account: account));
+      await testWidget(widgetTester, AccountEditMode.edit, account: account);
       await widgetTester.enterText(
           accountNameTextInputFinder, 'my-account-name');
       await widgetTester.enterText(apiKeyTextInputFinder, 'my-key');
