@@ -59,7 +59,7 @@ void main() {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
       //then
-      expect(accountNam                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             eLabelFinder, findsOneWidget);
+      expect(accountNameLabelFinder, findsOneWidget);
     });
     testWidgets('has one account name text field element',
         (widgetTester) async {
@@ -112,8 +112,7 @@ void main() {
     testWidgets('saves new account', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.add);
-      await widgetTester.enterText(
-          accountNameInputFinder, 'my-account-name');
+      await widgetTester.enterText(accountNameInputFinder, 'my-account-name');
       await widgetTester.enterText(apiKeyInputFinder, 'my-key');
       await widgetTester.enterText(apiSecretInputFinder, 'my-secret');
       await widgetTester.tap(submitButtonFinder);
@@ -154,16 +153,15 @@ void main() {
       //then
       expect(textFromTextFormField(widgetTester, accountNameInputFinder),
           account.name);
-      expect(textFromTextFormField(widgetTester, apiKeyInputFinder),
-          account.key);
+      expect(
+          textFromTextFormField(widgetTester, apiKeyInputFinder), account.key);
       expect(textFromTextFormField(widgetTester, apiSecretInputFinder),
           account.secret);
     });
     testWidgets('saves updated Account', (widgetTester) async {
       //when
       await testWidget(widgetTester, AccountEditMode.edit, account: account);
-      await widgetTester.enterText(
-          accountNameInputFinder, 'my-account-name');
+      await widgetTester.enterText(accountNameInputFinder, 'my-account-name');
       await widgetTester.enterText(apiKeyInputFinder, 'my-key');
       await widgetTester.enterText(apiSecretInputFinder, 'my-secret');
       await widgetTester.tap(submitButtonFinder);
