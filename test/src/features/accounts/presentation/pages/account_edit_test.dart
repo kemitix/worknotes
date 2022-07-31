@@ -5,6 +5,8 @@ import 'package:objectid/objectid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worknotes/src/features/accounts/accounts.dart';
 
+import '../../../../widget_utils.dart';
+
 void main() {
   final accountNameLabelFinder = find.byKey(const Key('label:Account Name'));
   final accountNameTextInputFinder =
@@ -181,11 +183,4 @@ void main() {
           ));
     });
   });
-}
-
-String textFromTextFormField(
-    WidgetTester widgetTester, Finder apiKeyTextInputFinder) {
-  return (widgetTester.firstWidget(apiKeyTextInputFinder) as TextFormField)
-      .controller!
-      .text;
 }
