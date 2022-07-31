@@ -12,6 +12,15 @@ enum AccountEditMode { add, edit }
 class AccountEdit extends StatefulWidget {
   static const routeAdd = '/settings/accounts/add';
   static const routeEdit = '/settings/accounts/edit';
+
+  static const accountNameLabelKey = Key('label:accountName');
+  static const accountNameInputKey = Key('label:accountName');
+  static const apiKeyLabelKey = Key('label:accountName');
+  static const apiKeyInputKey = Key('label:accountName');
+  static const apiSecretLabelKey = Key('label:accountName');
+  static const apiSecretInputKey = Key('label:accountName');
+  static const submitButtonKey = Key('button:submit');
+
   final AccountEditMode mode;
 
   const AccountEdit({super.key, required this.mode});
@@ -67,19 +76,24 @@ class _AccountEditState extends State<AccountEdit> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LabelledTextFormField(
-              key: const Key('name'),
+              labelKey: AccountEdit.accountNameLabelKey,
+              inputKey: AccountEdit.accountNameInputKey,
               label: 'Account Name',
               hintText: 'Enter account name',
               controller: nameController,
               validator: validateNotEmpty('Please enter an account name'),
             ),
             LabelledTextFormField(
+              labelKey: AccountEdit.apiKeyLabelKey,
+              inputKey: AccountEdit.apiKeyInputKey,
               label: 'API Key',
               hintText: 'Enter API Key',
               controller: keyController,
               validator: validateNotEmpty('Please enter an API Key'),
             ),
             LabelledTextFormField(
+              labelKey: AccountEdit.apiSecretLabelKey,
+              inputKey: AccountEdit.apiSecretInputKey,
               label: 'API Secret',
               hintText: 'Enter API Secret',
               controller: secretController,
@@ -88,7 +102,7 @@ class _AccountEditState extends State<AccountEdit> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
-                key: const Key('button:submit'),
+                key: AccountEdit.submitButtonKey,
                 child: Text(widget.saveButtonLabel),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
