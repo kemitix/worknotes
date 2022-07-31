@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,7 +24,7 @@ void main() {
   late AccountsBloc accountsBloc;
 
   setUp(() async {
-    WidgetsFlutterBinding.ensureInitialized();
+    DartPluginRegistrant.ensureInitialized();
     preferences = await SharedPreferences.getInstance();
     SharedPreferences.setMockInitialValues({});
     final dataSource = SharedPreferencesAccountsLocalDataSource(preferences);
