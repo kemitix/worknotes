@@ -23,8 +23,8 @@ void main() {
   late AccountsBloc accountsBloc;
 
   setUp(() async {
-    preferences = await SharedPreferences.getInstance();
     SharedPreferences.setMockInitialValues({});
+    preferences = await SharedPreferences.getInstance();
     final dataSource = SharedPreferencesAccountsLocalDataSource(preferences);
     final repository = LocalAccountRepository(dataSource);
     final addAccount = AddAccount(repository);
