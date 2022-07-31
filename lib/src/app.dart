@@ -13,11 +13,12 @@ import 'features/workspaces/presentation/pages/workspace_add.dart';
 import 'features/workspaces/presentation/pages/workspace_list.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final GetIt sl; // = GetIt.instance;
+
+  const App({super.key, required this.sl});
 
   @override
   Widget build(BuildContext context) {
-    final GetIt sl = GetIt.instance;
     return MultiProvider(
         providers: [
           Provider<Client>(create: (_) => ClientTrello()),
