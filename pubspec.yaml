@@ -25,9 +25,12 @@ dependencies:
   get_it: ^7.2.0
   objectid: ^2.1.0
   connectivity_plus: ^2.3.6
+  flutter_lorem: ^2.0.0
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   flutter_lints: ^2.0.1
   build_runner: any

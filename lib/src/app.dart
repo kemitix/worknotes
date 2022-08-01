@@ -13,15 +13,16 @@ import 'features/workspaces/presentation/pages/workspace_add.dart';
 import 'features/workspaces/presentation/pages/workspace_list.dart';
 
 class App extends StatelessWidget {
-  final GetIt sl; // = GetIt.instance;
+  final GetIt sl;
+  final Client client;
 
-  const App({super.key, required this.sl});
+  const App({super.key, required this.sl, required this.client});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<Client>(create: (_) => ClientTrello()),
+          Provider<Client>(create: (_) => client),
         ],
         child: MultiBlocProvider(
           providers: [

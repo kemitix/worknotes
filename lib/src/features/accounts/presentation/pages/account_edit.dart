@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
 import 'package:provider/provider.dart';
 
+import 'account_list.dart';
 import '../../../../core/widgets/labelled_text_form_field.dart';
 import '../../domain/entities/account.dart';
 import '../bloc/accounts_bloc.dart';
@@ -106,13 +107,15 @@ class _AccountEditState extends State<AccountEdit> {
                 child: Text(widget.saveButtonLabel),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<AccountsBloc>().add(AccountAdded(Account(
-                          id: accountId,
-                          type: 'trello',
-                          name: nameController.text,
-                          key: keyController.text,
-                          secret: secretController.text,
-                        )));
+                    final account = Account(
+                      id: accountId,
+                      type: 'trello',
+                      name: nameController.text,
+                      key: keyController.text,
+                      secret: secretController.text,
+                    );
+                    final accountsBloc = context.read<AccountsBloc>();
+                    accountsBloc.add(AccountAdded(account));
                     Navigator.pop(context);
                   }
                 },

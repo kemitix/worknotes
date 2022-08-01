@@ -82,7 +82,6 @@ class LocalAccountRepository extends AccountRepository {
     return Future.value(right(UnmodifiableListView(_items)));
   }
 
-  @override
   Future<Either<Failure, Account>> findById(ObjectId objectId) {
     try {
       return Future.value(
@@ -92,7 +91,6 @@ class LocalAccountRepository extends AccountRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Account>> findByName(String name) {
     try {
       return Future.value(

@@ -8,6 +8,8 @@ import 'account_edit.dart';
 class AccountList extends StatelessWidget {
   static const route = '/settings/accounts';
 
+  static const addButtonKey = Key('button:add');
+
   const AccountList({super.key});
 
   @override
@@ -33,6 +35,7 @@ class AccountList extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        key: addButtonKey,
         onPressed: () => navigator.pushNamed(AccountEdit.routeAdd),
         tooltip: 'Add Workspace',
         child: const Icon(Icons.add),

@@ -5,6 +5,7 @@ import '../../../accounts/presentation/pages/account_list.dart';
 
 class AppSettings extends StatelessWidget {
   static const route = '/settings';
+  static const navAccountsKey = Key('nav:accounts');
 
   const AppSettings({super.key});
 
@@ -17,6 +18,7 @@ class AppSettings extends StatelessWidget {
       body: ListView(
         children: const [
           NavigationListTile(
+            key: navAccountsKey,
             title: 'Accounts',
             icon: Icons.manage_accounts,
             route: AccountList.route,

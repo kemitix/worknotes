@@ -4,9 +4,8 @@ import 'package:objectid/objectid.dart';
 
 import '../../domain/entities/account.dart';
 
-// ignore: must_be_immutable
 class AccountModel extends Account {
-  AccountModel({
+  const AccountModel({
     required super.id,
     required super.type,
     required super.name,

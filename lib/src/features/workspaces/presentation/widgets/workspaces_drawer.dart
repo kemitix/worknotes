@@ -4,6 +4,8 @@ import '../../../../core/widgets/navigation_list_tile.dart';
 import '../../../settings/presentation/pages/app_settings.dart';
 
 class WorkspacesDrawer extends StatelessWidget {
+  static const navSettingsKey = Key('nav:settings');
+
   const WorkspacesDrawer({super.key});
 
   @override
@@ -25,6 +27,7 @@ class WorkspacesDrawer extends StatelessWidget {
             ),
           ),
           NavigationListTile(
+            key: navSettingsKey,
             icon: Icons.settings,
             title: 'Settings',
             route: AppSettings.route,

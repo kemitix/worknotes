@@ -1,18 +1,15 @@
 import 'package:objectid/objectid.dart';
 
-import '../../../../core/has_id_name.dart';
-
-class Folio with HasIdName {
+class Folio {
+  final ObjectId id;
+  final String name;
   final ObjectId workspaceId;
   final String? trelloListId;
 
   Folio({
-    required ObjectId id,
+    required this.id,
     required this.workspaceId,
-    required String name,
+    required this.name,
     this.trelloListId,
-  }) {
-    this.id = id;
-    this.name = name;
-  }
+  });
 }
